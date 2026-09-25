@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bereo — Portal de Acompanhamento Online</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #121417;
+      --card: #1A1D23;
+      --card-hover: #22262E;
+      --border: #262B34;
+      --text: #F0F2F5;
+      --text-muted: #8C93A0;
+      --gold: #C59B4B;
+      --gold-bg: rgba(197, 155, 75, 0.12);
+      --font-serif: 'Lora', serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .hub-container {
+      max-width: 580px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .brand-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      letter-spacing: 3px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .brand-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .access-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    .access-card:hover {
+      background: var(--card-hover);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background: var(--gold-bg);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 1.5;
+    }
+
+    .card-body {
+      flex: 1;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .card-arrow {
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="hub-container">
+    <header class="brand-header">
+      <h1 class="brand-title">BEREO</h1>
+      <p class="brand-subtitle">Portal Oficial de Demonstração & Curadoria</p>
+    </header>
+
+    <!-- CARD 1: SIMULADOR DO APLICATIVO -->
+    <a href="app.html" class="access-card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Interface & Usabilidade</span>
+        <h2 class="card-title">Simulador do Aplicativo</h2>
+        <p class="card-desc">Simulação responsiva em Celular, Tablet ou Tela Cheia com alternância dinâmica de Tema Claro/Escuro e Plano Free/Pro.</p>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <!-- CARD 2: CATÁLOGO OFICIAL 61 FICHAS -->
+    <a href="catalogo.html" class="access-card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Curadoria Teológica</span>
+        <h2 class="card-title">Painel das 61 Fichas Exegéticas</h2>
+        <p class="card-desc">Todas as 61 perícopes de Marcos (32), Filemom (4), Rute (10) e Tiago (15) em layout responsivo com botão de retorno rápido.</p>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <!-- CARD 3: ANOTAÇÕES & FEEDBACK NO GITHUB -->
+    <a href="https://github.com/jonatascjacob-ops/bereo-preview/issues" target="_blank" class="access-card">
+      <div class="card-icon" style="background: rgba(35, 134, 54, 0.15); border-color: #238636; color: #7EE787;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="card-body">
+        <span class="card-tag" style="color: #7EE787;">Sincronização Direta</span>
+        <h2 class="card-title">Feedback & Issues no GitHub</h2>
+        <p class="card-desc">Visualize as observações registradas ou crie um novo tópico de curadoria diretamente no repositório.</p>
+      </div>
+      <div class="card-arrow" style="color: #7EE787;">↗</div>
+    </a>
+
+    <footer class="footer-note">
+      Bereo — Palavra compreendida, vida transformada.<br>
+      Acesso online seguro com sincronização contínua via GitHub Pages.
+    </footer>
+  </main>
+
+  <link rel="stylesheet" href="notes_engine.css">
+  <script src="notes_engine.js"></script>
+</body>
+</html>

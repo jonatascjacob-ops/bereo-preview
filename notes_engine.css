@@ -1,0 +1,450 @@
+/* ==========================================================================
+   BEREO — SISTEMA DE FEEDBACK & ANOTAÇÕES RÁPIDAS (CURADORIA CIRÚRGICA)
+   Suporte a anotações gerais e por blocos de cada Passo (1, 2, 3 e 4)
+   ========================================================================== */
+
+/* Botão Flutuante (canto inferior esquerdo para não cobrir o Voltar ao Topo) */
+.bereo-notes-float-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background: #1F6FEB;
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.bereo-notes-float-btn:hover {
+    background: #388BFD;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.bereo-notes-badge {
+    background: #FFFFFF;
+    color: #1F6FEB;
+    border-radius: 12px;
+    padding: 2px 7px;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 14px;
+    text-align: center;
+}
+
+/* ==========================================================================
+   ANOTAÇÕES POR PASSO (CIRÚRGICAS NOS BLOCOS 1, 2, 3 e 4)
+   ========================================================================== */
+.step-box h4 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.bereo-step-note-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #8B949E;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+.bereo-step-note-btn:hover {
+    background: rgba(88, 166, 255, 0.12);
+    border-color: rgba(88, 166, 255, 0.3);
+    color: #58A6FF;
+}
+
+.bereo-step-note-btn.has-note {
+    background: rgba(46, 160, 67, 0.18);
+    border-color: rgba(46, 160, 67, 0.45);
+    color: #7EE787;
+    font-weight: 600;
+}
+
+.bereo-step-note-drawer {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: #111418;
+    border: 1px dashed rgba(88, 166, 255, 0.3);
+    border-radius: 8px;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.bereo-step-note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #58A6FF;
+    margin-bottom: 6px;
+}
+
+.bereo-step-note-textarea {
+    width: 100%;
+    min-height: 56px;
+    background: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    padding: 8px 10px;
+    color: #F0F6FC;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+    font-size: 12px;
+    line-height: 1.45;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.bereo-step-note-textarea:focus {
+    border-color: #58A6FF;
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
+.bereo-step-note-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   ANOTAÇÃO GERAL NO RODAPÉ DA FICHA
+   ========================================================================== */
+.bereo-card-note-box {
+    background: rgba(0, 0, 0, 0.22);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+}
+
+.bereo-btn-note-toggle {
+    background: none;
+    border: none;
+    color: #58A6FF;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0;
+    transition: color 0.2s;
+}
+
+.bereo-btn-note-toggle:hover {
+    color: #79C0FF;
+}
+
+.bereo-btn-note-toggle.has-note {
+    color: #7EE787;
+    font-weight: 600;
+}
+
+.bereo-card-note-drawer {
+    margin-top: 8px;
+}
+
+.bereo-card-note-textarea {
+    width: 100%;
+    min-height: 56px;
+    background: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #F0F6FC;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+    font-size: 12px;
+    line-height: 1.45;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.bereo-card-note-textarea:focus {
+    border-color: #58A6FF;
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
+.bereo-note-saved-hint {
+    font-size: 11px;
+    color: #7EE787;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bereo-note-saved-hint.show {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   MODAL / GAVETA GERAL
+   ========================================================================== */
+.bereo-notes-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.bereo-notes-modal {
+    background: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 14px;
+    max-width: 650px;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+    color: #F0F6FC;
+    overflow: hidden;
+}
+
+.bereo-notes-modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #30363D;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1C2128;
+}
+
+.bereo-notes-modal-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.bereo-btn-close-modal {
+    background: none;
+    border: none;
+    color: #8B949E;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.bereo-btn-close-modal:hover {
+    color: #F0F6FC;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.bereo-notes-modal-body {
+    padding: 18px 20px;
+    overflow-y: auto;
+    flex: 1;
+    font-size: 13px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bereo-general-note-group {
+    margin-bottom: 16px;
+}
+
+.bereo-general-note-group label {
+    font-weight: 600;
+    font-size: 11px;
+    display: block;
+    margin-bottom: 6px;
+    color: #D29922;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bereo-general-textarea {
+    width: 100%;
+    min-height: 60px;
+    background: #0D1117;
+    border: 1px solid #30363D;
+    border-radius: 8px;
+    padding: 8px 10px;
+    color: #F0F6FC;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.45;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.bereo-general-textarea:focus {
+    border-color: #D29922;
+}
+
+.bereo-notes-rendered-section {
+    margin-top: 14px;
+    border-top: 1px solid #30363D;
+    padding-top: 14px;
+}
+
+.bereo-notes-rendered-section h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8B949E;
+    margin-bottom: 10px;
+}
+
+.bereo-note-card-group {
+    background: #0D1117;
+    border: 1px solid #30363D;
+    border-left: 3px solid #58A6FF;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+}
+
+.bereo-note-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #58A6FF;
+    margin-bottom: 6px;
+}
+
+.bereo-note-step-subitem {
+    background: #161B22;
+    border-left: 2px solid #D29922;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-top: 6px;
+    font-size: 12px;
+}
+
+.bereo-note-step-tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #D29922;
+    margin-bottom: 2px;
+}
+
+.bereo-note-step-content {
+    color: #C9D1D9;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.bereo-notes-modal-footer {
+    padding: 14px 20px;
+    border-top: 1px solid #30363D;
+    background: #1C2128;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.bereo-btn-modal-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+}
+
+.bereo-btn-issue {
+    background: #238636;
+    color: #FFFFFF;
+}
+
+.bereo-btn-issue:hover {
+    background: #2EA043;
+}
+
+.bereo-btn-copy {
+    background: #21262D;
+    border: 1px solid #30363D;
+    color: #F0F6FC;
+}
+
+.bereo-btn-copy:hover {
+    background: #30363D;
+}
+
+.bereo-btn-clear {
+    background: none;
+    color: #F85149;
+    border: 1px solid rgba(248, 81, 73, 0.35);
+    padding: 7px 10px;
+    font-size: 11px;
+    margin-left: auto;
+}
+
+.bereo-btn-clear:hover {
+    background: rgba(248, 81, 73, 0.15);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .bereo-notes-float-btn {
+        bottom: 18px;
+        left: 18px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .bereo-notes-modal-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bereo-btn-modal-action {
+        width: 100%;
+    }
+
+    .bereo-btn-clear {
+        margin-left: 0;
+        margin-top: 4px;
+    }
+}

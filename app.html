@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark" data-view="mobile" data-plan="pro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Bereo — Laboratório de Experiência & Simulação UI</title>
+  
+  <!-- Fontes Oficiais: Lora (Editorial) + Plus Jakarta Sans (UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="notes_engine.css">
+
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS — CANÔNICOS BEREO (docs/13_DESIGN_SYSTEM_IDENTIDADE_VISUAL.md)
+       MANIFESTO ANTI-AI AESTHETIC | ZERO EMOJIS | IN-BOX GUIDANCE | 10-12px RADIUS
+       ========================================================================== */
+    :root {
+      /* Tema Escuro (Padrão: Deep Midnight Slate & Gold) */
+      --bg-simulator: #0B0D0F;
+      --bg-app: #121417;
+      --bg-card: #1A1D23;
+      --bg-card-subtle: #22262E;
+      --bg-input: #16191E;
+      --border-subtle: #262B34;
+      --border-focus: #C59B4B;
+      --text-primary: #F0F2F5;
+      --text-secondary: #A0A6B2;
+      --text-tertiary: #6B7280;
+      --text-placeholder: #525866;
+      
+      --brand-gold: #C59B4B;
+      --brand-gold-subtle: rgba(197, 155, 75, 0.12);
+      --brand-olive: #2D7A58;
+      
+      --font-serif: 'Lora', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 11px; /* Sóbrio 10-12px, sem cantos inflados */
+      --radius-lg: 14px;
+      --shadow-subtle: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    [data-theme="light"] {
+      /* Tema Claro (Warm Parchment & Obsidian) */
+      --bg-simulator: #E5E0D4;
+      --bg-app: #F8F6F0;
+      --bg-card: #FFFFFF;
+      --bg-card-subtle: #F2EFE8;
+      --bg-input: #FAF8F4;
+      --border-subtle: #E8E2D5;
+      --border-focus: #A37B31;
+      --text-primary: #1C1E21;
+      --text-secondary: #5A606D;
+      --text-tertiary: #8C93A0;
+      --text-placeholder: #A6ABB5;
+      
+      --brand-gold: #A37B31;
+      --brand-gold-subtle: rgba(163, 123, 49, 0.10);
+      --brand-olive: #2D7A58;
+      --shadow-subtle: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-simulator);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* ==========================================================================
+       BARRA DE CONTROLE DO LABORATÓRIO (PLAYGROUND / CONTROLLER)
+       ========================================================================== */
+    .lab-controller {
+      width: 100%;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .lab-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lab-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+    }
+
+    .lab-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--brand-gold-subtle);
+      color: var(--brand-gold);
+      border: 1px solid var(--brand-gold);
+    }
+
+    .lab-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ctrl-group {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .ctrl-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .ctrl-btn.active {
+      background: var(--brand-gold);
+      color: #121417;
+      font-weight: 700;
+    }
+
+    .ctrl-btn:not(.active):hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* ==========================================================================
+       CONTAINER DO APLICATIVO (RESPONSIVIDADE INTELIGENTE: CELULAR / TABLET / CHEIA)
+       ========================================================================== */
+    .app-viewport-wrapper {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 20px 10px 40px;
+      transition: all 0.3s ease;
+    }
+
+    .bereo-app-container {
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-subtle);
+      width: 100%;
+      min-height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: max-width 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    /* Modos de visualização configuráveis */
+    [data-view="mobile"] .bereo-app-container {
+      max-width: 414px; /* iPhone 15 Pro / Galaxy S24 */
+    }
+
+    [data-view="tablet"] .bereo-app-container {
+      max-width: 800px; /* iPad Mini / Galaxy Tab / iPad 11" */
+    }
+
+    [data-view="desktop"] .bereo-app-container {
+      max-width: 1040px; /* Tela Cheia / Desktop Editorial */
+    }
+
+    /* ==========================================================================
+       CABEÇALHO NATIVO DO BEREO (APP BAR)
+       ========================================================================== */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-app);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(10px);
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-logo-text {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--text-primary);
+    }
+
+    .app-plan-indicator {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      padding: 3px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .plan-pro-badge {
+      background: var(--brand-gold-subtle);
+      color: var(--brand-gold);
+      border: 1px solid var(--brand-gold);
+    }
+
+    .plan-free-badge {
+      background: var(--bg-card-subtle);
+      color: var(--text-tertiary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-button {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .icon-button:hover, .icon-button:active {
+      color: var(--brand-gold);
+      border-color: var(--brand-gold);
+    }
+
+    .icon-button svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 1.5;
+    }
+
+    /* ==========================================================================
+       FITA DE DIAS DA SEMANA (WEEK STRIP)
+       ========================================================================== */
+    .week-strip-wrapper {
+      padding: 14px 20px 10px;
+      background: var(--bg-app);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .week-strip-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .week-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .week-strip::-webkit-scrollbar { display: none; }
+
+    .day-chip {
+      flex: 1;
+      min-width: 44px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 9px;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .day-chip.active {
+      background: var(--brand-gold);
+      border-color: var(--brand-gold);
+    }
+
+    .day-chip.active .dc-name,
+    .day-chip.active .dc-num {
+      color: #121417;
+      font-weight: 700;
+    }
+
+    .dc-name {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+    }
+
+    .dc-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       CONTEÚDO PRINCIPAL (CADERNO EDITORIAL SAGRADO)
+       ========================================================================== */
+    .study-scroll {
+      flex: 1;
+      padding: 20px 20px 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* CARD DO CABEÇALHO DO DIA */
+    .header-card {
+      margin-bottom: 4px;
+    }
+
+    .track-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand-gold);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .pericope-title {
+      font-family: var(--font-serif);
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .pericope-ref {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* CARD DO VERSÍCULO-ÂNCORA (SELETOR DE 4 VERSÕES) */
+    .verse-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .verse-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+    }
+
+    .v-tab-btn {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .v-tab-btn.active {
+      background: var(--brand-gold);
+      color: #121417;
+      border-color: var(--brand-gold);
+    }
+
+    .verse-text-box {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text-primary);
+      font-style: italic;
+    }
+
+    .physical-bible-banner {
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: var(--bg-card-subtle);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .physical-btn {
+      color: var(--brand-gold);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       ESTRUTURA DOS PASSOS DO ESTUDO INDUTIVO
+       ========================================================================== */
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .step-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .step-indicator-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--brand-gold);
+    }
+
+    /* PERGUNTA INVESTIGATIVA CANÔNICA (SEMPRE VISÍVEL FORA DO CAMPO) */
+    .canonical-question-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .canonical-question-text {
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    /* ARQUITETURA IN-BOX GUIDANCE: O CAMPO LIMPO */
+    .input-box-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    .inbox-textarea {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.5;
+      min-height: 80px;
+      resize: vertical;
+      transition: all 0.2s ease;
+    }
+
+    .inbox-textarea:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 1px var(--border-focus);
+    }
+
+    /* O Placeholder suave de interface que some ao digitar */
+    .inbox-textarea::placeholder {
+      color: var(--text-placeholder);
+      font-style: italic;
+      font-size: 14px;
+      opacity: 0.75;
+      transition: opacity 0.15s ease;
+    }
+
+    .inbox-textarea:focus::placeholder {
+      opacity: 0.35;
+    }
+
+    /* LINHA DO TEMPO EM CAMADAS (PRO) */
+    .timeline-layer-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--brand-gold);
+      background: var(--brand-gold-subtle);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: fit-content;
+      margin-bottom: 6px;
+      border: 1px solid rgba(197, 155, 75, 0.25);
+    }
+
+    /* ==========================================================================
+       TERMOS NOTÁVEIS NOS ORIGINAIS (PRO VS FREE)
+       ========================================================================== */
+    .greek-section {
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .greek-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+
+    .greek-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .g-chip {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .g-chip:hover {
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+
+    .g-chip-term {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .greek-free-lock {
+      background: var(--bg-card-subtle);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ==========================================================================
+       CRISTO NO TEXTO (2 TEMPOS: PERGUNTA + CHAVE REVELÁVEL)
+       ========================================================================== */
+    .christ-container {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+    }
+
+    .christ-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .christ-trigger-btn {
+      margin-top: 10px;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: var(--brand-gold);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .christ-trigger-btn:hover {
+      background: var(--brand-gold-subtle);
+      border-color: var(--brand-gold);
+    }
+
+    .christ-revealed-content {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-serif);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+
+    .christ-revealed-content.open {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       A TRÍADE TRIDIMENSIONAL PRO (SCROLL CONTÍNUO MOLESKINE — SEM ABAS!)
+       ========================================================================== */
+    .triad-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .triad-block {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .triad-block-header {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--brand-gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* BANNER DE UPGRADE NO PLANO FREE (DISCRETO & ELEGANTE) */
+    .triad-free-placeholder {
+      background: var(--bg-card-subtle);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .triad-free-btn {
+      margin-top: 10px;
+      background: var(--brand-gold);
+      color: #121417;
+      font-weight: 700;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    /* ==========================================================================
+       BLIND ACCOUNTABILITY (DUPLAS / QUARTETOS)
+       ========================================================================== */
+    .accountability-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+
+    .partner-blur-box {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      filter: blur(4px);
+      user-select: none;
+      transition: filter 0.3s ease;
+      min-height: 80px;
+    }
+
+    .partner-blur-box.unlocked {
+      filter: none;
+      user-select: auto;
+    }
+
+    .complete-action-btn {
+      width: 100%;
+      background: var(--brand-gold);
+      color: #121417;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .complete-action-btn:hover {
+      opacity: 0.92;
+    }
+
+    /* MODAL DE CARTÃO DE EMBARQUE E GREGO */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 520px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--brand-gold);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+
+    /* BOTÃO TUTOR NO RODAPÉ */
+    .tutor-footer-button {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand-gold);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tutor-footer-button:hover {
+      background: var(--brand-gold-subtle);
+      border-color: var(--brand-gold);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       BARRA DE CONTROLE DO LABORATÓRIO (PLAYGROUND / CONTROLLER)
+       Permite simular Celular, Tablet, Tela Cheia, Tema Claro/Escuro e Plano Free/Pro
+       ========================================================================== -->
+  <header class="lab-controller">
+    <div class="lab-brand">
+      <span class="lab-title">BEREO</span>
+      <span class="lab-badge">Simulador UI v2.0</span>
+    </div>
+
+    <div class="lab-actions">
+      <!-- Seletor de Dispositivo (Responsividade Inteligente) -->
+      <div class="ctrl-group">
+        <button class="ctrl-btn active" id="btn-view-mobile" onclick="switchView('mobile')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          Celular
+        </button>
+        <button class="ctrl-btn" id="btn-view-tablet" onclick="switchView('tablet')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          Tablet
+        </button>
+        <button class="ctrl-btn" id="btn-view-desktop" onclick="switchView('desktop')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Tela Cheia
+        </button>
+      </div>
+
+      <!-- Alternador de Tema (Claro / Escuro) -->
+      <div class="ctrl-group">
+        <button class="ctrl-btn active" id="btn-theme-dark" onclick="switchTheme('dark')">Escuro</button>
+        <button class="ctrl-btn" id="btn-theme-light" onclick="switchTheme('light')">Claro</button>
+      </div>
+
+      <!-- Alternador de Plano (Free vs Pro) -->
+      <div class="ctrl-group">
+        <button class="ctrl-btn active" id="btn-plan-pro" onclick="switchPlan('pro')">Bereo PRO</button>
+        <button class="ctrl-btn" id="btn-plan-free" onclick="switchPlan('free')">Gratuito (Free)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       VIEWPORT DO APP (RESPONSIVA & SÓBRIA)
+       ========================================================================== -->
+  <main class="app-viewport-wrapper">
+    <div class="bereo-app-container">
+      
+      <!-- CABEÇALHO DO APLICATIVO -->
+      <nav class="app-header">
+        <div class="app-brand">
+          <span class="app-logo-text">BEREO</span>
+          <span class="app-plan-indicator plan-pro-badge" id="app-header-plan-badge">PRO</span>
+        </div>
+
+        <div class="header-icons">
+          <!-- Ícone do Cartão de Embarque (Panorama do Livro) -->
+          <button class="icon-button" onclick="openBoardingCard()" title="Consultar Cartão de Embarque do Livro">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </button>
+          <!-- Ícone de Busca / Caderno -->
+          <button class="icon-button" onclick="alert('Busca no Meu Caderno — histórico completo destrancado no Pro.')" title="Meu Caderno">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- FITA DE DIAS DA SEMANA (MARCOS CAPÍTULO 1) -->
+      <section class="week-strip-wrapper">
+        <div class="week-strip-meta">
+          <span>Semana 1 · Marcos</span>
+          <span id="label-consistency">Grace Days: 5 de 7 dias</span>
+        </div>
+        <div class="week-strip">
+          <div class="day-chip active" onclick="loadDay(0)" id="chip-0"><span class="dc-name">Seg</span><span class="dc-num">01</span></div>
+          <div class="day-chip" onclick="loadDay(1)" id="chip-1"><span class="dc-name">Ter</span><span class="dc-num">02</span></div>
+          <div class="day-chip" onclick="loadDay(2)" id="chip-2"><span class="dc-name">Qua</span><span class="dc-num">03</span></div>
+          <div class="day-chip" onclick="loadDay(3)" id="chip-3"><span class="dc-name">Qui</span><span class="dc-num">04</span></div>
+          <div class="day-chip" onclick="loadDay(4)" id="chip-4"><span class="dc-name">Sex</span><span class="dc-num">05</span></div>
+          <div class="day-chip" onclick="loadDay(5)" id="chip-5"><span class="dc-name">Sáb</span><span class="dc-num">06</span></div>
+          <div class="day-chip" onclick="loadDay(6)" id="chip-6"><span class="dc-name">Dom</span><span class="dc-num">07</span></div>
+        </div>
+      </section>
+
+      <!-- CONTEÚDO EDITORIAL DO CADERNO INDUTIVO -->
+      <div class="study-scroll">
+        
+        <!-- CABEÇALHO DO ESTUDO -->
+        <header class="header-card">
+          <div class="track-pill" id="track-name">O Servo Imparável · Dia 1 de 32</div>
+          <h1 class="pericope-title" id="study-title">O Princípio do Evangelho</h1>
+          <div class="pericope-ref" id="study-meta">Marcos 1:1-8 · 3 min de leitura atenta</div>
+        </header>
+
+        <!-- CARTÃO DO VERSÍCULO-ÂNCORA (COM SELETOR DE TRADUÇÃO) -->
+        <article class="verse-card">
+          <div class="verse-tabs">
+            <span style="font-size: 11px; color: var(--text-tertiary); font-weight: 600; text-transform: uppercase;">Versão:</span>
+            <button class="v-tab-btn active" onclick="switchVersion('NVI')">NVI</button>
+            <button class="v-tab-btn" onclick="switchVersion('NAA')">NAA</button>
+            <button class="v-tab-btn" onclick="switchVersion('NVT')">NVT</button>
+            <button class="v-tab-btn" onclick="switchVersion('ARC')">ARC</button>
+          </div>
+          <div class="verse-text-box" id="verse-text">
+            "Princípio do evangelho de Jesus Cristo, Filho de Deus." (Marcos 1:1 — NVI)
+          </div>
+          <div class="physical-bible-banner">
+            <span>Prefere ler o trecho todo no papel?</span>
+            <a class="physical-btn" onclick="alert('Abra na sua Bíblia física em Marcos 1:1-8 para realizar a observação profunda.')">Ler na Bíblia Física</a>
+          </div>
+        </article>
+
+        <!-- PASSO 1: OBSERVAR (O QUE O TEXTO DIZ) -->
+        <section class="step-card">
+          <div class="step-badge-row">
+            <span class="step-indicator-title">Passo 1 — Observar</span>
+            <span style="font-size: 11px; color: var(--text-tertiary);">Fatos & Evidências</span>
+          </div>
+
+          <!-- Campo: A Ideia Central (Síntese Ativa) -->
+          <div>
+            <div class="canonical-question-title">A Ideia Central (Síntese em 1 Frase)</div>
+            <div class="input-box-wrapper">
+              <textarea class="inbox-textarea" style="min-height: 60px;" placeholder="Em poucas palavras, qual é o fato central narrado nesta passagem?"></textarea>
+            </div>
+          </div>
+
+          <!-- Pergunta Canônica 1 (Sempre fora da caixa) -->
+          <div>
+            <div class="canonical-question-title">Pergunta de Observação</div>
+            <div class="canonical-question-text" id="obs-q1">Como Marcos fundamenta o ministério de João Batista nas profecias de Isaías e quais eram os sinais do seu batismo no deserto?</div>
+            
+            <!-- Linha do tempo em camadas (Exclusivo Pro) -->
+            <div class="timeline-layer-bar pro-only" onclick="showHistoricalInsight('2025: Notei que o deserto não era apenas um lugar geográfico, mas o cenário onde Deus recria a aliança.')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              <span>Ver reflexão registrada em 2025</span>
+            </div>
+
+            <!-- In-Box Guidance: Campo limpo -->
+            <div class="input-box-wrapper">
+              <textarea class="inbox-textarea" placeholder="Registre suas observações literais do texto..."></textarea>
+            </div>
+          </div>
+
+          <!-- Termos Notáveis nos Originais (Pro vs Free) -->
+          <div class="greek-section">
+            <div class="greek-label">Termos Notáveis nos Originais</div>
+            
+            <div class="greek-chips pro-only" id="greek-chips-container">
+              <!-- Renderizado via JS -->
+            </div>
+
+            <div class="greek-free-lock free-only">
+              <span>Termos em grego e raízes léxicas são exclusivos do Bereo Pro.</span>
+              <button class="v-tab-btn" onclick="switchPlan('pro')">Conhecer Pro</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- PASSO 2: COMPREENDER (O QUE O TEXTO SIGNIFICA) -->
+        <section class="step-card">
+          <div class="step-badge-row">
+            <span class="step-indicator-title">Passo 2 — Compreender</span>
+            <span style="font-size: 11px; color: var(--text-tertiary);">Significado & Redenção</span>
+          </div>
+
+          <div>
+            <div class="canonical-question-title">Pergunta de Interpretação Teológica</div>
+            <div class="canonical-question-text" id="interp-q1">Por que Marcos inicia sua narrativa com a profecia de Malaquias e Isaías antes mesmo de apresentar o nascimento humano de Jesus?</div>
+            <div class="input-box-wrapper">
+              <textarea class="inbox-textarea" placeholder="O que o autor bíblico pretendia ensinar aos primeiros leitores?"></textarea>
+            </div>
+          </div>
+
+          <!-- Módulo Cristo no Texto (2 Tempos — Aberto a todos) -->
+          <div class="christ-container">
+            <div class="christ-title-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 7h14"/></svg>
+              <span>Cristo no Texto (A Chave Redentora)</span>
+            </div>
+            <div class="canonical-question-text" id="christ-prompt" style="font-size: 14px; margin-bottom: 0;">
+              João pregava batismo de arrependimento, mas apontou para Aquele que batizaria com o Espírito Santo. Como isso revela a suficiência de Cristo?
+            </div>
+            <button class="christ-trigger-btn" onclick="toggleChristBox()">
+              <span id="christ-btn-label">Ver Chave de Cristo no Texto</span>
+              <span id="christ-arrow">▾</span>
+            </button>
+            <div class="christ-revealed-content" id="christ-box-content">
+              Jesus não é apenas um mestre moral que nos convida a sermos melhores. Ele é o próprio Deus que invade o deserto da nossa incapacidade para nos conceder o Espírito e recriar o nosso coração.
+            </div>
+          </div>
+        </section>
+
+        <!-- PASSO 3: PRATICAR (A TRÍADE TRIDIMENSIONAL EM SCROLL CONTÍNUO — SEM ABAS!) -->
+        <section class="step-card">
+          <div class="step-badge-row">
+            <span class="step-indicator-title">Passo 3 — Praticar</span>
+            <span style="font-size: 11px; color: var(--text-tertiary);">Vida & Resposta</span>
+          </div>
+
+          <!-- Modo Pro: A Tríade Completa em Scroll Contínuo Moleskine -->
+          <div class="triad-stack pro-only">
+            
+            <!-- 1. Na Mente -->
+            <div class="triad-block">
+              <div class="triad-block-header">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                <span>1. Na Mente (A Verdade que Alinha o Pensamento)</span>
+              </div>
+              <div class="canonical-question-text" id="triad-mente-q">O que esta passagem revela sobre a fidelidade e soberania de Deus que destrói as minhas falsas certezas?</div>
+              <div class="input-box-wrapper">
+                <textarea class="inbox-textarea" placeholder="Qual verdade imutável precisa governar sua mente hoje?"></textarea>
+              </div>
+            </div>
+
+            <!-- 2. No Coração -->
+            <div class="triad-block">
+              <div class="triad-block-header">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>2. No Coração (A Sondagem e Desejos Secretos)</span>
+              </div>
+              <div class="canonical-question-text" id="triad-coracao-q">Onde meu coração tem resistido a confessar pecados ou preferido o conforto à voz que clama no deserto?</div>
+              <div class="input-box-wrapper">
+                <textarea class="inbox-textarea" placeholder="Que apego ou autojustiça o Espírito Santo está confrontando?"></textarea>
+              </div>
+            </div>
+
+            <!-- 3. Na Prática -->
+            <div class="triad-block">
+              <div class="triad-block-header">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>3. Na Prática (A Ação e Decisão do Dia)</span>
+              </div>
+              <div class="canonical-question-text" id="triad-pratica-q">Que atitude concreta, reconciliação ou ato de obediência tomarei hoje no trabalho ou na família?</div>
+              <div class="input-box-wrapper">
+                <textarea class="inbox-textarea" placeholder="Qual será sua atitude prática e mensurável hoje?"></textarea>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Modo Free: Apenas Ação Prática + Convite sereno ao Pro -->
+          <div class="free-only" style="display: none; flex-direction: column; gap: 14px;">
+            <div class="triad-block">
+              <div class="triad-block-header">
+                <span>Aplicação Prática</span>
+              </div>
+              <div class="canonical-question-text">Que atitude concreta de arrependimento ou obediência tomarei hoje à luz desta passagem?</div>
+              <div class="input-box-wrapper">
+                <textarea class="inbox-textarea" placeholder="Descreva sua decisão prática para o dia de hoje..."></textarea>
+              </div>
+            </div>
+
+            <div class="triad-free-placeholder">
+              <p>No <strong>Bereo Pro</strong>, você destranca a <strong>Tríade Completa</strong> em fluxo contínuo (alinhando a Mente e sondando o Coração além da Prática).</p>
+              <button class="triad-free-btn" onclick="switchPlan('pro')">Experimentar 7 Dias Grátis Pro</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- PASSO 4: MINHA ORAÇÃO (3 MOMENTOS SOCRÁTICOS) -->
+        <section class="step-card">
+          <div class="step-badge-row">
+            <span class="step-indicator-title">Passo 4 — Minha Oração</span>
+            <span style="font-size: 11px; color: var(--text-tertiary);">Roteiro Socrático</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+              <strong style="color: var(--brand-gold);">1. Adoração:</strong> <span id="prayer-adoracao">Louve a Deus pela certeza de que Suas promessas antigas nunca falham e que o Evangelho triunfa.</span>
+            </div>
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+              <strong style="color: var(--brand-gold);">2. Confissão:</strong> <span id="prayer-confissao">Confesse sua relutância em encarar desertos espirituais e a busca por atalhos confortáveis.</span>
+            </div>
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+              <strong style="color: var(--brand-gold);">3. Súplica:</strong> <span id="prayer-suplica">Peça ousadia para proclamar as virtudes de Cristo e graça para viver em pureza de coração hoje.</span>
+            </div>
+          </div>
+
+          <div class="input-box-wrapper" style="margin-top: 8px;">
+            <textarea class="inbox-textarea" style="min-height: 70px;" placeholder="Escreva aqui sua oração sincera a partir destas três dimensões..."></textarea>
+          </div>
+        </section>
+
+        <!-- BLIND ACCOUNTABILITY (DUPLAS / QUARTETOS) -->
+        <section class="accountability-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--brand-gold); letter-spacing: 0.6px;">Comunhão Íntima · Dupla</span>
+            <span id="lock-status-badge" style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: var(--bg-card-subtle); color: var(--text-secondary);">Sigilo Ativo</span>
+          </div>
+          
+          <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+            Parceiro: <strong>Lucas Ferreira</strong>
+          </div>
+
+          <div class="partner-blur-box" id="partner-blur-content">
+            "Fui muito confrontado pelo fato de que João Batista não se colocava como o centro, mas apenas como a voz. No meu trabalho, percebi que tenho buscado glória própria..."
+          </div>
+
+          <button class="complete-action-btn" onclick="concludeStudy()">
+            Registrar Estudo no Caderno & Revelar Dupla
+          </button>
+        </section>
+
+        <!-- BOTÃO CONSULTAR TUTOR -->
+        <div class="tutor-footer-button" onclick="alert('Tutor Socrático Pro: Abre o painel inferior para diálogo socrático reflexivo, sem entregar respostas mastigadas.')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          <span>Consultar Tutor Bereano (Recurso Pro)</span>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       MODAIS REFINADOS (CARTÃO DE EMBARQUE & TERMOS GREGO)
+       ========================================================================== -->
+  <div class="modal-overlay" id="boarding-card-modal" onclick="closeBoardingCard(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <span class="modal-title">Cartão de Embarque · Marcos</span>
+        <button class="modal-close-btn" onclick="closeBoardingCard()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Autor:</strong> João Marcos (presbítero e intérprete de Simão Pedro em Roma).</p>
+        <p style="margin-top: 8px;"><strong>Destinatários:</strong> Cristãos romanos sob o império de Nero, sofrendo ameaças e perseguição iminente.</p>
+        <p style="margin-top: 8px;"><strong>Propósito Central:</strong> Apresentar Jesus como o **Servo Imparável**, o Filho de Deus que age com autoridade absoluta, cura, expulsa demônios e caminha resolutamente para a Cruz.</p>
+        <p style="margin-top: 8px;"><strong>Palavra-Chave:</strong> <em>Euthys</em> (Imediatamente / Logo) — Marcos usa mais de 40 vezes para transmitir a urgência do Reino.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="greek-modal" onclick="closeGreekModal(event)">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <span class="modal-title" id="greek-modal-term">Termo Original</span>
+        <button class="modal-close-btn" onclick="closeGreekModal()">✕</button>
+      </div>
+      <div class="modal-body" id="greek-modal-body">
+        <!-- Preenchido via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SCRIPT DE CONTROLE DA SIMULAÇÃO (COMPORTAMENTOS REAIS & DINÂMICOS)
+       ========================================================================== -->
+  <script>
+    // DADOS DAS 7 PERÍCOPES DE MARCOS CAPÍTULO 1 (SEMANA DE ENTRADA)
+    const weekData = [
+      {
+        day: 1,
+        title: "O Princípio do Evangelho",
+        ref: "Marcos 1:1-8 · 3 min de leitura atenta",
+        anchorRef: "Marcos 1:1",
+        anchors: {
+          NVI: "Princípio do evangelho de Jesus Cristo, Filho de Deus.",
+          NAA: "Início do evangelho de Jesus Cristo, Filho de Deus.",
+          NVT: "Este é o princípio das boas-novas a respeito de Jesus Cristo, o Filho de Deus.",
+          ARC: "Princípio do evangelho de Jesus Cristo, Filho de Deus."
+        },
+        obsQ1: "Como Marcos fundamenta o ministério de João Batista nas profecias de Isaías e quais eram os sinais do seu batismo no deserto?",
+        interpQ1: "Por que Marcos inicia sua narrativa com a profecia de Malaquias e Isaías antes mesmo de apresentar o nascimento humano de Jesus?",
+        christPrompt: "João pregava batismo de arrependimento, mas apontou para Aquele que batizaria com o Espírito Santo. Como isso revela a suficiência de Cristo?",
+        christAnswer: "Jesus não é apenas um mestre moral que nos convida a sermos melhores. Ele é o próprio Deus que invade o deserto da nossa incapacidade para nos conceder o Espírito e recriar o nosso coração.",
+        triad: {
+          mente: "O que esta passagem revela sobre a fidelidade e soberania de Deus que destrói as minhas falsas certezas?",
+          coracao: "Onde meu coração tem resistido a confessar pecados ou preferido o conforto à voz que clama no deserto?",
+          pratica: "Que atitude concreta, reconciliação ou ato de obediência tomarei hoje no trabalho ou na família?"
+        },
+        prayer: {
+          adoracao: "Louve a Deus pela certeza de que Suas promessas antigas nunca falham e que o Evangelho triunfa.",
+          confissao: "Confesse sua relutância em encarar desertos espirituais e a busca por atalhos confortáveis.",
+          suplica: "Peça ousadia para proclamar as virtudes de Cristo e graça para viver em pureza de coração hoje."
+        },
+        greekTerms: [
+          { term: "Archē (ἀρχή)", trans: "Princípio / Origem Primordial", desc: "Eco deliberado de Gênesis 1:1. A vinda de Jesus não é a continuação da história humana decaída, mas uma Nova Criação cósmica inaugurada por Deus." },
+          { term: "Euangelion (εὐαγγέλιον)", trans: "Boas-Novas Imperiais", desc: "No mundo romano, era o anúncio solene da vitória militar de um imperador. Marcos subverte a palavra: o verdadeiro Rei chegou, mas Seu triunfo se dará na Cruz." },
+          { term: "Metanoia (μετάνοια)", trans: "Mudança Total de Mente", desc: "Não mero remorso passageiro, mas uma reviravolta radical de mente, convicções e direção de vida." }
+        ]
+      },
+      {
+        day: 2,
+        title: "Batismo e Tentação",
+        ref: "Marcos 1:9-13 · 3 min de leitura atenta",
+        anchorRef: "Marcos 1:11",
+        anchors: {
+          NVI: "E do céu veio uma voz: 'Tu és o meu Filho amado; em ti me agrado'.",
+          NAA: "E do céu veio uma voz: 'Tu és o meu Filho amado; em ti me comprazo'.",
+          NVT: "E uma voz dos céus disse: 'Você é meu Filho amado, que me dá muita alegria'.",
+          ARC: "E ouviu-se uma voz dos céus, que dizia: 'Tu és o meu Filho amado em quem me comprazo'."
+        },
+        obsQ1: "O que aconteceu nos céus no exato momento em que Jesus saía da água após ser batizado por João?",
+        interpQ1: "Qual a conexão entre o Espírito descer como pomba sobre Jesus e imediatamente impeli-lo para a tentação no deserto?",
+        christPrompt: "Adão caiu em um jardim perfeito cercado de fartura. Jesus venceu no deserto entre animais selvagens. Como a vitória de Cristo nos resgata?",
+        christAnswer: "Cristo é o Último Adão que enfrentou o tentador no deserto mais hostil e permaneceu perfeitamente fiel, para que a Sua justiça nos fosse imputada gratuitamente.",
+        triad: {
+          mente: "A identidade de filho amado precede e sustenta toda vitória sobre a tentação e o deserto.",
+          coracao: "Qual tentação de desconfiar da providência de Deus tem sondado os meus pensamentos nesta estação?",
+          pratica: "Combater hoje um pensamento de desânimo ou pecado recorrente munindo a mente com uma promessa bíblica específica."
+        },
+        prayer: {
+          adoracao: "Adore ao Pai que declara Seu amor sobre o Filho e a nós pela união com Cristo.",
+          confissao: "Reconheça momentos em que você deu ouvidos aos sussurros do tentador duvidando da bondade de Deus.",
+          suplica: "Clame pelo poder do Espírito Santo para resistir firme no deserto das pressões diárias."
+        },
+        greekTerms: [
+          { term: "Schizomenous (σχιζομένους)", trans: "Rasgando-se Violentamente", desc: "Verbo vívido: os céus não se abriram suavemente, foram rasgados por Deus. O mesmo verbo reaparece em Marcos 15:38 no rasgar do véu do templo." },
+          { term: "Ekballō (ἐκβάλλω)", trans: "Impelir / Conduzir com Força", desc: "O Espírito impeliu Jesus com urgência divina para o confronto cósmico contra Satanás." }
+        ]
+      },
+      {
+        day: 3,
+        title: "O Chamado dos Primeiros Discípulos",
+        ref: "Marcos 1:14-20 · 4 min de leitura atenta",
+        anchorRef: "Marcos 1:15",
+        anchors: {
+          NVI: "O tempo é chegado — dizia ele. — O Reino de Deus está próximo. Arrependam-se e creiam nas boas-novas!",
+          NAA: "O tempo está cumprido, e o Reino de Deus está próximo. Arrependam-se e creiam no evangelho.",
+          NVT: "Chegou a hora! O reino de Deus está próximo. Arrependam-se e creiam nas boas-novas!",
+          ARC: "O tempo está cumprido, e o Reino de Deus está próximo. Arrependei-vos e crede no evangelho."
+        },
+        obsQ1: "Qual foi o anúncio proclamado por Jesus na Galileia e qual foi a resposta imediata de Simão e André ao chamado?",
+        interpQ1: "O que significava para pescadores do Mar da Galileia deixarem redes e pai para seguir um rabino itinerante?",
+        christPrompt: "Jesus não recrutou a elite religiosa de Jerusalém, mas trabalhadores rudes do mar. Como a graça escolhe o improvável?",
+        christAnswer: "O chamado de Jesus é autoritativo e transformador. Ele não nos chama porque já somos qualificados; Ele nos chama para nos recriar e enviar.",
+        triad: {
+          mente: "A autoridade graciosa do Rei é soberana sobre todos os meus projetos e agendas terrenas.",
+          coracao: "Qual segurança material ou conforto tenho hesitado em colocar debaixo do senhorio de Jesus?",
+          pratica: "Compartilhar com mansidão e clareza a mensagem da graça com uma pessoa específica hoje."
+        },
+        prayer: {
+          adoracao: "Louve a Cristo pela autoridade do Seu chamado soberano que transforma vidas comuns em instrumentos eternos.",
+          confissao: "Confesse a lentidão em obedecer prontamente quando o chamado do Evangelho desafia suas rotinas.",
+          suplica: "Peça intrepidez e desprendimento de coração para viver como fiel seguidor de Jesus nesta semana."
+        },
+        greekTerms: [
+          { term: "Kairós (καιρός)", trans: "O Tempo Decisivo / Oportuno", desc: "Não o tempo cronológico do relógio (chronos), mas o clímax da intervenção de Deus na história." },
+          { term: "Aphiēmi (ἀφίημι)", trans: "Deixando Prontamente", desc: "Deixaram as redes sem hesitação. É o mesmo verbo grego usado no Novo Testamento para perdão completo de dívidas." }
+        ]
+      }
+    ];
+
+    // ESTADO DA SIMULAÇÃO
+    let currentDayIndex = 0;
+    let currentVersion = 'NVI';
+    let currentTheme = 'dark';
+    let currentView = 'mobile';
+    let currentPlan = 'pro';
+
+    // INICIALIZAÇÃO
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDay(0);
+    });
+
+    // CARREGAR DADOS DO DIA
+    function loadDay(idx) {
+      currentDayIndex = idx;
+      const data = weekData[idx] || weekData[0];
+
+      // Atualizar Fita de Dias
+      document.querySelectorAll('.day-chip').forEach((c, i) => {
+        c.classList.toggle('active', i === idx);
+      });
+
+      // Atualizar Cabeçalho
+      document.getElementById('track-name').innerText = `O Servo Imparável · Dia ${data.day} de 32`;
+      document.getElementById('study-title').innerText = data.title;
+      document.getElementById('study-meta').innerText = data.ref;
+
+      // Atualizar Versículo-Âncora
+      updateAnchorText(data);
+
+      // Atualizar Perguntas
+      document.getElementById('obs-q1').innerText = data.obsQ1;
+      document.getElementById('interp-q1').innerText = data.interpQ1;
+      document.getElementById('christ-prompt').innerText = data.christPrompt;
+      document.getElementById('christ-box-content').innerText = data.christAnswer;
+
+      // Tríade Pro
+      document.getElementById('triad-mente-q').innerText = data.triad.mente;
+      document.getElementById('triad-coracao-q').innerText = data.triad.coracao;
+      document.getElementById('triad-pratica-q').innerText = data.triad.pratica;
+
+      // Oração
+      document.getElementById('prayer-adoracao').innerText = data.prayer.adoracao;
+      document.getElementById('prayer-confissao').innerText = data.prayer.confissao;
+      document.getElementById('prayer-suplica').innerText = data.prayer.suplica;
+
+      // Termos de Grego
+      renderGreekChips(data.greekTerms);
+
+      // Reset dos campos de texto (para testar o In-Box Guidance)
+      document.querySelectorAll('.inbox-textarea').forEach(t => t.value = '');
+
+      // Fechar caixa de Cristo
+      document.getElementById('christ-box-content').classList.remove('open');
+      document.getElementById('christ-arrow').innerText = '▾';
+    }
+
+    // ALTERNAR VERSÃO BÍBLICA
+    function switchVersion(ver) {
+      currentVersion = ver;
+      document.querySelectorAll('.v-tab-btn').forEach(b => {
+        b.classList.toggle('active', b.innerText === ver);
+      });
+      updateAnchorText(weekData[currentDayIndex]);
+    }
+
+    function updateAnchorText(data) {
+      const txt = data.anchors[currentVersion] || data.anchors['NVI'];
+      document.getElementById('verse-text').innerText = `"${txt}" (${data.anchorRef} — ${currentVersion})`;
+    }
+
+    // ALTERNAR VISUALIZAÇÃO: CELULAR / TABLET / TELA CHEIA
+    function switchView(view) {
+      currentView = view;
+      document.documentElement.setAttribute('data-view', view);
+      
+      document.getElementById('btn-view-mobile').classList.toggle('active', view === 'mobile');
+      document.getElementById('btn-view-tablet').classList.toggle('active', view === 'tablet');
+      document.getElementById('btn-view-desktop').classList.toggle('active', view === 'desktop');
+    }
+
+    // ALTERNAR TEMA: CLARO / ESCURO
+    function switchTheme(theme) {
+      currentTheme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+
+      document.getElementById('btn-theme-dark').classList.toggle('active', theme === 'dark');
+      document.getElementById('btn-theme-light').classList.toggle('active', theme === 'light');
+    }
+
+    // ALTERNAR PLANO: FREE VS PRO (DINÂMICO DE VERDADE!)
+    function switchPlan(plan) {
+      currentPlan = plan;
+      document.documentElement.setAttribute('data-plan', plan);
+
+      document.getElementById('btn-plan-pro').classList.toggle('active', plan === 'pro');
+      document.getElementById('btn-plan-free').classList.toggle('active', plan === 'free');
+
+      const badge = document.getElementById('app-header-plan-badge');
+      if (plan === 'pro') {
+        badge.innerText = 'PRO';
+        badge.className = 'app-plan-indicator plan-pro-badge';
+        document.querySelectorAll('.pro-only').forEach(el => el.style.display = '');
+        document.querySelectorAll('.free-only').forEach(el => el.style.display = 'none');
+      } else {
+        badge.innerText = 'FREE';
+        badge.className = 'app-plan-indicator plan-free-badge';
+        document.querySelectorAll('.pro-only').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.free-only').forEach(el => el.style.display = 'flex');
+      }
+    }
+
+    // TOGGLE CRISTO NO TEXTO
+    function toggleChristBox() {
+      const box = document.getElementById('christ-box-content');
+      const arrow = document.getElementById('christ-arrow');
+      box.classList.toggle('open');
+      arrow.innerText = box.classList.contains('open') ? '▴' : '▾';
+    }
+
+    // RENDERIZAR CHIPS DE GREGO
+    function renderGreekChips(terms) {
+      const container = document.getElementById('greek-chips-container');
+      container.innerHTML = '';
+      if (!terms) return;
+
+      terms.forEach(t => {
+        const chip = document.createElement('div');
+        chip.className = 'g-chip';
+        chip.onclick = () => openGreekModal(t);
+        chip.innerHTML = `<span class="g-chip-term">${t.term}</span> · <span>${t.trans}</span>`;
+        container.appendChild(chip);
+      });
+    }
+
+    // MODAL DE GREGO
+    function openGreekModal(t) {
+      document.getElementById('greek-modal-term').innerText = t.term;
+      document.getElementById('greek-modal-body').innerHTML = `<strong>Sentido Exegético:</strong> ${t.trans}<br><br>${t.desc}`;
+      document.getElementById('greek-modal').classList.add('open');
+    }
+
+    function closeGreekModal() {
+      document.getElementById('greek-modal').classList.remove('open');
+    }
+
+    // MODAL DO CARTÃO DE EMBARQUE
+    function openBoardingCard() {
+      if (currentPlan === 'free' && currentDayIndex > 0) {
+        alert('No plano Free, o Cartão de Embarque é exibido no Dia 1. O acesso perpétuo e a qualquer momento é um benefício do Bereo Pro.');
+        return;
+      }
+      document.getElementById('boarding-card-modal').classList.add('open');
+    }
+
+    function closeBoardingCard() {
+      document.getElementById('boarding-card-modal').classList.remove('open');
+    }
+
+    // LINHA DO TEMPO EM CAMADAS
+    function showHistoricalInsight(msg) {
+      alert(`[Linha do Tempo em Camadas — Bereo Pro]\n\n${msg}\n\n(No app Flutter, exibe uma aba sutil no topo da pergunta com a nota do ano anterior sem sobrescrever o estudo atual).`);
+    }
+
+    // CONCLUIR ESTUDO
+    function concludeStudy() {
+      document.getElementById('partner-blur-content').classList.add('unlocked');
+      document.getElementById('lock-status-badge').innerText = 'Desbloqueado';
+      document.getElementById('lock-status-badge').style.background = 'var(--brand-gold-subtle)';
+      document.getElementById('lock-status-badge').style.color = 'var(--brand-gold)';
+      alert('Estudo diário registrado no seu Caderno Devocional.\nA reflexão íntima do seu parceiro Lucas Ferreira foi revelada com sucesso!');
+    }
+  </script>
+
+  <!-- SISTEMA DE ANOTAÇÕES & FEEDBACK RÁPIDO -->
+  <script src="notes_engine.js"></script>
+</body>
+</html>
