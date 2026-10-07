@@ -230,18 +230,30 @@
     .show-avancado,
     .flex-basico,
     .flex-intermediario,
-    .flex-avancado {
+    .flex-avancado,
+    .inline-basico,
+    .inline-intermediario,
+    .inline-avancado {
       display: none !important;
     }
 
     html[data-depth="basico"] .show-basico { display: block !important; }
     html[data-depth="basico"] .flex-basico { display: flex !important; }
+    html[data-depth="basico"] span.show-basico,
+    html[data-depth="basico"] .inline-basico { display: inline-flex !important; }
 
     html[data-depth="intermediario"] .show-intermediario { display: block !important; }
     html[data-depth="intermediario"] .flex-intermediario { display: flex !important; }
+    html[data-depth="intermediario"] .version-tabs-nav.show-intermediario { display: inline-flex !important; }
+    html[data-depth="intermediario"] span.show-intermediario,
+    html[data-depth="intermediario"] .inline-intermediario { display: inline-flex !important; }
 
     html[data-depth="avancado"] .show-avancado { display: block !important; }
     html[data-depth="avancado"] .flex-avancado { display: flex !important; }
+    html[data-depth="avancado"] .version-tabs-nav.show-avancado { display: inline-flex !important; }
+    html[data-depth="avancado"] span.show-avancado,
+    html[data-depth="avancado"] .strong-tag.show-avancado,
+    html[data-depth="avancado"] .inline-avancado { display: inline-flex !important; }
 
     /* ==========================================================================
        1. CABEÇALHO DO DEVOCIONAL DO DIA
@@ -568,6 +580,120 @@
     }
     .strong-tag:hover {
       background: rgba(163, 132, 216, 0.25);
+    }
+
+    /* Banner da Tradução Ativa & Modo Comparativo */
+    .version-status-banner {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+      transition: all 0.25s ease;
+    }
+    .version-status-label {
+      font-weight: 700;
+      color: var(--brand-gold);
+      display: block;
+    }
+    .version-status-desc {
+      color: var(--text-secondary);
+      font-size: 10.5px;
+      display: block;
+      margin-top: 1px;
+    }
+    .compare-toggle-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .compare-toggle-btn:hover {
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+    .compare-toggle-btn.active {
+      background: var(--brand-gold-subtle);
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+
+    .compare-grid-view {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .compare-verse-block {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .compare-verse-header {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-gold);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 4px;
+    }
+    .compare-cols-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .compare-cols-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-family: var(--font-serif);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    .col-version-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+    .col-version-name {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--brand-gold);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes textFlash {
+      0% { opacity: 0.3; transform: translateY(2px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .text-updated {
+      animation: textFlash 0.25s ease-out;
     }
 
     /* ==========================================================================
@@ -1049,7 +1175,19 @@
           </div>
         </div>
 
-        <!-- Texto da Perícope Bíblica -->
+        <!-- Banner Explicativo da Tradução em Uso & Ação de Comparar -->
+        <div class="version-status-banner" id="version-status-banner">
+          <div>
+            <span class="version-status-label" id="current-version-name">Nova Versão Internacional (NVI)</span>
+            <span class="version-status-desc" id="current-version-desc">Equilíbrio e clareza contemporânea para leitura fluida</span>
+          </div>
+          <button class="compare-toggle-btn" id="btn-toggle-compare" onclick="toggleCompareMode()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+            <span id="compare-btn-text">Comparar Lado a Lado</span>
+          </button>
+        </div>
+
+        <!-- Texto da Perícope Bíblica (Visão Padrão) -->
         <div class="scripture-body-text" id="scripture-text-container">
           <!-- Versículo 1 -->
           <p>
@@ -1060,42 +1198,78 @@
 
           <!-- Versículo 2 -->
           <p>
-            <span class="v-num">2</span> <span id="v2-text">Conforme está escrito no profeta Isaías: "Eis que envio o meu mensageiro diante da tua face, o qual preparará o teu caminho adiante de ti;</span>
+            <span class="v-num">2</span> <span id="v2-text">Conforme está escrito no profeta Isaías: 'Envio o meu mensageiro diante de você, para preparar o seu caminho' —</span>
           </p>
 
           <!-- Versículo 3 (Versículo-Âncora) -->
           <div class="anchor-verse-highlight">
             <span class="v-num">3</span> 
-            <strong id="v3-text">"Voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas."</strong>
+            <strong id="v3-text">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas".</strong>
             <div><span class="anchor-tag-label">• Versículo-Âncora da Perícope</span></div>
           </div>
 
           <!-- Versículo 4 -->
           <p>
-            <span class="v-num">4</span> <span id="v4-text">Apareceu João Batista no deserto, pregando o batismo de arrependimento para perdão dos pecados.</span>
+            <span class="v-num">4</span> <span id="v4-text">Assim surgiu João, batizando no deserto e pregando um batismo de arrependimento para o perdão dos pecados.</span>
             <span class="strong-tag show-avancado" onclick="openStrong('G3341', 'metanoia (μετάνοια)', 'Mudança radical de mente e de rota moral em 180°. Traduz o hebraico teshuvah (retorno a Deus).')">G3341 metanoia</span>
           </p>
 
           <!-- Versículo 5 -->
           <p>
-            <span class="v-num">5</span> <span id="v5-text">E iam até ele toda a terra da Judeia e todos os habitantes de Jerusalém; e eram por ele batizados no rio Jordão, confessando os seus pecados.</span>
+            <span class="v-num">5</span> <span id="v5-text">Vinham a ele pessoas de toda a região da Judeia e de toda a cidade de Jerusalém; confessando os seus pecados, eram batizadas por ele no rio Jordão.</span>
           </p>
 
           <!-- Versículo 6 -->
           <p>
-            <span class="v-num">6</span> <span id="v6-text">Ora, João usava roupas feitas de pelos de camelo e um cinto de couro em seus lombos; e alimentava-se de gafanhotos e mel silvestre.</span>
+            <span class="v-num">6</span> <span id="v6-text">João vestia roupas feitas de pelos de camelo, usava um cinto de couro e comia gafanhotos e mel silvestre.</span>
           </p>
 
           <!-- Versículo 7 -->
           <p>
-            <span class="v-num">7</span> <span id="v7-text">E pregava, dizendo: "Depois de mim vem aquele que é mais poderoso do que eu, diante do qual não sou digno de me abaixar para desatar a correia das suas sandálias.</span>
+            <span class="v-num">7</span> <span id="v7-text">E ele pregava: 'Depois de mim vem alguém mais poderoso do que eu, tanto que não sou digno nem de me curvar e desamarrar as correias das suas sandálias.</span>
             <span class="strong-tag show-avancado" onclick="openStrong('G2425', 'hikanos (ἱκανός)', 'Digno, suficiente, competente. Tarefa humilde de escravo da qual os rabinos dispensavam judeus.')">G2425 hikanos</span>
           </p>
 
           <!-- Versículo 8 -->
           <p>
-            <span class="v-num">8</span> <span id="v8-text">Eu vos batizei com água; ele, porém, vos batizará com o Espírito Santo."</span>
+            <span class="v-num">8</span> <span id="v8-text">Eu os batizo com água; ele, porém, os batizará com o Espírito Santo'.</span>
           </p>
+        </div>
+
+        <!-- Grade de Comparação Lado a Lado (Modo Comparativo Ativado) -->
+        <div class="compare-grid-view" id="compare-grid-view">
+          <div class="compare-verse-block">
+            <div class="compare-verse-header">Versículo 1</div>
+            <div class="compare-cols-container" id="cmp-row-1"></div>
+          </div>
+          <div class="compare-verse-block">
+            <div class="compare-verse-header">Versículo 2</div>
+            <div class="compare-cols-container" id="cmp-row-2"></div>
+          </div>
+          <div class="compare-verse-block" style="border-left: 3px solid var(--brand-gold);">
+            <div class="compare-verse-header" style="color:var(--brand-gold);">Versículo 3 • Versículo-Âncora</div>
+            <div class="compare-cols-container" id="cmp-row-3"></div>
+          </div>
+          <div class="compare-verse-block">
+            <div class="compare-verse-header">Versículo 4</div>
+            <div class="compare-cols-container" id="cmp-row-4"></div>
+          </div>
+          <div class="compare-verse-block">
+            <div class="compare-verse-header">Versículo 5</div>
+            <div class="compare-cols-container" id="cmp-row-5"></div>
+          </div>
+          <div class="compare-verse-block">
+            <div class="compare-verse-header">Versículo 6</div>
+            <div class="compare-cols-container" id="cmp-row-6"></div>
+          </div>
+          <div class="compare-verse-block">
+            <div class="compare-verse-header">Versículo 7 (Vocabulário Comparado: Sandálias vs Alparcas)</div>
+            <div class="compare-cols-container" id="cmp-row-7"></div>
+          </div>
+          <div class="compare-verse-block">
+            <div class="compare-verse-header">Versículo 8</div>
+            <div class="compare-cols-container" id="cmp-row-8"></div>
+          </div>
         </div>
       </section>
 
@@ -1427,9 +1601,23 @@
 
   <!-- JAVASCRIPT REFINADO & SEM ERROS -->
   <script>
-    // DADOS DAS VERSÕES BÍBLICAS REAIS
+    // DADOS DAS 5 VERSÕES BÍBLICAS REAIS & CERTIFICADAS
     const BIBLE_VERSIONS = {
+      blivre: {
+        name: "Bíblia Livre (BLIVRE)",
+        desc: "Domínio público • Fiel aos textos originais sem restrições de licença",
+        v1: "Princípio do Evangelho de Jesus Cristo, Filho de Deus.",
+        v2: "Conforme está escrito no profeta Isaías: Eis que envio o meu mensageiro adiante da tua face, o qual preparará o teu caminho diante de ti;",
+        v3: "\"Voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas;\"",
+        v4: "apareceu João no deserto, batizando e pregando o batismo de arrependimento para perdão de pecados.",
+        v5: "E iam até ele toda a terra da Judeia, e todos os moradores de Jerusalém; e eram por ele batizados no rio Jordão, confessando os seus pecados.",
+        v6: "Ora, João vestia-se de pelos de camelo e trazia um cinto de couro ao redor de seus lombos; e comia gafanhotos e mel silvestre.",
+        v7: "E pregava, dizendo: Vem após mim aquele que é mais forte do que eu, a quem não sou digno de, inclinando-me, desatar a correia de suas sandálias.",
+        v8: "Eu vos batizei com água; ele, porém, vos batizará com o Espírito Santo."
+      },
       nvi: {
+        name: "Nova Versão Internacional (NVI)",
+        desc: "Equilíbrio contemporâneo • Fidelidade semântica e fluidez moderna",
         v1: "Princípio do evangelho de Jesus Cristo, Filho de Deus.",
         v2: "Conforme está escrito no profeta Isaías: 'Envio o meu mensageiro diante de você, para preparar o seu caminho' —",
         v3: "\"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas\".",
@@ -1440,6 +1628,8 @@
         v8: "Eu os batizo com água; ele, porém, os batizará com o Espírito Santo'."
       },
       naa: {
+        name: "Nova Almeida Atualizada (NAA)",
+        desc: "Equivalência formal moderna • Tradição clássica de Almeida em português atual",
         v1: "Princípio do evangelho de Jesus Cristo, Filho de Deus.",
         v2: "Como está escrito no profeta Isaías: 'Eis que envio o meu mensageiro adiante de você, o qual preparará o seu caminho';",
         v3: "\"Voz do que clama no deserto: Preparem o caminho do Senhor, endireitem as suas veredas.\"",
@@ -1450,6 +1640,8 @@
         v8: "Eu batizei vocês com água; ele, porém, os batizará com o Espírito Santo'."
       },
       nvt: {
+        name: "Nova Versão Transformadora (NVT)",
+        desc: "Equivalência dinâmica profunda • Linguagem direta, clara e acessível",
         v1: "Este é o início da boa-nova a respeito de Jesus Cristo, o Filho de Deus.",
         v2: "Conforme o profeta Isaías havia escrito: 'Envio meu mensageiro adiante de ti, e ele preparará teu caminho.",
         v3: "\"Ele é uma voz que clama no deserto: 'Preparem o caminho para a vinda do Senhor! Abram a estrada para ele!''\"",
@@ -1460,6 +1652,8 @@
         v8: "Eu batizo vocês com água, mas ele os batizará com o Espírito Santo!'."
       },
       arc: {
+        name: "Almeida Revista e Corrigida (ARC)",
+        desc: "Tradição clássica solene • Vocabulário litúrgico histórico e tradicional",
         v1: "Princípio do Evangelho de Jesus Cristo, Filho de Deus.",
         v2: "Conforme está escrito nos profetas: 'Eis que eu envio o meu anjo ante a tua face, o qual preparará o teu caminho diante de ti.",
         v3: "\"Voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas.\"",
@@ -1471,8 +1665,13 @@
       }
     };
 
+    let currentDepth = 'intermediario';
+    let currentVersion = 'nvi';
+    let isCompareMode = false;
+
     // ALTERNÂNCIA DE NÍVEL DE PROFUNDIDADE (BÁSICO, INTERMEDIÁRIO, AVANÇADO)
     function switchDepth(depth) {
+      currentDepth = depth;
       document.documentElement.setAttribute('data-depth', depth);
       
       const buttons = document.querySelectorAll('#depth-controls .depth-btn');
@@ -1484,9 +1683,30 @@
         }
       });
 
-      // Se for para o Básico, usa a versão NVI por padrão
+      const compBtn = document.getElementById('btn-toggle-compare');
+
       if(depth === 'basico') {
-        setVersion('nvi');
+        if(compBtn) compBtn.style.display = 'none';
+        if(isCompareMode) toggleCompareMode(false);
+        setVersion('blivre');
+      } else if(depth === 'intermediario') {
+        if(compBtn) compBtn.style.display = 'inline-flex';
+        if(currentVersion !== 'nvi' && currentVersion !== 'naa') {
+          setVersion('nvi');
+        } else {
+          setVersion(currentVersion);
+        }
+      } else if(depth === 'avancado') {
+        if(compBtn) compBtn.style.display = 'inline-flex';
+        if(currentVersion === 'blivre') {
+          setVersion('nvi');
+        } else {
+          setVersion(currentVersion);
+        }
+      }
+
+      if(isCompareMode) {
+        renderComparisonGrid();
       }
     }
 
@@ -1494,25 +1714,95 @@
     function setVersion(verKey) {
       const data = BIBLE_VERSIONS[verKey];
       if(!data) return;
+      currentVersion = verKey;
 
-      document.getElementById('v1-text').innerText = data.v1;
-      document.getElementById('v2-text').innerText = data.v2;
-      document.getElementById('v3-text').innerText = data.v3;
-      document.getElementById('v4-text').innerText = data.v4;
-      document.getElementById('v5-text').innerText = data.v5;
-      document.getElementById('v6-text').innerText = data.v6;
-      document.getElementById('v7-text').innerText = data.v7;
-      document.getElementById('v8-text').innerText = data.v8;
+      for(let i = 1; i <= 8; i++) {
+        const el = document.getElementById(`v${i}-text`);
+        if(el) {
+          el.innerText = data[`v${i}`];
+        }
+      }
 
-      // Atualiza botões ativos no Intermediário
+      // Atualiza banner explicativo
+      const nameEl = document.getElementById('current-version-name');
+      const descEl = document.getElementById('current-version-desc');
+      if(nameEl) nameEl.innerText = data.name;
+      if(descEl) descEl.innerText = data.desc;
+
+      // Animação visual sutil de atualização
+      const textContainer = document.getElementById('scripture-text-container');
+      if(textContainer) {
+        textContainer.classList.remove('text-updated');
+        void textContainer.offsetWidth; // Força reflow CSS
+        textContainer.classList.add('text-updated');
+      }
+
+      // Atualiza botões ativos (Intermediário e Avançado)
       const tabs = document.querySelectorAll('.version-tabs-nav .v-tab-btn');
       tabs.forEach(t => {
-        if(t.innerText.toLowerCase() === verKey) {
+        const onclickAttr = t.getAttribute('onclick') || '';
+        if(onclickAttr.includes(`'${verKey}'`)) {
           t.classList.add('active');
         } else {
           t.classList.remove('active');
         }
       });
+    }
+
+    // ALTERNÂNCIA DO MODO DE COMPARAÇÃO LADO A LADO
+    function toggleCompareMode(forceState) {
+      if(typeof forceState === 'boolean') {
+        isCompareMode = forceState;
+      } else {
+        isCompareMode = !isCompareMode;
+      }
+
+      const textContainer = document.getElementById('scripture-text-container');
+      const gridContainer = document.getElementById('compare-grid-view');
+      const btn = document.getElementById('btn-toggle-compare');
+      const btnText = document.getElementById('compare-btn-text');
+
+      if(isCompareMode) {
+        if(textContainer) textContainer.style.display = 'none';
+        if(gridContainer) gridContainer.style.display = 'flex';
+        if(btn) btn.classList.add('active');
+        if(btnText) btnText.innerText = 'Ver Texto Único';
+        renderComparisonGrid();
+      } else {
+        if(textContainer) textContainer.style.display = 'block';
+        if(gridContainer) gridContainer.style.display = 'none';
+        if(btn) btn.classList.remove('active');
+        if(btnText) btnText.innerText = 'Comparar Lado a Lado';
+      }
+    }
+
+    // RENDERIZADOR DA GRADE COMPARATIVA
+    function renderComparisonGrid() {
+      const versionsToCompare = (currentDepth === 'avancado')
+        ? ['nvi', 'naa', 'nvt', 'arc']
+        : ['nvi', 'naa'];
+
+      const colClass = (currentDepth === 'avancado') ? 'compare-cols-4' : 'compare-cols-2';
+
+      for(let i = 1; i <= 8; i++) {
+        const rowEl = document.getElementById(`cmp-row-${i}`);
+        if(!rowEl) continue;
+
+        rowEl.className = `compare-cols-container ${colClass}`;
+        let html = '';
+
+        versionsToCompare.forEach(vKey => {
+          const vObj = BIBLE_VERSIONS[vKey];
+          html += `
+            <div class="col-version-card">
+              <div class="col-version-name">${vKey.toUpperCase()}</div>
+              <div>${vObj['v' + i]}</div>
+            </div>
+          `;
+        });
+
+        rowEl.innerHTML = html;
+      }
     }
 
     // ALTERNÂNCIA DO TEMA (CLARO / ESCURO)
@@ -1571,6 +1861,11 @@
     function closeStrongModal() {
       document.getElementById('strong-modal').style.display = 'none';
     }
+
+    // INICIALIZAÇÃO AUTOMÁTICA
+    window.addEventListener('DOMContentLoaded', () => {
+      switchDepth('intermediario');
+    });
   </script>
 </body>
 </html>
