@@ -2629,23 +2629,51 @@
     }
 
     .chip-lock-badge {
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      color: var(--text-tertiary);
-      background: rgba(255, 255, 255, 0.04);
-      padding: 2px 5px;
-      border-radius: 4px;
+      font-size: 11px;
+      line-height: 1;
       margin-top: 2px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .context-chip-btn.is-locked {
-      opacity: 0.75;
-      border-style: dashed;
+      opacity: 0.85;
     }
 
     .context-chip-btn.is-unlocked .chip-lock-badge {
       display: none !important;
+    }
+
+    /* Diálogo Suave e Pequeno de Convite ao Plano */
+    .locked-dialog-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.15s ease;
+    }
+
+    .locked-dialog-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 16px 18px;
+      max-width: 320px;
+      width: 100%;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+      animation: scaleUp 0.15s ease;
+    }
+
+    @keyframes scaleUp {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
   </style>
@@ -2784,21 +2812,21 @@
           <button class="context-chip-btn" id="chip-ctx-romano" onclick="handleContextChipClick('romano')" title="Contexto Imperial Romano">
             <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l8-7 8 7"/></svg></span>
             <span class="chip-label">Império Romano</span>
-            <span class="chip-lock-badge" id="lock-badge-romano">🔒 Interm.</span>
+            <span class="chip-lock-badge" id="lock-badge-romano">🔒</span>
           </button>
 
           <!-- Chave 3: Dois Atos (Camada 2 - Intermediário & Avançado) -->
           <button class="context-chip-btn" id="chip-ctx-estrutura" onclick="handleContextChipClick('estrutura')" title="Estrutura Literária em Dois Atos">
             <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg></span>
             <span class="chip-label">Dois Atos</span>
-            <span class="chip-lock-badge" id="lock-badge-estrutura">🔒 Interm.</span>
+            <span class="chip-lock-badge" id="lock-badge-estrutura">🔒</span>
           </button>
 
           <!-- Chave 4: Segundo Êxodo (Camada 3 - Exclusivo Avançado) -->
           <button class="context-chip-btn" id="chip-ctx-exodo" onclick="handleContextChipClick('exodo')" title="Teologia Bíblica do Segundo Êxodo">
             <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
             <span class="chip-label">Segundo Êxodo</span>
-            <span class="chip-lock-badge" id="lock-badge-exodo">🔒 Avançado</span>
+            <span class="chip-lock-badge" id="lock-badge-exodo">🔒</span>
           </button>
         </div>
 
@@ -4593,6 +4621,25 @@
     </div>
   </div>
 
+  <!-- SUAVE E PEQUENO DIÁLOGO DE CONVITE A PLANO (ZERO CAIXA ABAIXO) -->
+  <div class="locked-dialog-backdrop" id="locked-plan-dialog-backdrop" onclick="closeLockedPlanDialog()">
+    <div class="locked-dialog-card" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:14px;" id="locked-plan-icon">🔒</span>
+          <span style="font-size:12px; font-weight:700; color:var(--brand-gold); text-transform:uppercase; letter-spacing:0.6px;" id="locked-plan-title">Plano Intermediário</span>
+        </div>
+        <button onclick="closeLockedPlanDialog()" style="background:transparent; border:none; color:var(--text-tertiary); font-size:15px; cursor:pointer; padding:2px;">✕</button>
+      </div>
+      <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.55; margin:0 0 14px 0;" id="locked-plan-msg">
+        Esta chave de contexto aprofunda a arquitetura do livro. Assine o Plano Intermediário para desbloquear.
+      </p>
+      <button class="master-conclude-btn" id="locked-plan-btn" style="margin:0; width:100%; justify-content:center; padding:10px 14px; font-size:12px;" onclick="handleLockedPlanUpgrade()">
+        Assinar Plano Intermediário • R$ 12,90/mês
+      </button>
+    </div>
+  </div>
+
   <!-- TOAST TOOLTIP DO VERSÍCULO-CHAVE (FADE IN/OUT 3S) -->
   <div class="anchor-toast" id="anchor-toast">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>
@@ -4877,6 +4924,10 @@
 
       // Sincroniza metadados do Caderno
       updateCadernoPlanMeta();
+      // Atualiza Chaves de Contexto por Plano
+      if (typeof updateContextKeysGating === 'function') {
+        updateContextKeysGating();
+      }
     }
 
     // Compatibilidade com chamadas legadas de switchDepth
@@ -6042,19 +6093,54 @@ ${document.getElementById('cad-res-prat').innerText}
     // ==========================================================================
     // CONTROLE DE GATING DAS CHAVES DE CONTEXTO POR PLANO (DOCS/15)
     // ==========================================================================
+    let pendingLockedUpgradePlan = 'intermediario';
+
+    function openLockedPlanDialog(planKey, msg) {
+      pendingLockedUpgradePlan = planKey;
+      const backdrop = document.getElementById('locked-plan-dialog-backdrop');
+      const titleEl = document.getElementById('locked-plan-title');
+      const msgEl = document.getElementById('locked-plan-msg');
+      const btnEl = document.getElementById('locked-plan-btn');
+
+      if (!backdrop) return;
+
+      if (planKey === 'intermediario') {
+        if (titleEl) titleEl.innerText = 'Plano Intermediário';
+        if (msgEl) msgEl.innerText = msg || 'Esta chave aprofunda o contexto histórico e a arquitetura do livro. Assine o Plano Intermediário para liberar.';
+        if (btnEl) btnEl.innerText = 'Assinar Plano Intermediário • R$ 12,90/mês';
+      } else {
+        if (titleEl) titleEl.innerText = 'Plano Avançado';
+        if (msgEl) msgEl.innerText = msg || 'Esta chave aprofunda a Teologia Bíblica e as raízes veterotestamentárias. Assine o Plano Avançado para liberar.';
+        if (btnEl) btnEl.innerText = 'Assinar Plano Avançado • R$ 19,90/mês';
+      }
+
+      backdrop.style.display = 'flex';
+    }
+
+    function closeLockedPlanDialog() {
+      const backdrop = document.getElementById('locked-plan-dialog-backdrop');
+      if (backdrop) backdrop.style.display = 'none';
+    }
+
+    function handleLockedPlanUpgrade() {
+      const target = pendingLockedUpgradePlan || 'intermediario';
+      closeLockedPlanDialog();
+      switchPlan(target);
+    }
+
     function updateContextKeysGating() {
       const isBasico = (currentPlan === 'basico_free' || currentPlan === 'basico_pago');
       const isInterm = (currentPlan === 'intermediario');
       const isAvanc = (currentPlan === 'avancado');
 
-      // Chave Romano (Camada 2 - Interm e Avançado)
+      // Chave 2: Romano (Liberada no Intermediário e Avançado)
       const btnRomano = document.getElementById('chip-ctx-romano');
       const lockRomano = document.getElementById('lock-badge-romano');
       if (btnRomano) {
         if (isBasico) {
           btnRomano.classList.add('is-locked');
           btnRomano.classList.remove('is-unlocked');
-          if (lockRomano) lockRomano.style.display = 'inline-block';
+          if (lockRomano) lockRomano.style.display = 'inline-flex';
         } else {
           btnRomano.classList.remove('is-locked');
           btnRomano.classList.add('is-unlocked');
@@ -6062,14 +6148,14 @@ ${document.getElementById('cad-res-prat').innerText}
         }
       }
 
-      // Chave Estrutura (Camada 2 - Interm e Avançado)
+      // Chave 3: Estrutura (Liberada no Intermediário e Avançado)
       const btnEstrutura = document.getElementById('chip-ctx-estrutura');
       const lockEstrutura = document.getElementById('lock-badge-estrutura');
       if (btnEstrutura) {
         if (isBasico) {
           btnEstrutura.classList.add('is-locked');
           btnEstrutura.classList.remove('is-unlocked');
-          if (lockEstrutura) lockEstrutura.style.display = 'inline-block';
+          if (lockEstrutura) lockEstrutura.style.display = 'inline-flex';
         } else {
           btnEstrutura.classList.remove('is-locked');
           btnEstrutura.classList.add('is-unlocked');
@@ -6077,7 +6163,7 @@ ${document.getElementById('cad-res-prat').innerText}
         }
       }
 
-      // Chave Êxodo (Camada 3 - Exclusivo Avançado)
+      // Chave 4: Êxodo (Liberada somente no Avançado)
       const btnExodo = document.getElementById('chip-ctx-exodo');
       const lockExodo = document.getElementById('lock-badge-exodo');
       if (btnExodo) {
@@ -6088,7 +6174,16 @@ ${document.getElementById('cad-res-prat').innerText}
         } else {
           btnExodo.classList.add('is-locked');
           btnExodo.classList.remove('is-unlocked');
-          if (lockExodo) lockExodo.style.display = 'inline-block';
+          if (lockExodo) lockExodo.style.display = 'inline-flex';
+        }
+      }
+
+      // Se uma chave aberta no viewer agora foi bloqueada pelo novo plano, fecha o viewer
+      if (activeContextInsightKey) {
+        if ((activeContextInsightKey === 'romano' || activeContextInsightKey === 'estrutura') && isBasico) {
+          closeContextInsight();
+        } else if (activeContextInsightKey === 'exodo' && !isAvanc) {
+          closeContextInsight();
         }
       }
     }
@@ -6098,50 +6193,18 @@ ${document.getElementById('cad-res-prat').innerText}
       const isInterm = (currentPlan === 'intermediario');
       const isAvanc = (currentPlan === 'avancado');
 
-      const viewer = document.getElementById('context-insight-viewer');
-      const badgeTitle = document.getElementById('insight-badge-title');
-      const contentBody = document.getElementById('insight-content-body');
-
-      // Verifica se a chave está bloqueada no plano atual
+      // Se for recurso bloqueado, abre suave e pequeno diálogo e NÃO mexe na caixa abaixo
       if ((key === 'romano' || key === 'estrutura') && isBasico) {
-        if (badgeTitle) badgeTitle.innerText = "🔒 Recurso Exclusivo do Intermediário";
-        if (contentBody) {
-          contentBody.innerHTML = `
-            <div style="padding:10px 0;">
-              <p style="color:var(--brand-gold); font-weight:600; margin-bottom:6px;">Aprofundamento Histórico & Literário (Camada 2)</p>
-              <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
-                Esta chave investiga a subversão da propaganda imperial de César em Roma e a estrutura em dois atos do Evangelho de Marcos. Disponível para assinantes a partir do plano <strong>Intermediário (R$ 12,90/mês)</strong>.
-              </p>
-              <button class="master-conclude-btn" style="margin:0; padding:8px 14px; display:inline-flex; width:auto;" onclick="openUpgradeModal()">
-                Conhecer o Plano Intermediário →
-              </button>
-            </div>
-          `;
-        }
-        if (viewer) viewer.style.display = 'block';
+        openLockedPlanDialog('intermediario', 'Esta chave aprofunda o contexto histórico e a arquitetura do livro. Assine o Plano Intermediário para liberar.');
         return;
       }
 
       if (key === 'exodo' && !isAvanc) {
-        if (badgeTitle) badgeTitle.innerText = "🔒 Recurso Exclusivo do Avançado";
-        if (contentBody) {
-          contentBody.innerHTML = `
-            <div style="padding:10px 0;">
-              <p style="color:#A384D8; font-weight:600; margin-bottom:6px;">Teologia Bíblica Canônica do Segundo Êxodo (Camada 3)</p>
-              <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
-                Esta chave explora a fusão profética veterotestamentária (Êxodo, Isaías e Malaquias) e os testemunhos patrísticos sobre a pregação de Pedro. Disponível com exclusividade no plano <strong>Avançado (R$ 19,90/mês)</strong>.
-              </p>
-              <button class="master-conclude-btn" style="margin:0; padding:8px 14px; display:inline-flex; width:auto; background:#6B4FA0;" onclick="openUpgradeModal()">
-                Conhecer o Plano Avançado →
-              </button>
-            </div>
-          `;
-        }
-        if (viewer) viewer.style.display = 'block';
+        openLockedPlanDialog('avancado', 'Esta chave aprofunda a Teologia Bíblica e as raízes veterotestamentárias. Assine o Plano Avançado para liberar.');
         return;
       }
 
-      // Se liberado, abre o conteúdo normal
+      // Se liberado, alterna o conteúdo na caixa abaixo
       toggleContextInsight(key);
     }
 
@@ -6171,6 +6234,8 @@ ${document.getElementById('cad-res-prat').innerText}
       closeVersionFloatingCard();
     });
 
+    // Inicialização do gating no carregamento
+    updateContextKeysGating();
   </script>
 </body>
 </html>
