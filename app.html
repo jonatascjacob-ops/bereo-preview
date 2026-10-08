@@ -1712,6 +1712,373 @@
       from { transform: translateY(100%); }
       to { transform: translateY(0); }
     }
+  
+    /* ==========================================================================
+       SEÇÃO DE TRILHAS DE LEITURA (VIEW TRILHAS)
+       ========================================================================== */
+    .trails-header-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .trails-filter-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .trails-filter-bar::-webkit-scrollbar { display: none; }
+
+    .trail-filter-chip {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .trail-filter-chip.active {
+      background: var(--brand-gold-subtle);
+      border-color: var(--border-gold);
+      color: var(--brand-gold);
+      font-weight: 700;
+    }
+
+    .active-trail-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-left: 4px solid var(--brand-gold);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 2px 10px rgba(197, 155, 75, 0.08);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .active-trail-banner:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(197, 155, 75, 0.15);
+    }
+
+    .trail-progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-card-subtle);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .trail-progress-bar-fill {
+      height: 100%;
+      background: var(--brand-gold);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .trails-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .trail-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .trail-card:hover {
+      border-color: var(--border-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .trail-thumb-container {
+      width: 100%;
+      height: 145px;
+      position: relative;
+      background: var(--bg-card-subtle);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trail-thumb-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .trail-thumb-monogram {
+      font-family: var(--font-serif);
+      font-size: 58px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      opacity: 0.15;
+      color: #FFFFFF;
+      user-select: none;
+    }
+
+    .trail-thumb-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 12px;
+    }
+
+    .trail-thumb-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .trail-category-tag {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .trail-active-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--brand-gold);
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .trail-thumb-bottom-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .trail-duration-pill {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      color: var(--brand-gold-light);
+      border: 1px solid rgba(197, 155, 75, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .trail-card-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .trail-card-title {
+      font-family: var(--font-serif);
+      font-size: 16.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.2px;
+    }
+
+    .trail-card-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .trail-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 11px;
+    }
+
+    /* MODAL DE DETALHES DA TRILHA */
+    .trail-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 2500;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    @media (min-width: 520px) {
+      .trail-modal-backdrop {
+        align-items: center;
+        padding: 16px;
+      }
+    }
+
+    .trail-modal-sheet {
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-subtle);
+      border-radius: 18px 18px 0 0;
+      padding: 0 0 28px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -6px 30px rgba(0,0,0,0.5);
+      animation: slideUp 0.25s ease;
+    }
+    @media (min-width: 520px) {
+      .trail-modal-sheet {
+        border-radius: 18px;
+        border: 1px solid var(--border-gold);
+      }
+    }
+
+    .trail-modal-cover {
+      width: 100%;
+      height: 170px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .trail-modal-close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.2s ease;
+    }
+    .trail-modal-close-btn:hover {
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    .trail-modal-content {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .trail-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .trail-metric-box {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .trail-metric-num {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--brand-gold);
+    }
+    .trail-metric-lbl {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .trail-calendar-calc-card {
+      background: var(--brand-gold-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .trail-calendar-calc-card strong {
+      color: var(--brand-gold-light);
+    }
+
+    .trail-module-item {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+    }
+    .trail-module-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .trail-module-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
   </style>
 </head>
 <body>
@@ -3067,13 +3434,206 @@
       </section>
     </div>
 
+        <!-- VIEW 3: TRILHAS DE LEITURA & JORNADAS BÍBLICAS -->
+    <div class="app-content app-view" id="view-trilhas" style="display:none;">
+      <!-- Cabeçalho das Trilhas -->
+      <section class="trails-header-card">
+        <div>
+          <div class="trail-breadcrumb">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Bereo • Catálogo de Jornadas
+          </div>
+          <h1 class="pericope-heading" style="font-size:20px; line-height:1.25;">Trilhas de Estudo Indutivo</h1>
+          <div style="font-size:11.5px; color:var(--text-secondary); margin-top:2px;">Escolha um livro bíblico para percorrer versículo por versículo com profundidade.</div>
+        </div>
+
+        <!-- Filtros Rápidos de Categoria -->
+        <div class="trails-filter-bar">
+          <button class="trail-filter-chip active" onclick="filterTrails('todas')">Todas (5)</button>
+          <button class="trail-filter-chip" onclick="filterTrails('Evangelhos')">Evangelhos</button>
+          <button class="trail-filter-chip" onclick="filterTrails('Epístolas')">Epístolas</button>
+          <button class="trail-filter-chip" onclick="filterTrails('Antigo Testamento')">Antigo Testamento</button>
+        </div>
+      </section>
+
+      <!-- Banner de Trilha em Andamento -->
+      <section class="active-trail-banner" onclick="openTrailModal('marcos')">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:10.5px; font-weight:700; color:var(--brand-gold); text-transform:uppercase; letter-spacing:0.6px; display:flex; align-items:center; gap:5px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Sua Trilha Ativa no Momento
+          </span>
+          <span style="font-size:11px; font-weight:600; color:var(--brand-gold);">Continuar →</span>
+        </div>
+        <div style="font-family:var(--font-serif); font-size:16px; font-weight:600; color:var(--text-primary);">
+          Marcos: O Servo Divino em Ação
+        </div>
+        <div style="font-size:11.5px; color:var(--text-secondary);">
+          Dia 01 de 32 concluído • Semana 1 de 5 • Hoje: Marcos 1:1-8
+        </div>
+        <div class="trail-progress-bar-bg">
+          <div class="trail-progress-bar-fill" style="width: 3.1%;"></div>
+        </div>
+      </section>
+
+      <!-- Grade de Cards de Trilhas com Miniaturas -->
+      <section class="trails-grid" id="trails-cards-grid">
+
+        <!-- CARD 1: MARCOS -->
+        <article class="trail-card" data-category="Evangelhos" onclick="openTrailModal('marcos')">
+          <div class="trail-thumb-container">
+            <div class="trail-thumb-bg" style="background: linear-gradient(135deg, #1E1B18 0%, #2D2319 50%, #43321A 100%);">
+              <span class="trail-thumb-monogram">MC</span>
+            </div>
+            <div class="trail-thumb-overlay">
+              <div class="trail-thumb-top-row">
+                <span class="trail-category-tag">Evangelhos</span>
+                <span class="trail-active-badge">✓ Trilha Ativa</span>
+              </div>
+              <div class="trail-thumb-bottom-row">
+                <span class="trail-duration-pill">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  32 Devocionais • 5 Semanas
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="trail-card-body">
+            <h2 class="trail-card-title">Marcos: O Servo Divino em Ação</h2>
+            <p class="trail-card-desc">O evangelho da urgência e da cruz. Acompanhe a autoridade imediata de Jesus subvertendo as legiões de César.</p>
+            <div class="trail-card-footer">
+              <span style="color:var(--text-tertiary);">15 a 20 min/dia</span>
+              <span style="color:var(--brand-gold); font-weight:600;">Ver Panorama & Iniciar →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 2: FILEMOM -->
+        <article class="trail-card" data-category="Epístolas" onclick="openTrailModal('filemom')">
+          <div class="trail-thumb-container">
+            <div class="trail-thumb-bg" style="background: linear-gradient(135deg, #161D1A 0%, #1A2823 50%, #203A2F 100%);">
+              <span class="trail-thumb-monogram">FLM</span>
+            </div>
+            <div class="trail-thumb-overlay">
+              <div class="trail-thumb-top-row">
+                <span class="trail-category-tag">Epístolas</span>
+                <span style="font-size:9.5px; font-weight:700; color:#68B088; background:rgba(45,122,88,0.3); padding:2px 7px; border-radius:4px; border:1px solid rgba(45,122,88,0.5);">Vitória Rápida</span>
+              </div>
+              <div class="trail-thumb-bottom-row">
+                <span class="trail-duration-pill" style="border-color:rgba(62,142,102,0.4); color:#68B088;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  4 Devocionais • 1 Semana
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="trail-card-body">
+            <h2 class="trail-card-title">Filemom: A Aliança da Reconciliação</h2>
+            <p class="trail-card-desc">Uma jornada curta e transformadora sobre o poder do perdão e da graça que acolhe escravos como irmãos amados.</p>
+            <div class="trail-card-footer">
+              <span style="color:var(--text-tertiary);">10 a 15 min/dia</span>
+              <span style="color:var(--brand-gold); font-weight:600;">Ver Panorama & Iniciar →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 3: TIAGO -->
+        <article class="trail-card" data-category="Epístolas" onclick="openTrailModal('tiago')">
+          <div class="trail-thumb-container">
+            <div class="trail-thumb-bg" style="background: linear-gradient(135deg, #181B24 0%, #1D2333 50%, #232D48 100%);">
+              <span class="trail-thumb-monogram">TG</span>
+            </div>
+            <div class="trail-thumb-overlay">
+              <div class="trail-thumb-top-row">
+                <span class="trail-category-tag">Epístolas Práticas</span>
+                <span style="font-size:9.5px; font-weight:700; color:#82A9F5; background:rgba(91,141,239,0.2); padding:2px 7px; border-radius:4px; border:1px solid rgba(91,141,239,0.4);">Sabedoria Real</span>
+              </div>
+              <div class="trail-thumb-bottom-row">
+                <span class="trail-duration-pill" style="border-color:rgba(91,141,239,0.4); color:#82A9F5;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  15 Devocionais • 3 Semanas
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="trail-card-body">
+            <h2 class="trail-card-title">Tiago: Fé Viva e Sabedoria no Cotidiano</h2>
+            <p class="trail-card-desc">A fé em obras práticas. Como frear a língua, acolher os pobres e manifestar a sabedoria pura que desce do alto.</p>
+            <div class="trail-card-footer">
+              <span style="color:var(--text-tertiary);">15 a 20 min/dia</span>
+              <span style="color:var(--brand-gold); font-weight:600;">Ver Panorama & Iniciar →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 4: RUTE -->
+        <article class="trail-card" data-category="Antigo Testamento" onclick="openTrailModal('rute')">
+          <div class="trail-thumb-container">
+            <div class="trail-thumb-bg" style="background: linear-gradient(135deg, #20191B 0%, #301F25 50%, #482330 100%);">
+              <span class="trail-thumb-monogram">RT</span>
+            </div>
+            <div class="trail-thumb-overlay">
+              <div class="trail-thumb-top-row">
+                <span class="trail-category-tag">Antigo Testamento</span>
+                <span style="font-size:9.5px; font-weight:700; color:#D96B7D; background:rgba(158,50,74,0.2); padding:2px 7px; border-radius:4px; border:1px solid rgba(158,50,74,0.4);">Graça Pactual</span>
+              </div>
+              <div class="trail-thumb-bottom-row">
+                <span class="trail-duration-pill" style="border-color:rgba(158,50,74,0.4); color:#D96B7D;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  10 Devocionais • 2 Semanas
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="trail-card-body">
+            <h2 class="trail-card-title">Rute: Redenção e Providência Soberana</h2>
+            <p class="trail-card-desc">A mão invisível de Deus que transforma o luto em colheita farta e aponta para o nosso Supremo Resgatador.</p>
+            <div class="trail-card-footer">
+              <span style="color:var(--text-tertiary);">15 min/dia</span>
+              <span style="color:var(--brand-gold); font-weight:600;">Ver Panorama & Iniciar →</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 5: GÁLATAS (EM BREVE NO CATÁLOGO) -->
+        <article class="trail-card" data-category="Epístolas" onclick="openTrailModal('galatas')">
+          <div class="trail-thumb-container">
+            <div class="trail-thumb-bg" style="background: linear-gradient(135deg, #1F1916 0%, #2E211A 50%, #452D1E 100%);">
+              <span class="trail-thumb-monogram">GL</span>
+            </div>
+            <div class="trail-thumb-overlay">
+              <div class="trail-thumb-top-row">
+                <span class="trail-category-tag">Epístolas</span>
+                <span style="font-size:9.5px; font-weight:700; color:#F59E0B; background:rgba(217,119,6,0.2); padding:2px 7px; border-radius:4px; border:1px solid rgba(217,119,6,0.4);">Em Breve</span>
+              </div>
+              <div class="trail-thumb-bottom-row">
+                <span class="trail-duration-pill" style="border-color:rgba(217,119,6,0.4); color:#F59E0B;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  24 Devocionais • 4 Semanas
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="trail-card-body">
+            <h2 class="trail-card-title">Gálatas: A Liberdade no Evangelho</h2>
+            <p class="trail-card-desc">O manifesto da justificação pela fé. Como viver livres do peso do legalismo pelo fruto do Espírito Santo.</p>
+            <div class="trail-card-footer">
+              <span style="color:var(--text-tertiary);">Curadoria no Backoffice</span>
+              <span style="color:var(--brand-gold); font-weight:600;">Ver Detalhes →</span>
+            </div>
+          </div>
+        </article>
+
+      </section>
+    </div>
+
     <!-- BARRA DE NAVEGAÇÃO INFERIOR DO APP -->
     <nav class="bottom-app-nav">
       <div class="nav-tab-item active" id="nav-btn-hoje" onclick="switchNavTab('hoje')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Hoje
       </div>
-      <div class="nav-tab-item" onclick="alert('Trilhas de Leitura: Em breve no roadmap Bereo!')">
+      <div class="nav-tab-item" id="nav-btn-trilhas" onclick="switchNavTab('trilhas')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         Trilhas
       </div>
@@ -3094,6 +3654,107 @@
 
   <!-- MODAL INFERIOR LÉXICO STRONG (EXCLUSIVO DO AVANÇADO) -->
     <!-- MODAL DE UPGRADE DO TUTOR (PARA PLANO BÁSICO GRATUITO) -->
+    <!-- MODAL DE DETALHES DA TRILHA (CARTÃO DE EMBARQUE DA TRILHA) -->
+  <div class="trail-modal-backdrop" id="trail-detail-modal" onclick="closeTrailModal()">
+    <div class="trail-modal-sheet" onclick="event.stopPropagation()">
+      
+      <!-- Miniatura / Capa em Destaque -->
+      <div class="trail-modal-cover" id="modal-trail-cover">
+        <button class="trail-modal-close-btn" onclick="closeTrailModal()" aria-label="Fechar">✕</button>
+        <div id="modal-trail-bg" style="position:absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center;">
+          <span class="trail-thumb-monogram" id="modal-trail-monogram">MC</span>
+        </div>
+        <div style="position:absolute; bottom:12px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:center;">
+          <span class="trail-category-tag" id="modal-trail-category">Evangelhos</span>
+          <span class="trail-duration-pill" id="modal-trail-duration-pill">32 Devocionais • 5 Semanas</span>
+        </div>
+      </div>
+
+      <!-- Conteúdo do Cartão de Embarque -->
+      <div class="trail-modal-content">
+        <div>
+          <h2 style="font-family:var(--font-serif); font-size:20px; font-weight:700; color:var(--text-primary); line-height:1.25;" id="modal-trail-title">
+            Marcos: O Servo Divino em Ação
+          </h2>
+          <p style="font-size:12.5px; color:var(--text-secondary); margin-top:4px;" id="modal-trail-subtitle">
+            O Evangelho dramático da ação imediata e do caminho da cruz.
+          </p>
+        </div>
+
+        <!-- Métricas Principais da Trilha -->
+        <div class="trail-metrics-grid">
+          <div class="trail-metric-box">
+            <span class="trail-metric-num" id="modal-metric-devocionais">32</span>
+            <span class="trail-metric-lbl">Devocionais</span>
+          </div>
+          <div class="trail-metric-box">
+            <span class="trail-metric-num" id="modal-metric-semanas">5</span>
+            <span class="trail-metric-lbl">Semanas</span>
+          </div>
+          <div class="trail-metric-box">
+            <span class="trail-metric-num" id="modal-metric-tempo">15-20m</span>
+            <span class="trail-metric-lbl">Por Dia</span>
+          </div>
+        </div>
+
+        <!-- Cálculo Dinâmico de Início e Término -->
+        <div class="trail-calendar-calc-card">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--brand-gold); flex-shrink:0; margin-top:2px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <div>
+            <div style="font-weight:700; color:var(--brand-gold); margin-bottom:2px;" id="modal-calc-heading">
+              Previsão de Término ao Iniciar Hoje:
+            </div>
+            <div id="modal-calc-text">
+              Se você começar hoje (08/10), concluirá esta jornada em <strong>14 de Novembro de 2026</strong>!
+            </div>
+            <div style="font-size:11px; color:var(--text-tertiary); margin-top:3px;">
+              • 6 dias de leitura semanal com domingos dedicados ao descanso e à liturgia comunitária.
+            </div>
+          </div>
+        </div>
+
+        <!-- Panorama Geral do Que Vai Ser Estudado -->
+        <div>
+          <div style="font-size:11px; font-weight:700; color:var(--brand-gold); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px;">
+            Panorama Geral da Jornada
+          </div>
+          <p style="font-size:12.5px; line-height:1.6; color:var(--text-primary);" id="modal-trail-summary">
+            Resumo teológico detalhado da trilha...
+          </p>
+        </div>
+
+        <!-- Versículos-Chave -->
+        <div style="background:var(--bg-card-subtle); border:1px solid var(--border-subtle); border-radius:6px; padding:10px 12px;">
+          <div style="font-size:10.5px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">
+            Versículos-Âncora Principais:
+          </div>
+          <div style="font-size:12px; font-weight:600; color:var(--brand-gold);" id="modal-trail-verses">
+            Marcos 1:15 • Marcos 8:34 • Marcos 10:45
+          </div>
+        </div>
+
+        <!-- Roteiro Estruturado por Semanas / Módulos -->
+        <div>
+          <div style="font-size:11px; font-weight:700; color:var(--brand-gold); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">
+            Estrutura Semanal do Estudo
+          </div>
+          <div id="modal-trail-modules-container">
+            <!-- Módulos injetados via JS -->
+          </div>
+        </div>
+
+        <!-- Ação Principal de Iniciar Trilha -->
+        <div style="margin-top:6px;">
+          <button class="master-conclude-btn" id="modal-btn-start-trail" style="margin:0;" onclick="startOrContinueActiveTrail()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span id="modal-btn-start-label">Continuar Trilha • Ir para Marcos 1:1-8</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <div class="upgrade-modal-backdrop" id="tutor-upgrade-modal" onclick="closeUpgradeModal()">
     <div class="upgrade-modal-card" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -3511,23 +4172,34 @@
       activeNavTab = tab;
       const viewHoje = document.getElementById('view-hoje');
       const viewCaderno = document.getElementById('view-caderno');
+      const viewTrilhas = document.getElementById('view-trilhas');
       const btnHoje = document.getElementById('nav-btn-hoje');
       const btnCaderno = document.getElementById('nav-btn-caderno');
+      const btnTrilhas = document.getElementById('nav-btn-trilhas');
+
+      // Desativa todas as views
+      if (viewHoje) viewHoje.style.display = 'none';
+      if (viewCaderno) viewCaderno.style.display = 'none';
+      if (viewTrilhas) viewTrilhas.style.display = 'none';
+
+      // Desativa botões da barra
+      if (btnHoje) btnHoje.classList.remove('active');
+      if (btnCaderno) btnCaderno.classList.remove('active');
+      if (btnTrilhas) btnTrilhas.classList.remove('active');
 
       if (tab === 'caderno') {
         syncCadernoData();
-        if (viewHoje) viewHoje.style.display = 'none';
         if (viewCaderno) viewCaderno.style.display = 'flex';
-        if (btnHoje) btnHoje.classList.remove('active');
         if (btnCaderno) btnCaderno.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (tab === 'trilhas') {
+        if (viewTrilhas) viewTrilhas.style.display = 'flex';
+        if (btnTrilhas) btnTrilhas.classList.add('active');
       } else {
-        if (viewCaderno) viewCaderno.style.display = 'none';
         if (viewHoje) viewHoje.style.display = 'flex';
-        if (btnCaderno) btnCaderno.classList.remove('active');
         if (btnHoje) btnHoje.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // SUB-ABAS DENTRO DO CADERNO (HOJE, TIMELINE, EXPORTAR)
@@ -3991,6 +4663,237 @@ ${document.getElementById('cad-res-prat').innerText}
       setTypography('balanced');
       document.querySelectorAll('.response-input').forEach(t => autoExpand(t));
     });
+    // DADOS OFICIAIS DAS TRILHAS DE LEITURA (DOXAZEN CANÔNICO)
+    const TRAILS_DATA = {
+      marcos: {
+        id: "marcos",
+        book: "Marcos",
+        monogram: "MC",
+        title: "Marcos: O Servo Divino em Ação",
+        subtitle: "O Evangelho dramático da ação imediata e do caminho da cruz.",
+        category: "Evangelhos",
+        totalDays: 32,
+        weeks: 5,
+        dailyTime: "15-20m",
+        active: true,
+        bgGradient: "linear-gradient(135deg, #1E1B18 0%, #2D2319 50%, #43321A 100%)",
+        summary: "Escrito por João Marcos sob o testemunho de Pedro em Roma, este evangelho apresenta Jesus como o Servo Soberano que não veio para ser servido, mas para dar a Sua vida em resgate de muitos. O livro subverte o triunfalismo imperial romano ao demonstrar que a glória de Deus se revela no caminho sacrificial da cruz.",
+        keyVerses: "Marcos 1:15 • Marcos 8:34 • Marcos 10:45 • Marcos 16:6",
+        modules: [
+          { title: "Semana 1 (Cap. 1 a 3)", desc: "O Reino Rompe o Silêncio: o ministério no deserto, autoridade sobre doenças e a vocação dos Doze." },
+          { title: "Semana 2 (Cap. 4 a 6)", desc: "Parábolas do Reino e Tempestades: o domínio sobre o caos, a fé perseverante e o envio dos discípulos." },
+          { title: "Semana 3 (Cap. 7 a 9)", desc: "Quem é Este Homem? A pureza do coração, a confissão de Pedro, a Transfiguração e o poder da oração." },
+          { title: "Semana 4 (Cap. 10 a 13)", desc: "O Caminho do Servo: liderança servil, a entrada em Jerusalém, purificação do Templo e o discurso profético." },
+          { title: "Semana 5 (Cap. 14 a 16)", desc: "A Aliança e a Ressurreição: a instituição da Ceia, o Getsêmani, a cruz no Calvário e o túmulo vazio." }
+        ]
+      },
+      filemom: {
+        id: "filemom",
+        book: "Filemom",
+        monogram: "FLM",
+        title: "Filemom: A Aliança da Reconciliação",
+        subtitle: "Vitória rápida de 1 semana sobre a força do perdão fraternal.",
+        category: "Epístolas",
+        totalDays: 4,
+        weeks: 1,
+        dailyTime: "10-15m",
+        active: false,
+        bgGradient: "linear-gradient(135deg, #161D1A 0%, #1A2823 50%, #203A2F 100%)",
+        summary: "Uma carta pessoal e profunda de Paulo escrita da prisão ao líder Filemom. Paulo intercede pelo escravo fugitivo Onésimo, agora convertido. Paulo assume voluntariamente suas dívidas e pede que Filemom o acolha não mais como servo, mas como irmão amado em Cristo, demonstrando como o Evangelho destrói barreiras sociais.",
+        keyVerses: "Filemom 1:4 • Filemom 1:16 • Filemom 1:18",
+        modules: [
+          { title: "Semana Única (4 Encontros)", desc: "Dia 1: Ação de Graças pela Fé • Dia 2: O Apelo Paternal • Dia 3: Irmão Amado e Oferta Vicária • Dia 4: Confiança e Restauração." }
+        ]
+      },
+      tiago: {
+        id: "tiago",
+        book: "Tiago",
+        monogram: "TG",
+        title: "Tiago: Fé Viva e Sabedoria no Cotidiano",
+        subtitle: "A epístola prática que chama à obediência e desmascara ilusões.",
+        category: "Epístolas",
+        totalDays: 15,
+        weeks: 3,
+        dailyTime: "15-20m",
+        active: false,
+        bgGradient: "linear-gradient(135deg, #181B24 0%, #1D2333 50%, #232D48 100%)",
+        summary: "A sabedoria prática de Provérbios e o Sermão do Monte aplicados ao dia a dia da comunidade cristã. Tiago ensina que a verdadeira fé produz frutos visíveis de obediência: perseverança nas provações, freio na língua, misericórdia para com os vulneráveis e oração perseverante.",
+        keyVerses: "Tiago 1:2 • Tiago 1:22 • Tiago 2:17 • Tiago 3:17 • Tiago 5:16",
+        modules: [
+          { title: "Semana 1 (Cap. 1)", desc: "Alegria nas Provações, Sabedoria do Alto e Praticantes da Palavra Viva." },
+          { title: "Semana 2 (Cap. 2 e 3)", desc: "Fé Sem Obras é Morta, o Pecado do Preconceito e o Poder da Língua." },
+          { title: "Semana 3 (Cap. 4 e 5)", desc: "Humildade Diante de Deus, Paciência na Espera e o Poder da Oração do Justo." }
+        ]
+      },
+      rute: {
+        id: "rute",
+        book: "Rute",
+        monogram: "RT",
+        title: "Rute: Redenção e Providência Soberana",
+        subtitle: "A graça silenciosa de Deus que transforma luto em colheita farta.",
+        category: "Antigo Testamento",
+        totalDays: 10,
+        weeks: 2,
+        dailyTime: "15m",
+        active: false,
+        bgGradient: "linear-gradient(135deg, #20191B 0%, #301F25 50%, #482330 100%)",
+        summary: "Ambientada nos tempos sombrios dos Juízes, a história de Rute demonstra como Deus governa cada detalhe da vida comum para cumprir o Seu plano redentor. Em meio à fome e à perda, a lealdade de Rute e a redenção operada por Boaz como parente resgatador (*goel*) apontam diretamente para a linhagem de Davi e de Jesus Cristo.",
+        keyVerses: "Rute 1:16 • Rute 2:12 • Rute 3:9 • Rute 4:14",
+        modules: [
+          { title: "Semana 1 (Cap. 1 e 2)", desc: "Da Crise em Moabe à Providência no Campo de Boaz em Belém." },
+          { title: "Semana 2 (Cap. 3 e 4)", desc: "O Pedido de Resgate na Eira, a Assembleia na Porta da Cidade e a Restauração de Noemi." }
+        ]
+      },
+      galatas: {
+        id: "galatas",
+        book: "Gálatas",
+        monogram: "GL",
+        title: "Gálatas: A Liberdade no Evangelho",
+        subtitle: "O manifesto da justificação pela fé, sem jugo de legalismo.",
+        category: "Epístolas",
+        totalDays: 24,
+        weeks: 4,
+        dailyTime: "15-20m",
+        active: false,
+        bgGradient: "linear-gradient(135deg, #1F1916 0%, #2E211A 50%, #452D1E 100%)",
+        summary: "A defesa apaixonada do apóstolo Paulo da pureza do Evangelho. Paulo demonstra que nenhum ser humano é justificado pelas obras da lei, mas unicamente pela graça mediante a fé em Jesus Cristo, capacitando o discípulo a andar no poder do Espírito Santo.",
+        keyVerses: "Gálatas 2:20 • Gálatas 5:1 • Gálatas 5:22",
+        modules: [
+          { title: "Em Curadoria no Backoffice", desc: "Esta trilha está em fase de revisão teológica no painel administrativo do Bereo." }
+        ]
+      }
+    };
+
+    let selectedModalTrailId = 'marcos';
+
+    // CÁLCULO DINÂMICO DA DATA DE TÉRMINO (PULANDO DOMINGOS DE DESCANSO)
+    function calculateTrailDates(totalDays) {
+      const today = new Date();
+      let count = 0;
+      let curr = new Date(today);
+
+      while (count < totalDays) {
+        curr.setDate(curr.getDate() + 1);
+        // Pula domingos (0 = domingo)
+        if (curr.getDay() !== 0) {
+          count++;
+        }
+      }
+
+      const options = { day: '2-digit', month: 'long', year: 'numeric' };
+      const todayStr = today.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+      const finishStr = curr.toLocaleDateString('pt-BR', options);
+
+      return {
+        todayStr,
+        finishStr,
+        formattedMsg: `Se você começar hoje (${todayStr}), concluirá esta jornada em <strong>${finishStr}</strong>!`
+      };
+    }
+
+    // ABRIR MODAL DE DETALHES DA TRILHA
+    function openTrailModal(trailId) {
+      const trail = TRAILS_DATA[trailId];
+      if (!trail) return;
+
+      selectedModalTrailId = trailId;
+      const modal = document.getElementById('trail-detail-modal');
+
+      // Capa e cabeçalho
+      const bg = document.getElementById('modal-trail-bg');
+      const monogram = document.getElementById('modal-trail-monogram');
+      const category = document.getElementById('modal-trail-category');
+      const durPill = document.getElementById('modal-trail-duration-pill');
+      const title = document.getElementById('modal-trail-title');
+      const subtitle = document.getElementById('modal-trail-subtitle');
+
+      if (bg) bg.style.background = trail.bgGradient;
+      if (monogram) monogram.innerText = trail.monogram;
+      if (category) category.innerText = trail.category;
+      if (durPill) durPill.innerText = `${trail.totalDays} Devocionais • ${trail.weeks} ${trail.weeks === 1 ? 'Semana' : 'Semanas'}`;
+      if (title) title.innerText = trail.title;
+      if (subtitle) subtitle.innerText = trail.subtitle;
+
+      // Métricas
+      document.getElementById('modal-metric-devocionais').innerText = trail.totalDays;
+      document.getElementById('modal-metric-semanas').innerText = trail.weeks;
+      document.getElementById('modal-metric-tempo').innerText = trail.dailyTime;
+
+      // Cálculo de datas
+      const dateCalc = calculateTrailDates(trail.totalDays);
+      const calcText = document.getElementById('modal-calc-text');
+      if (calcText) calcText.innerHTML = dateCalc.formattedMsg;
+
+      // Resumo e versículos
+      document.getElementById('modal-trail-summary').innerText = trail.summary;
+      document.getElementById('modal-trail-verses').innerText = trail.keyVerses;
+
+      // Módulos
+      const modContainer = document.getElementById('modal-trail-modules-container');
+      if (modContainer) {
+        let html = '';
+        trail.modules.forEach(m => {
+          html += `
+            <div class="trail-module-item">
+              <div class="trail-module-title">${m.title}</div>
+              <div class="trail-module-desc">${m.desc}</div>
+            </div>
+          `;
+        });
+        modContainer.innerHTML = html;
+      }
+
+      // Botão de ação
+      const btnLabel = document.getElementById('modal-btn-start-label');
+      if (btnLabel) {
+        if (trailId === 'marcos') {
+          btnLabel.innerText = "Continuar Trilha • Ir para Marcos 1:1-8 (Hoje)";
+        } else if (trailId === 'galatas') {
+          btnLabel.innerText = "Trilha em Breve (Notificar no Lançamento)";
+        } else {
+          btnLabel.innerText = `Iniciar Trilha de ${trail.book}`;
+        }
+      }
+
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeTrailModal() {
+      const modal = document.getElementById('trail-detail-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function startOrContinueActiveTrail() {
+      closeTrailModal();
+      if (selectedModalTrailId === 'marcos') {
+        switchNavTab('hoje');
+      } else if (selectedModalTrailId === 'galatas') {
+        alert("A Trilha de Gálatas estará disponível em breve no Catálogo Bereo!");
+      } else {
+        alert(`Você selecionou a trilha de ${TRAILS_DATA[selectedModalTrailId].title}! Em breve no app completo.`);
+      }
+    }
+
+    // FILTRO DE CATEGORIAS DE TRILHAS
+    function filterTrails(cat) {
+      document.querySelectorAll('.trail-filter-chip').forEach(c => {
+        if (c.innerText.toLowerCase().includes(cat.toLowerCase()) || (cat === 'todas' && c.innerText.includes('Todas'))) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+
+      document.querySelectorAll('#trails-cards-grid .trail-card').forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (cat === 'todas' || cardCat === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
   </script>
 </body>
 </html>
