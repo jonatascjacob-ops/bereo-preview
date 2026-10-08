@@ -41,10 +41,26 @@
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       
+      --font-size-bible: 15.5px;
+      --line-height-bible: 1.85;
+
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
       --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    html[data-font-size="compact"] {
+      --font-size-bible: 14px;
+      --line-height-bible: 1.6;
+    }
+    html[data-font-size="balanced"] {
+      --font-size-bible: 15.5px;
+      --line-height-bible: 1.85;
+    }
+    html[data-font-size="comfortable"] {
+      --font-size-bible: 18px;
+      --line-height-bible: 2.1;
     }
 
     [data-theme="light"] {
@@ -197,6 +213,45 @@
       border-color: var(--brand-gold);
     }
 
+    /* Controle Tipográfico Aa */
+    .typography-control {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      gap: 2px;
+    }
+    .typo-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-gold);
+      padding: 0 6px;
+      user-select: none;
+    }
+    .typo-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .typo-btn:hover {
+      color: var(--text-primary);
+    }
+    .typo-btn.active {
+      background: var(--bg-card);
+      color: var(--brand-gold);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
     /* ==========================================================================
        CONTAINER DO APLICATIVO (SEM MOLDURA DE CELULAR)
        SEMPRE FLUIDO NO MOBILE E COM LARGURA IDEAL CENTRALIZADA NO DESKTOP
@@ -228,32 +283,44 @@
     .show-basico,
     .show-intermediario,
     .show-avancado,
+    .show-int-adv,
+    .show-basic-int,
     .flex-basico,
     .flex-intermediario,
     .flex-avancado,
     .inline-basico,
     .inline-intermediario,
-    .inline-avancado {
+    .inline-avancado,
+    .inline-int-adv,
+    .inline-basic-int {
       display: none !important;
     }
 
     html[data-depth="basico"] .show-basico { display: block !important; }
+    html[data-depth="basico"] .show-basic-int { display: block !important; }
     html[data-depth="basico"] .flex-basico { display: flex !important; }
     html[data-depth="basico"] span.show-basico,
-    html[data-depth="basico"] .inline-basico { display: inline-flex !important; }
+    html[data-depth="basico"] .inline-basico,
+    html[data-depth="basico"] .inline-basic-int { display: inline-flex !important; }
 
     html[data-depth="intermediario"] .show-intermediario { display: block !important; }
+    html[data-depth="intermediario"] .show-int-adv { display: block !important; }
+    html[data-depth="intermediario"] .show-basic-int { display: block !important; }
     html[data-depth="intermediario"] .flex-intermediario { display: flex !important; }
     html[data-depth="intermediario"] .version-tabs-nav.show-intermediario { display: inline-flex !important; }
     html[data-depth="intermediario"] span.show-intermediario,
-    html[data-depth="intermediario"] .inline-intermediario { display: inline-flex !important; }
+    html[data-depth="intermediario"] .inline-intermediario,
+    html[data-depth="intermediario"] .inline-int-adv,
+    html[data-depth="intermediario"] .inline-basic-int { display: inline-flex !important; }
 
     html[data-depth="avancado"] .show-avancado { display: block !important; }
+    html[data-depth="avancado"] .show-int-adv { display: block !important; }
     html[data-depth="avancado"] .flex-avancado { display: flex !important; }
     html[data-depth="avancado"] .version-tabs-nav.show-avancado { display: inline-flex !important; }
     html[data-depth="avancado"] span.show-avancado,
     html[data-depth="avancado"] .strong-tag.show-avancado,
-    html[data-depth="avancado"] .inline-avancado { display: inline-flex !important; }
+    html[data-depth="avancado"] .inline-avancado,
+    html[data-depth="avancado"] .inline-int-adv { display: inline-flex !important; }
 
     /* ==========================================================================
        1. CABEÇALHO DO DEVOCIONAL DO DIA
@@ -456,6 +523,43 @@
       color: var(--text-primary);
     }
 
+    /* 3 Camadas do Cartão de Embarque */
+    .context-layer-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .context-layer-block:last-child {
+      margin-bottom: 0;
+    }
+    .context-layer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .context-layer-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--brand-gold);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .context-layer-status {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+    }
+
     /* ==========================================================================
        4. CARTÃO DE LEITURA BÍBLICA (ORGANIZAÇÃO IMPECÁVEL DAS VERSÕES)
        ========================================================================== */
@@ -530,9 +634,10 @@
 
     .scripture-body-text {
       font-family: var(--font-serif);
-      font-size: 15.5px;
-      line-height: 1.85;
+      font-size: var(--font-size-bible, 15.5px);
+      line-height: var(--line-height-bible, 1.85);
       color: var(--text-primary);
+      transition: font-size 0.2s ease, line-height 0.2s ease;
     }
 
     .v-num {
@@ -664,6 +769,14 @@
       font-size: 13.5px;
       line-height: 1.6;
     }
+    .compare-cols-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      font-family: var(--font-serif);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
     .compare-cols-4 {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -671,6 +784,11 @@
       font-family: var(--font-serif);
       font-size: 12.5px;
       line-height: 1.5;
+    }
+    @media (max-width: 480px) {
+      .compare-cols-3 {
+        grid-template-columns: 1fr;
+      }
     }
     .col-version-card {
       background: var(--bg-card);
@@ -686,6 +804,77 @@
       margin-bottom: 4px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+    }
+
+    /* Seletor de Chips de Versões no Modo Comparação */
+    .compare-chips-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px 10px;
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin-bottom: 4px;
+    }
+    .compare-chip {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      user-select: none;
+    }
+    .compare-chip:hover {
+      color: var(--text-primary);
+      border-color: var(--brand-gold);
+    }
+    .compare-chip.active {
+      background: var(--brand-gold-subtle);
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+      font-weight: 700;
+    }
+
+    /* Destaque Interativo de Palavras Cruzadas no Comparador */
+    .kw-highlight {
+      cursor: pointer;
+      padding: 1px 3px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+      border-bottom: 1.5px dotted var(--brand-gold);
+      position: relative;
+    }
+    .kw-highlight:hover {
+      background: rgba(163, 123, 49, 0.15);
+    }
+    .kw-highlight.active-match {
+      background: #E8B923 !important;
+      color: #1A1A1A !important;
+      font-weight: 600;
+      border-bottom: none;
+      border-radius: 4px;
+      box-shadow: 0 0 0 2px rgba(232, 185, 35, 0.35);
+    }
+    .kw-comparison-notice {
+      display: none;
+      background: var(--brand-gold-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 11.5px;
+      color: var(--text-primary);
+      line-height: 1.5;
+      animation: fadeIn 0.25s ease;
     }
 
     @keyframes textFlash {
@@ -760,17 +949,20 @@
 
     .response-input {
       width: 100%;
-      min-height: 68px;
+      min-height: 54px;
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 10px 12px;
       font-family: var(--font-sans);
       font-size: 13px;
+      line-height: 1.5;
       color: var(--text-primary);
-      resize: vertical;
+      resize: none;
+      overflow-y: hidden;
       outline: none;
-      transition: border-color 0.2s ease;
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, height 0.15s ease;
     }
     .response-input:focus {
       border-color: var(--brand-gold);
@@ -947,6 +1139,77 @@
       background: var(--brand-gold-subtle);
     }
 
+    /* Retrospectiva em Camadas (Timeline Devocional) */
+    .timeline-memory-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--brand-gold);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .timeline-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .timeline-content {
+      display: none;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 8px;
+      margin-top: 4px;
+      font-style: italic;
+      animation: fadeIn 0.25s ease;
+    }
+
+    /* Ação Principal de Conclusão do Estudo */
+    .master-conclude-btn {
+      width: 100%;
+      background: var(--brand-gold);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(163, 123, 49, 0.25);
+      transition: all 0.25s ease;
+      margin-top: 6px;
+      margin-bottom: 24px;
+    }
+    .master-conclude-btn:hover {
+      opacity: 0.93;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(163, 123, 49, 0.35);
+    }
+    .master-conclude-btn.concluded {
+      background: var(--brand-olive);
+      box-shadow: 0 4px 14px rgba(45, 122, 88, 0.25);
+    }
+
     /* Modal Inferior Léxico Strong */
     .strong-modal-backdrop {
       display: none;
@@ -1039,7 +1302,7 @@
       <div class="depth-switcher-group" id="depth-controls">
         <button class="depth-btn" onclick="switchDepth('basico')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
-          Básico (Free)
+          Básico (Gratuito / R$ 5,90)
         </button>
         <button class="depth-btn active" onclick="switchDepth('intermediario')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -1051,11 +1314,22 @@
         </button>
       </div>
 
-      <!-- Alternador de Tema -->
-      <button class="theme-toggle-btn" onclick="toggleTheme()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <span id="theme-label">Modo Claro</span>
-      </button>
+      <!-- Controles de Leitura e Tema -->
+      <div style="display:flex; align-items:center; gap:8px;">
+        <!-- Controle Tipográfico Aa -->
+        <div class="typography-control" title="Ajuste do Tamanho e Entrelinhas do Texto Bíblico">
+          <span class="typo-tag">Aa</span>
+          <button class="typo-btn" id="typo-compact" onclick="setTypography('compact')">Compacto</button>
+          <button class="typo-btn active" id="typo-balanced" onclick="setTypography('balanced')">Equilibrado</button>
+          <button class="typo-btn" id="typo-comfortable" onclick="setTypography('comfortable')">Confortável</button>
+        </div>
+
+        <!-- Alternador de Tema -->
+        <button class="theme-toggle-btn" onclick="toggleTheme()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <span id="theme-label">Modo Claro</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -1070,7 +1344,8 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>
             Marcos em 32 Dias • Dia 01
           </div>
-          <h1 class="pericope-heading">Marcos 1:1-8</h1>
+          <h1 class="pericope-heading" style="font-size:20px; line-height:1.25;">O Princípio do Evangelho e a Voz no Deserto</h1>
+          <div style="font-size:13.5px; font-weight:600; color:var(--brand-gold); margin-top:2px;">Marcos 1:1-8</div>
         </div>
 
         <span class="depth-badge show-basico basico">Nível Básico</span>
@@ -1120,7 +1395,7 @@
         </div>
       </section>
 
-      <!-- 3. CARTÃO DE EMBARQUE DO LIVRO DE MARCOS -->
+      <!-- 3. CARTÃO DE EMBARQUE DO LIVRO DE MARCOS (3 PROFUNDIDADES) -->
       <section class="context-intro-card">
         <div class="context-header" onclick="toggleContext()">
           <span class="context-title">
@@ -1130,18 +1405,73 @@
           <svg id="context-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
         <div class="context-body" id="context-content">
-          <div class="context-grid">
-            <div>
-              <div class="context-field-label">Autor Histórico</div>
-              <div class="context-field-val">João Marcos (c. 64-68 d.C.)</div>
+          <!-- CAMADA 1: BÁSICO (Fundamento Essencial) -->
+          <div class="context-layer-block">
+            <div class="context-layer-header">
+              <span class="context-layer-tag">Camada 1 • Fundamento Essencial</span>
+              <span class="context-layer-status" style="color:var(--brand-gold);">Ativa em todos os níveis</span>
             </div>
-            <div>
-              <div class="context-field-label">Destinatários</div>
-              <div class="context-field-val">Cristãos perseguidos em Roma</div>
+            <div class="context-grid">
+              <div>
+                <div class="context-field-label">Autor Histórico</div>
+                <div class="context-field-val">João Marcos (c. 64-68 d.C.)</div>
+              </div>
+              <div>
+                <div class="context-field-label">Destinatários</div>
+                <div class="context-field-val">Cristãos sob perseguição em Roma</div>
+              </div>
+              <div>
+                <div class="context-field-label">Palavra-Chave Motora</div>
+                <div class="context-field-val"><em>Euthys</em> (εὐθύς — "imediatamente", 41x)</div>
+              </div>
+              <div>
+                <div class="context-field-label">Propósito Teológico</div>
+                <div class="context-field-val">O Servo Divino em ação (Mc 10:45)</div>
+              </div>
             </div>
-            <div style="grid-column: span 2;">
-              <div class="context-field-label">Propósito Teológico Central</div>
-              <div class="context-field-val">Apresentar Jesus como o Servo Divino em ação, que veio para servir e dar a vida em resgate.</div>
+          </div>
+
+          <!-- CAMADA 2: INTERMEDIÁRIO (Contexto Romano & Estrutura) -->
+          <div class="context-layer-block">
+            <div class="context-layer-header">
+              <span class="context-layer-tag">Camada 2 • Contexto Romano & Estrutura</span>
+              <span class="context-layer-status show-basico">Desbloqueada no Intermediário</span>
+              <span class="context-layer-status show-int-adv" style="color:var(--brand-gold);">Ativa</span>
+            </div>
+            <div class="show-basico" style="font-size:11.5px; color:var(--text-secondary); font-style:italic;">
+              No plano Intermediário, esta camada aprofunda a subversão da propaganda imperial de César e a arquitetura dramática de Marcos dividida em dois grandes atos.
+            </div>
+            <div class="show-int-adv context-grid">
+              <div style="grid-column: span 2;">
+                <div class="context-field-label">Contexto Imperial Romano</div>
+                <div class="context-field-val">Escrito sob o governo de Nero após o incêndio de Roma. O termo grego <em>Euangelion</em> subvertia os editais triunfais de César: o verdadeiro Salvador e Senhor não domina pela opressão das legiões, mas se entrega pelos pecadores.</div>
+              </div>
+              <div style="grid-column: span 2;">
+                <div class="context-field-label">Estrutura Dramática em Dois Atos</div>
+                <div class="context-field-val">Ato 1 (Cap. 1-8): "Quem é este Homem?" (Autoridade divina e milagres na Galileia) • Ato 2 (Cap. 9-16): "Por que Ele veio morrer?" (O caminho sacrificial da cruz em Jerusalém).</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CAMADA 3: AVANÇADO (Cânon do AT & Fonte Apostólica) -->
+          <div class="context-layer-block">
+            <div class="context-layer-header">
+              <span class="context-layer-tag" style="color:#A384D8;">Camada 3 • Pano de Fundo Canônico</span>
+              <span class="context-layer-status show-basic-int">Desbloqueada no Avançado</span>
+              <span class="context-layer-status show-avancado" style="color:#A384D8;">Ativa</span>
+            </div>
+            <div class="show-basic-int" style="font-size:11.5px; color:var(--text-secondary); font-style:italic;">
+              No plano Avançado, esta camada investiga a teologia bíblica do Segundo Êxodo (Êxodo, Isaías e Malaquias) e a preservação viva das pregações de Pedro em Roma.
+            </div>
+            <div class="show-avancado context-grid">
+              <div style="grid-column: span 2;">
+                <div class="context-field-label">O Segundo Êxodo Veterotestamentário</div>
+                <div class="context-field-val">A citação de abertura funde Êxodo 23:20, Isaías 40:3 e Malaquias 3:1. Para a teologia bíblica, isso anuncia a chegada do próprio Yahweh ao deserto para guiar Seu povo no retorno definitivo do exílio espiritual.</div>
+              </div>
+              <div style="grid-column: span 2;">
+                <div class="context-field-label">Memória Viva do Apóstolo Pedro</div>
+                <div class="context-field-val">Conforme os testemunhos patrísticos de Pápias e Irineu, João Marcos atuou como intérprete de Pedro em Roma, registrando suas memórias oculares, o que justifica a linguagem vívida, direta e sem rodeios do livro.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1187,7 +1517,7 @@
           </button>
         </div>
 
-        <!-- Texto da Perícope Bíblica (Visão Padrão) -->
+        <!-- Texto da Passagem Bíblica (Visão Padrão) -->
         <div class="scripture-body-text" id="scripture-text-container">
           <!-- Versículo 1 -->
           <p>
@@ -1205,7 +1535,7 @@
           <div class="anchor-verse-highlight">
             <span class="v-num">3</span> 
             <strong id="v3-text">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas".</strong>
-            <div><span class="anchor-tag-label">• Versículo-Âncora da Perícope</span></div>
+            <div><span class="anchor-tag-label">• Versículo-Âncora da Passagem</span></div>
           </div>
 
           <!-- Versículo 4 -->
@@ -1238,6 +1568,24 @@
 
         <!-- Grade de Comparação Lado a Lado (Modo Comparativo Ativado) -->
         <div class="compare-grid-view" id="compare-grid-view">
+          <!-- Barra de Seleção Rápida de Versões (Chips Interativos) -->
+          <div class="compare-chips-bar" id="compare-chips-bar">
+            <span style="font-size:10.5px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.5px; margin-right:4px;">Versões Ativas:</span>
+            <button class="compare-chip active" id="chip-cmp-nvi" onclick="toggleCompareVersionChip('nvi')">✓ NVI</button>
+            <button class="compare-chip active" id="chip-cmp-naa" onclick="toggleCompareVersionChip('naa')">✓ NAA</button>
+            <button class="compare-chip" id="chip-cmp-nvt" onclick="toggleCompareVersionChip('nvt')">+ NVT</button>
+            <button class="compare-chip" id="chip-cmp-arc" onclick="toggleCompareVersionChip('arc')">+ ARC</button>
+            <button class="compare-chip" id="chip-cmp-blivre" onclick="toggleCompareVersionChip('blivre')">+ BLIVRE</button>
+          </div>
+
+          <!-- Banner Informativo de Vocabulário Comparado ao Clicar nas Palavras Destacadas -->
+          <div class="kw-comparison-notice" id="kw-comparison-notice">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+              <span id="kw-comparison-notice-text">Toque em qualquer palavra pontilhada para cruzar seu significado entre as traduções.</span>
+              <button onclick="highlightKeyword(null)" style="background:transparent; border:none; color:var(--brand-gold); cursor:pointer; font-weight:700; font-size:11px;">✕</button>
+            </div>
+          </div>
+
           <div class="compare-verse-block">
             <div class="compare-verse-header">Versículo 1</div>
             <div class="compare-cols-container" id="cmp-row-1"></div>
@@ -1247,7 +1595,7 @@
             <div class="compare-cols-container" id="cmp-row-2"></div>
           </div>
           <div class="compare-verse-block" style="border-left: 3px solid var(--brand-gold);">
-            <div class="compare-verse-header" style="color:var(--brand-gold);">Versículo 3 • Versículo-Âncora</div>
+            <div class="compare-verse-header" style="color:var(--brand-gold);">Versículo 3 • Versículo-Âncora da Passagem</div>
             <div class="compare-cols-container" id="cmp-row-3"></div>
           </div>
           <div class="compare-verse-block">
@@ -1263,13 +1611,28 @@
             <div class="compare-cols-container" id="cmp-row-6"></div>
           </div>
           <div class="compare-verse-block">
-            <div class="compare-verse-header">Versículo 7 (Vocabulário Comparado: Sandálias vs Alparcas)</div>
+            <div class="compare-verse-header">Versículo 7 (Toque em Sandálias / Alparcas para comparar vocabulário)</div>
             <div class="compare-cols-container" id="cmp-row-7"></div>
           </div>
           <div class="compare-verse-block">
             <div class="compare-verse-header">Versículo 8</div>
             <div class="compare-cols-container" id="cmp-row-8"></div>
           </div>
+        </div>
+      </section>
+
+      <!-- 4.1 RETROSPECTIVA EM CAMADAS (TIMELINE DEVOCIONAL) -->
+      <section class="timeline-memory-card">
+        <div class="timeline-header" onclick="toggleTimelineInsight()">
+          <span class="timeline-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            Memória Devocional • Ciclos Anteriores
+          </span>
+          <span style="font-size:11px; color:var(--brand-gold); font-weight:600;" id="timeline-toggle-label">Ver registro de 2025 ↓</span>
+        </div>
+        <div class="timeline-content" id="timeline-memory-body">
+          <div style="font-size:10.5px; font-weight:700; color:var(--text-tertiary); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px;">Seu Registro em 08/10/2025:</div>
+          <p>"Quando li Marcos 1 no ano passado, estava angustiado com uma mudança de ministério. Anotei que o deserto não era punição, mas o lugar que Deus preparou para calar o ruído da cidade e afinar o meu coração. Hoje, um ano depois, vejo que Deus cumpriu cada detalhe."</p>
         </div>
       </section>
 
@@ -1287,7 +1650,7 @@
         <div class="question-box">
           <span class="q-badge-label">Síntese Ativa</span>
           <div class="q-main-text">Em uma frase com suas próprias palavras: Qual é o fato central narrado nesta passagem?</div>
-          <textarea class="response-input" placeholder="Ex: João Batista prepara o caminho no deserto anunciando Aquele que é mais poderoso..."></textarea>
+          <textarea class="response-input" oninput="autoExpand(this)" placeholder="Ex: João Batista prepara o caminho no deserto anunciando Aquele que é mais poderoso..."></textarea>
         </div>
 
         <!-- [BÁSICO]: 1 Pergunta Direta -->
@@ -1295,7 +1658,7 @@
           <span class="q-badge-label">Pergunta de Observação</span>
           <div class="q-main-text">Leia os versículos 4 a 6. Onde João Batista realizava o seu ministério, como ele se vestia e o que as pessoas de Jerusalém faziam quando iam até ele?</div>
           <div class="q-helper-text">Dica: Anote os fatos que seus olhos leem diretamente na página, sem tentar interpretar ainda.</div>
-          <textarea class="response-input" placeholder="Anote os fatos observados..."></textarea>
+          <textarea class="response-input" oninput="autoExpand(this)" placeholder="Anote os fatos observados..."></textarea>
         </div>
 
         <!-- [INTERMEDIÁRIO]: 2 Perguntas + Pista Léxica Sem Spoiler + Tutor -->
@@ -1303,13 +1666,13 @@
           <div class="question-box">
             <span class="q-badge-label">Observação 1: Títulos & Profecia</span>
             <div class="q-main-text">Observe os versículos 1 a 3. Que títulos Marcos atribui a Jesus logo no início, e quais profetas antigos são combinados para inaugurar o livro?</div>
-            <textarea class="response-input" placeholder="Anote os títulos e conexões..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Anote os títulos e conexões..."></textarea>
           </div>
 
           <div class="question-box">
             <span class="q-badge-label">Observação 2: Contrastes</span>
             <div class="q-main-text">Examine os versículos 7 e 8: Liste as duas diferenças fundamentais que João aponta entre o seu ministério e o ministério dAquele que viria após ele.</div>
-            <textarea class="response-input" placeholder="Anote os dois contrastes textuais..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Anote os dois contrastes textuais..."></textarea>
           </div>
 
           <!-- Pista Léxica Sem Spoiler -->
@@ -1332,24 +1695,24 @@
           </div>
         </div>
 
-        <!-- [AVANÇADO]: 3 Perguntas Exegéticas -->
+        <!-- [AVANÇADO]: 3 Perguntas de Investigação Profunda -->
         <div class="show-avancado" style="display:flex; flex-direction:column; gap:10px;">
           <div class="question-box">
-            <span class="q-badge-label">Exegese 1: Fusão Profética do AT</span>
+            <span class="q-badge-label">Investigação 1: Conexões com o Antigo Testamento</span>
             <div class="q-main-text">Embora Marcos mencione Isaías no v. 2, o texto funde Êxodo 23:20, Malaquias 3:1 e Isaías 40:3. Como essa fusão estabelece a divindade de Jesus como o próprio Yahweh que visita Seu povo?</div>
-            <textarea class="response-input" placeholder="Análise de teologia bíblica veterotestamentária..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Análise de teologia bíblica veterotestamentária..."></textarea>
           </div>
 
           <div class="question-box">
-            <span class="q-badge-label">Exegese 2: Tipologia de Elias</span>
+            <span class="q-badge-label">Investigação 2: O Retorno do Profeta Elias</span>
             <div class="q-main-text">Compare a indumentária de João (v. 6) com 2 Reis 1:8 e Malaquias 4:5. Qual o impacto dessa caracterização para a expectativa escatológica dos judeus?</div>
-            <textarea class="response-input" placeholder="Análise histórico-redentora..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Análise histórico-redentora..."></textarea>
           </div>
 
           <div class="question-box">
-            <span class="q-badge-label">Exegese 3: Sintaxe Grega</span>
+            <span class="q-badge-label">Investigação 3: Contrastes Gramaticais no Texto</span>
             <div class="q-main-text">No v. 8, analise a antítese gramatical entre as partículas gregas <em>men... de</em> (μὲν... δὲ) ao opor o batismo com água e o batismo messiânico no Espírito Santo.</div>
-            <textarea class="response-input" placeholder="Análise sintática do grego..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Análise gramatical do texto original..."></textarea>
           </div>
         </div>
       </section>
@@ -1364,11 +1727,30 @@
         </div>
         <div class="step-title-text">O que o texto significa?</div>
 
-        <!-- [BÁSICO]: 1 Pergunta Direta -->
-        <div class="question-box show-basico">
-          <span class="q-badge-label">Interpretação</span>
-          <div class="q-main-text">No versículo 7, João diz que não é digno sequer de desamarrar as sandálias de Jesus. O que essa atitude revela sobre quem Jesus é e sobre como devemos nos colocar diante d'Ele?</div>
-          <textarea class="response-input" placeholder="Sua compreensão do significado..."></textarea>
+        <!-- [BÁSICO]: 1 Pergunta Direta + A Ponte para Cristo -->
+        <div class="show-basico" style="display:flex; flex-direction:column; gap:10px;">
+          <div class="question-box">
+            <span class="q-badge-label">Compreensão Central</span>
+            <div class="q-main-text">No versículo 7, João diz que não é digno sequer de desamarrar as sandálias de Jesus. O que essa atitude revela sobre quem Jesus é e sobre como devemos nos colocar diante d'Ele?</div>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua compreensão do significado..."></textarea>
+          </div>
+
+          <!-- A Ponte para Cristo (Básico) -->
+          <div class="christ-key-card">
+            <span style="font-size:11px; font-weight:700; color:var(--brand-gold); text-transform:uppercase; letter-spacing:0.6px;">
+              A Ponte para Cristo (O Resgate do Moralismo)
+            </span>
+            <div style="font-size:13px; color:var(--text-primary); line-height:1.5;">
+              1º Tempo: Por que João Batista insistiu tanto em dizer que Alguém maior viria depois dele, em vez de se colocar como o protagonista da história?
+            </div>
+            <button class="reveal-key-btn" onclick="revealChrist('basico')">
+              <span>Revelar a Ponte para Cristo</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="revealed-theology-box" id="christ-reveal-basico">
+              "A Bíblia não é um manual de esforço moral humano. João Batista não apontava para a sua própria fidelidade nem pedia que as pessoas salvassem a si mesmas; ele apontava para Jesus, o Salvador que purifica o coração. O Evangelho não começa no que você faz para Deus, mas no que Cristo fez por você."
+            </div>
+          </div>
         </div>
 
         <!-- [INTERMEDIÁRIO]: 2 Perguntas + Cristo no Texto (2 Tempos) -->
@@ -1376,13 +1758,13 @@
           <div class="question-box">
             <span class="q-badge-label">Contexto do Autor</span>
             <div class="q-main-text">Por que um autor que escrevia para cristãos perseguidos em Roma escolheu abrir seu livro chamando Jesus de "Filho de Deus" antes de narrar qualquer milagre público?</div>
-            <textarea class="response-input" placeholder="Sua reflexão contextual..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão contextual..."></textarea>
           </div>
 
           <div class="question-box">
             <span class="q-badge-label">O Simbolismo do Deserto</span>
             <div class="q-main-text">Por que Deus enviou a voz profética para o deserto árido em vez de colocar João pregando nos pátios nobres do Templo de Jerusalém?</div>
-            <textarea class="response-input" placeholder="Sua reflexão histórica..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão histórica..."></textarea>
           </div>
 
           <!-- Cristo no Texto (Chave Redentora) -->
@@ -1393,34 +1775,51 @@
             <div style="font-size:13px; color:var(--text-primary); line-height:1.5;">
               1º Tempo: Como a afirmação de que Jesus batizará com o Espírito Santo aponta para a Nova Aliança e transforma a nossa dependência de ritos?
             </div>
-            <button class="reveal-key-btn" onclick="revealChrist()">
+            <button class="reveal-key-btn" onclick="revealChrist('intermediario')">
               <span>Revelar Chave Redentora</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
-            <div class="revealed-theology-box" id="christ-reveal-text">
+            <div class="revealed-theology-box" id="christ-reveal-intermediario">
               "Em Cristo, o próprio Deus veio ao deserto do nosso coração. João podia apenas lavar o corpo com água como sinal exterior, mas somente Jesus tem autoridade de habitar no crente pelo Espírito Santo, renovando nosso interior."
             </div>
           </div>
         </div>
 
-        <!-- [AVANÇADO]: 3 Perguntas Teologia Bíblica + Cânon Integral -->
+        <!-- [AVANÇADO]: 3 Perguntas de Compreensão Profunda + Cumprimento Redentor no Cânon -->
         <div class="show-avancado" style="display:flex; flex-direction:column; gap:10px;">
           <div class="question-box">
-            <span class="q-badge-label">Hermenêutica 1: Batismo de Prosélitos</span>
+            <span class="q-badge-label">Compreensão 1: O Batismo no Jordão e a Tradição Judaica</span>
             <div class="q-main-text">Por que os judeus da Judeia aceitavam o batismo de purificação no Jordão, sabendo que a imersão era historicamente reservada a gentios pagãos convertidos? O que isso indica sobre a falência espiritual da época?</div>
-            <textarea class="response-input" placeholder="Análise hermenêutica..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua análise bíblica e histórica..."></textarea>
           </div>
 
           <div class="question-box">
-            <span class="q-badge-label">Hermenêutica 2: Teologia do Deserto</span>
+            <span class="q-badge-label">Compreensão 2: O Deserto como Cenário do Reino</span>
             <div class="q-main-text">Como a teologia profética do deserto (Oséias 2:14; Isaías 40) antecipa a natureza de um Reino que não depende das instituições do poder político romano ou sacerdotal judaico?</div>
-            <textarea class="response-input" placeholder="Análise teológica..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão bíblica..."></textarea>
           </div>
 
           <div class="question-box">
-            <span class="q-badge-label">Hermenêutica 3: Variantes Textuais</span>
-            <div class="q-main-text">Como a prática rabínica clássica de encabeçar citações mistas pelo nome do profeta maior harmoniza a leitura "no profeta Isaías" (manuscritos alexandrinos) com "nos profetas"?</div>
-            <textarea class="response-input" placeholder="Análise de crítica textual..."></textarea>
+            <span class="q-badge-label">Compreensão 3: Citações Combinadas dos Profetas</span>
+            <div class="q-main-text">Como a prática clássica de encabeçar citações mistas pelo nome do profeta maior harmoniza a leitura "no profeta Isaías" com "nos profetas"?</div>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua observação textual..."></textarea>
+          </div>
+
+          <!-- Cumprimento Redentor no Cânon (Avançado) -->
+          <div class="christ-key-card">
+            <span style="font-size:11px; font-weight:700; color:#A384D8; text-transform:uppercase; letter-spacing:0.6px;">
+              Cumprimento Redentor no Cânon (Tipologia & Aliança)
+            </span>
+            <div style="font-size:13px; color:var(--text-primary); line-height:1.5;">
+              1º Tempo: Como a fusão das profecias de Isaías 40 e Malaquias 3 demonstra que Jesus é o próprio Yahweh que inaugura o Segundo Êxodo e a Nova Aliança?
+            </div>
+            <button class="reveal-key-btn" onclick="revealChrist('avancado')">
+              <span>Revelar Cumprimento Redentor</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="revealed-theology-box" id="christ-reveal-avancado">
+              "Ao atribuir a Jesus a voz profética que prepara a visitação de Yahweh, o texto proclama que a encarnação é a chegada do próprio Senhor para libertar Seu povo do cativeiro do pecado. Jesus cumpre e encerra a ordem sacerdotal levítica provisória, tornando-se Ele mesmo o Templo vivo e o Mediador da Aliança Eterna pelo dom do Espírito."
+            </div>
           </div>
         </div>
       </section>
@@ -1439,7 +1838,7 @@
         <div class="question-box show-basico">
           <span class="q-badge-label">Aplicação Prática</span>
           <div class="q-main-text">João Batista preparou o caminho para que Jesus chegasse ao coração das pessoas. O que está bagunçado ou fora do lugar na sua rotina hoje que você precisa "endireitar" para dar mais espaço a Jesus?</div>
-          <textarea class="response-input" placeholder="Sua decisão prática para hoje..."></textarea>
+          <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua decisão prática para hoje..."></textarea>
         </div>
 
         <!-- [INTERMEDIÁRIO]: Tríade Indutiva Canônica (Mente, Coração, Prática) -->
@@ -1447,19 +1846,19 @@
           <div class="triad-branch mente">
             <span class="triad-branch-title">1. Na Mente (Verdade & Cosmovisão)</span>
             <div class="q-main-text" style="font-size:12.5px;">Que ilusão ou mentira sobre quem você é precisa ser confrontada hoje pela verdade de que Jesus é infinitamente superior e digno de ser exaltado?</div>
-            <textarea class="response-input" placeholder="Alinhamento dos pensamentos..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Alinhamento dos pensamentos..."></textarea>
           </div>
 
           <div class="triad-branch coracao">
             <span class="triad-branch-title">2. No Coração (Afetos & Deserto)</span>
             <div class="q-main-text" style="font-size:12.5px;">O deserto foi o lugar onde o barulho silenciou para ouvir Deus. Qual é a principal distração que tem gerado ruído e impedido você de ouvir o Senhor com clareza?</div>
-            <textarea class="response-input" placeholder="Sondagem do coração..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sondagem do coração..."></textarea>
           </div>
 
           <div class="triad-branch pratica">
             <span class="triad-branch-title">3. Na Prática (Vida & Ação)</span>
             <div class="q-main-text" style="font-size:12.5px;">João teve a nobreza de diminuir para que Cristo crescesse. Em qual conversa ou ambiente de hoje você precisa abrir mão de ter razão para que a graça de Cristo apareça?</div>
-            <textarea class="response-input" placeholder="Decisão prática em relacionamentos..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Decisão prática em relacionamentos..."></textarea>
           </div>
         </div>
 
@@ -1468,19 +1867,19 @@
           <div class="question-box">
             <span class="q-badge-label">1. Desnudamento da Autojustiça</span>
             <div class="q-main-text">Quais "credenciais religiosas" (tempo de igreja, ministério, teologia correta) você secretamente usa como escudo para não se dobrar em arrependimento radical diante da santidade de Cristo?</div>
-            <textarea class="response-input" placeholder="Sondagem de autojustiça..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sondagem de autojustiça..."></textarea>
           </div>
 
           <div class="question-box">
             <span class="q-badge-label">2. Vocação e Esferas Comunitárias</span>
             <div class="q-main-text">Na sua profissão ou liderança, onde você tem sido tentado a reter autoridade pessoal ou manipular pessoas em vez de direcionar o foco exclusivamente para o Senhor?</div>
-            <textarea class="response-input" placeholder="Exame de integridade vocacional..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Exame de integridade vocacional..."></textarea>
           </div>
 
           <div class="question-box">
             <span class="q-badge-label">3. Ação Reformadora Concreta (24h)</span>
             <div class="q-main-text">A <em>metanoia</em> exige frutos visíveis. Qual conversa difícil, pedido de perdão ou corte de hábito você realizará nas próximas 24 horas como sinal concreto de alinhamento com Cristo?</div>
-            <textarea class="response-input" placeholder="Ação de reforma pessoal imediata..."></textarea>
+            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Ação de reforma pessoal imediata..."></textarea>
           </div>
         </div>
       </section>
@@ -1503,7 +1902,7 @@
             • "Peço perdão sincero na área de..."<br>
             • "Ajuda-me hoje a endireitar o meu coração quando eu estiver..."
           </div>
-          <textarea class="response-input" style="margin-top:8px;" placeholder="Escreva sua oração sincera ao Senhor..."></textarea>
+          <textarea class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Escreva sua oração sincera ao Senhor..."></textarea>
         </div>
 
         <!-- [INTERMEDIÁRIO]: Roteiro Tridimensional -->
@@ -1514,7 +1913,7 @@
             2. <strong>Confissão:</strong> Confesse as distrações e a sede de controle sondadas no coração.<br>
             3. <strong>Súplica:</strong> Peça que o Espírito Santo conceda mansidão na prática de hoje.
           </div>
-          <textarea class="response-input" style="margin-top:8px;" placeholder="Registre sua oração tridimensional..."></textarea>
+          <textarea class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua oração tridimensional..."></textarea>
         </div>
 
         <!-- [AVANÇADO]: Liturgia Pactual Teocêntrica -->
@@ -1525,7 +1924,7 @@
             2. <strong>Mortificação:</strong> Renuncie à autojustiça diante dAquele que batiza no Espírito Santo.<br>
             3. <strong>Consagração Vocacional:</strong> Clame por capacitação soberana para ser voz no deserto.
           </div>
-          <textarea class="response-input" style="margin-top:8px;" placeholder="Registre sua liturgia pactual pessoal..."></textarea>
+          <textarea class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua liturgia pactual pessoal..."></textarea>
         </div>
       </section>
 
@@ -1545,6 +1944,14 @@
         <button class="reveal-partner-btn" onclick="revealPartner()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span id="partner-btn-label">Registrar Estudo & Revelar Dupla</span>
+        </button>
+      </section>
+
+      <!-- 6. AÇÃO PRINCIPAL DE CONCLUSÃO DO ESTUDO -->
+      <section style="margin-top: 4px;">
+        <button class="master-conclude-btn" id="btn-conclude-study" onclick="concludeStudy()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="btn-conclude-label">Registrar Estudo no Caderno & Concluir o Dia</span>
         </button>
       </section>
 
@@ -1594,7 +2001,7 @@
       </div>
 
       <div style="font-size:13px; line-height:1.6; color:var(--text-secondary); border-top:1px solid var(--border-subtle); padding-top:10px;" id="modal-strong-def">
-        Definição exegética...
+        Significado no texto original...
       </div>
     </div>
   </div>
@@ -1668,6 +2075,41 @@
     let currentDepth = 'intermediario';
     let currentVersion = 'nvi';
     let isCompareMode = false;
+    let activeComparisonVersions = ['nvi', 'naa'];
+    let activeHighlightedKeyword = null;
+
+    // AUTO-EXPANSÃO DAS CAIXAS DE TEXTO CONFORME DIGITAÇÃO
+    function autoExpand(textarea) {
+      if (!textarea) return;
+      textarea.style.height = 'auto';
+      textarea.style.height = (textarea.scrollHeight) + 'px';
+    }
+
+    // CONTROLE TIPOGRÁFICO DO TEXTO BÍBLICO (3 PRESETS)
+    function setTypography(preset) {
+      document.documentElement.setAttribute('data-font-size', preset);
+      ['compact', 'balanced', 'comfortable'].forEach(p => {
+        const btn = document.getElementById(`typo-${p}`);
+        if (btn) {
+          if (p === preset) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+    }
+
+    // RETROSPECTIVA EM CAMADAS (TIMELINE DEVOCIONAL)
+    function toggleTimelineInsight() {
+      const body = document.getElementById('timeline-memory-body');
+      const label = document.getElementById('timeline-toggle-label');
+      if (!body) return;
+      if (body.style.display === 'block') {
+        body.style.display = 'none';
+        if (label) label.innerText = 'Ver registro de 2025 ↓';
+      } else {
+        body.style.display = 'block';
+        if (label) label.innerText = 'Ocultar registro ↑';
+      }
+    }
 
     // ALTERNÂNCIA DE NÍVEL DE PROFUNDIDADE (BÁSICO, INTERMEDIÁRIO, AVANÇADO)
     function switchDepth(depth) {
@@ -1691,6 +2133,8 @@
         setVersion('blivre');
       } else if(depth === 'intermediario') {
         if(compBtn) compBtn.style.display = 'inline-flex';
+        activeComparisonVersions = ['nvi', 'naa'];
+        updateCompareChipsUI();
         if(currentVersion !== 'nvi' && currentVersion !== 'naa') {
           setVersion('nvi');
         } else {
@@ -1698,6 +2142,10 @@
         }
       } else if(depth === 'avancado') {
         if(compBtn) compBtn.style.display = 'inline-flex';
+        if(!activeComparisonVersions.includes('nvt') && !activeComparisonVersions.includes('arc')) {
+          activeComparisonVersions = ['nvi', 'naa', 'nvt', 'arc'];
+        }
+        updateCompareChipsUI();
         if(currentVersion === 'blivre') {
           setVersion('nvi');
         } else {
@@ -1767,22 +2215,104 @@
         if(gridContainer) gridContainer.style.display = 'flex';
         if(btn) btn.classList.add('active');
         if(btnText) btnText.innerText = 'Ver Texto Único';
+        updateCompareChipsUI();
         renderComparisonGrid();
       } else {
         if(textContainer) textContainer.style.display = 'block';
         if(gridContainer) gridContainer.style.display = 'none';
         if(btn) btn.classList.remove('active');
         if(btnText) btnText.innerText = 'Comparar Lado a Lado';
+        highlightKeyword(null); // Reseta destaques
       }
     }
 
-    // RENDERIZADOR DA GRADE COMPARATIVA
-    function renderComparisonGrid() {
-      const versionsToCompare = (currentDepth === 'avancado')
-        ? ['nvi', 'naa', 'nvt', 'arc']
-        : ['nvi', 'naa'];
+    // CHIPS DE SELEÇÃO DE VERSÕES NO COMPARADOR
+    function toggleCompareVersionChip(verKey) {
+      const idx = activeComparisonVersions.indexOf(verKey);
+      if (idx >= 0) {
+        if (activeComparisonVersions.length <= 2) {
+          alert("Selecione pelo menos duas versões para comparação simultânea.");
+          return;
+        }
+        activeComparisonVersions.splice(idx, 1);
+      } else {
+        activeComparisonVersions.push(verKey);
+      }
+      updateCompareChipsUI();
+      renderComparisonGrid();
+    }
 
-      const colClass = (currentDepth === 'avancado') ? 'compare-cols-4' : 'compare-cols-2';
+    function updateCompareChipsUI() {
+      ['nvi', 'naa', 'nvt', 'arc', 'blivre'].forEach(v => {
+        const chip = document.getElementById(`chip-cmp-${v}`);
+        if (chip) {
+          if (activeComparisonVersions.includes(v)) {
+            chip.classList.add('active');
+            chip.innerText = `✓ ${v.toUpperCase()}`;
+          } else {
+            chip.classList.remove('active');
+            chip.innerText = `+ ${v.toUpperCase()}`;
+          }
+        }
+      });
+    }
+
+    // FORMATAÇÃO E DESTAQUE INTERATIVO DE PALAVRAS RELACIONADAS ENTRE VERSÕES
+    function formatComparisonText(text) {
+      let res = text;
+      // sandálias / alparcas
+      res = res.replace(/(sandálias|alparcas)/gi, (m) => `<span class="kw-highlight${activeHighlightedKeyword === 'sandalia' ? ' active-match' : ''}" data-kw="sandalia" onclick="highlightKeyword('sandalia')">${m}</span>`);
+      // deserto
+      res = res.replace(/(deserto)/gi, (m) => `<span class="kw-highlight${activeHighlightedKeyword === 'deserto' ? ' active-match' : ''}" data-kw="deserto" onclick="highlightKeyword('deserto')">${m}</span>`);
+      // arrependimento / remissão
+      res = res.replace(/(arrependimento|remissão)/gi, (m) => `<span class="kw-highlight${activeHighlightedKeyword === 'arrependimento' ? ' active-match' : ''}" data-kw="arrependimento" onclick="highlightKeyword('arrependimento')">${m}</span>`);
+      // Espírito Santo
+      res = res.replace(/(Espírito Santo)/gi, (m) => `<span class="kw-highlight${activeHighlightedKeyword === 'espirito' ? ' active-match' : ''}" data-kw="espirito" onclick="highlightKeyword('espirito')">${m}</span>`);
+      return res;
+    }
+
+    function highlightKeyword(kw) {
+      const notice = document.getElementById('kw-comparison-notice');
+      const noticeText = document.getElementById('kw-comparison-notice-text');
+
+      if (!kw || activeHighlightedKeyword === kw) {
+        activeHighlightedKeyword = null;
+        document.querySelectorAll('.kw-highlight').forEach(el => el.classList.remove('active-match'));
+        if (notice) notice.style.display = 'none';
+        return;
+      }
+
+      activeHighlightedKeyword = kw;
+      document.querySelectorAll('.kw-highlight').forEach(el => {
+        if (el.getAttribute('data-kw') === kw) {
+          el.classList.add('active-match');
+        } else {
+          el.classList.remove('active-match');
+        }
+      });
+
+      if (notice && noticeText) {
+        let gloss = "";
+        if (kw === 'sandalia') {
+          gloss = 'Vocabulário Cruzado: "sandálias" (NVI, NAA, NVT, BLIVRE) ↔ "alparcas" (ARC). Original grego: hypodēma (ὑπόδημα) — correia de calçado amarrada nos pés, tarefa humilde de escravo da qual os rabinos dispensavam discípulos.';
+        } else if (kw === 'deserto') {
+          gloss = 'Termo Geográfico-Teológico: "deserto" (erēmos / ἔρημος) — o cenário bíblico de silêncio, purificação e segundo êxodo onde Deus fala ao coração longe do poder corrupto.';
+        } else if (kw === 'arrependimento') {
+          gloss = 'Termo Teológico Central: "arrependimento" (NVI, BLIVRE, NVT) ↔ "remissão" (NAA, ARC). Grego: metanoia (μετάνοια) — conversão total de mente e rota moral de 180°.';
+        } else if (kw === 'espirito') {
+          gloss = 'Promessa Messiânica Definitiva: "Espírito Santo" (Pneuma Hagion / Πνεῦμα Ἅγιον) — o batismo soberano de Cristo que regenera o coração pela Nova Aliança.';
+        }
+        noticeText.innerText = gloss;
+        notice.style.display = 'block';
+      }
+    }
+
+    // RENDERIZADOR DA GRADE COMPARATIVA LADO A LADO
+    function renderComparisonGrid() {
+      let numCols = activeComparisonVersions.length;
+      let colClass = 'compare-cols-2';
+      if (numCols === 3) colClass = 'compare-cols-3';
+      else if (numCols >= 4) colClass = 'compare-cols-4';
 
       for(let i = 1; i <= 8; i++) {
         const rowEl = document.getElementById(`cmp-row-${i}`);
@@ -1791,12 +2321,15 @@
         rowEl.className = `compare-cols-container ${colClass}`;
         let html = '';
 
-        versionsToCompare.forEach(vKey => {
+        activeComparisonVersions.forEach(vKey => {
           const vObj = BIBLE_VERSIONS[vKey];
+          if (!vObj) return;
+          const rawText = vObj['v' + i];
+          const formattedText = formatComparisonText(rawText);
           html += `
             <div class="col-version-card">
               <div class="col-version-name">${vKey.toUpperCase()}</div>
-              <div>${vObj['v' + i]}</div>
+              <div>${formattedText}</div>
             </div>
           `;
         });
@@ -1829,13 +2362,14 @@
     // PISTA DO TUTOR
     function toggleTutor(id) {
       const el = document.getElementById(id);
-      el.style.display = 'block';
+      if(el) el.style.display = 'block';
     }
 
-    // REVELAR CRISTO NO TEXTO
-    function revealChrist() {
-      const el = document.getElementById('christ-reveal-text');
-      el.style.display = 'block';
+    // REVELAR CRISTO NO TEXTO (TRANSVERSAL)
+    function revealChrist(level) {
+      const targetId = level ? `christ-reveal-${level}` : 'christ-reveal-intermediario';
+      const el = document.getElementById(targetId);
+      if(el) el.style.display = 'block';
     }
 
     // REVELAR DUPLA (SIGILO MÚTUO)
@@ -1848,6 +2382,16 @@
       box.style.padding = '10px';
       box.style.borderRadius = '6px';
       btn.innerText = 'Reflexão da Dupla Revelada com Sucesso';
+    }
+
+    // CONCLUIR ESTUDO DO DIA
+    function concludeStudy() {
+      const btn = document.getElementById('btn-conclude-study');
+      const label = document.getElementById('btn-conclude-label');
+      if (btn && label) {
+        btn.classList.add('concluded');
+        label.innerText = '✓ Estudo Salvo no Caderno • Dia 01 Concluído!';
+      }
     }
 
     // MODAL STRONG (EXCLUSIVO AVANÇADO)
@@ -1865,6 +2409,9 @@
     // INICIALIZAÇÃO AUTOMÁTICA
     window.addEventListener('DOMContentLoaded', () => {
       switchDepth('intermediario');
+      setTypography('balanced');
+      // Inicializa autoExpand em eventuais textareas preenchidas
+      document.querySelectorAll('.response-input').forEach(t => autoExpand(t));
     });
   </script>
 </body>
