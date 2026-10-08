@@ -2610,6 +2610,44 @@
       margin-bottom: 12px !important;
     }
 
+  
+    /* ==========================================================================
+       CSS OFICIAL: POPOVER FLUTUANTE DA BÍBLIA & GATING DAS CHAVES
+       ========================================================================== */
+    .version-floating-card {
+      position: absolute;
+      top: 42px;
+      left: 20px;
+      right: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      z-index: 200;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .chip-lock-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: var(--text-tertiary);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 2px 5px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+
+    .context-chip-btn.is-locked {
+      opacity: 0.75;
+      border-style: dashed;
+    }
+
+    .context-chip-btn.is-unlocked .chip-lock-badge {
+      display: none !important;
+    }
+
   </style>
 </head>
 <body>
@@ -2669,14 +2707,17 @@
 
             <!-- Banner de plano removido (Modo Produto Real) -->
 
-      <!-- 1. CABEÇALHO DO DIA (PRODUTO REAL - ZERO POLUIÇÃO) -->
-      <section class="devotional-header" style="margin-top:6px; margin-bottom:12px; display:flex; flex-direction:column; gap:4px;">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span class="trail-sub-tag">Marcos em 32 Dias</span>
-          <span class="day-focus-badge">Dia 01</span>
+      <!-- 1. CABEÇALHO DO DIA (PADRÃO CANÔNICO APROVADO) -->
+      <section class="devotional-header" style="margin-top:4px; margin-bottom:10px;">
+        <div>
+          <div class="trail-breadcrumb" style="display:inline-flex; align-items:center; gap:6px; margin-bottom:4px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>
+            <span style="font-size:11px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--brand-gold);">Marcos em 32 Dias • </span>
+            <span class="day-focus-badge">Dia 01</span>
+          </div>
+          <h1 class="pericope-heading" style="font-size:21px; line-height:1.25; margin:2px 0 3px 0;">O Princípio do Evangelho e a Voz no Deserto</h1>
+          <div style="font-size:13px; font-weight:600; color:var(--brand-gold); letter-spacing:0.3px;">Marcos 1:1–8</div>
         </div>
-        <h1 class="pericope-heading" style="font-size:21px; line-height:1.3; margin:2px 0 2px 0;">O Princípio do Evangelho e a Voz no Deserto</h1>
-        <div style="font-size:13px; font-weight:600; color:var(--brand-gold); letter-spacing:0.3px;">Marcos 1:1–8</div>
       </section>
 
       <!-- 2. FITA DA SEMANA COM DIAS (SOMENTE DIA 01 ATIVO) -->
@@ -2731,26 +2772,33 @@
           <span style="font-size:11px; color:var(--text-tertiary);">Toque em uma chave para explorar</span>
         </div>
 
-        <!-- Grade de Ícones / Botões Interativos -->
+        <!-- Grade de Ícones / Botões Interativos com Gating Canônico por Plano (docs/15) -->
         <div class="context-chips-grid">
-          <button class="context-chip-btn" id="chip-ctx-autor" onclick="toggleContextInsight('autor')" title="Autor Histórico & Propósito">
+          <!-- Chave 1: Autor & Data (Camada 1 - Liberada em todos os planos) -->
+          <button class="context-chip-btn" id="chip-ctx-autor" onclick="handleContextChipClick('autor')" title="Autor Histórico & Propósito">
             <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
             <span class="chip-label">Autor & Data</span>
           </button>
 
-          <button class="context-chip-btn" id="chip-ctx-romano" onclick="toggleContextInsight('romano')" title="Contexto Imperial Romano">
+          <!-- Chave 2: Império Romano (Camada 2 - Intermediário & Avançado) -->
+          <button class="context-chip-btn" id="chip-ctx-romano" onclick="handleContextChipClick('romano')" title="Contexto Imperial Romano">
             <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l8-7 8 7"/></svg></span>
             <span class="chip-label">Império Romano</span>
+            <span class="chip-lock-badge" id="lock-badge-romano">🔒 Interm.</span>
           </button>
 
-          <button class="context-chip-btn" id="chip-ctx-estrutura" onclick="toggleContextInsight('estrutura')" title="Estrutura Literária em Dois Atos">
+          <!-- Chave 3: Dois Atos (Camada 2 - Intermediário & Avançado) -->
+          <button class="context-chip-btn" id="chip-ctx-estrutura" onclick="handleContextChipClick('estrutura')" title="Estrutura Literária em Dois Atos">
             <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg></span>
             <span class="chip-label">Dois Atos</span>
+            <span class="chip-lock-badge" id="lock-badge-estrutura">🔒 Interm.</span>
           </button>
 
-          <button class="context-chip-btn" id="chip-ctx-exodo" onclick="toggleContextInsight('exodo')" title="Teologia Bíblica do Segundo Êxodo">
+          <!-- Chave 4: Segundo Êxodo (Camada 3 - Exclusivo Avançado) -->
+          <button class="context-chip-btn" id="chip-ctx-exodo" onclick="handleContextChipClick('exodo')" title="Teologia Bíblica do Segundo Êxodo">
             <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
             <span class="chip-label">Segundo Êxodo</span>
+            <span class="chip-lock-badge" id="lock-badge-exodo">🔒 Avançado</span>
           </button>
         </div>
 
@@ -2767,49 +2815,63 @@
       </section>
 
       <!-- 4. CARTÃO DE LEITURA BÍBLICA DO DIA -->
-      <section class="scripture-card">
+      <section class="scripture-card" style="position:relative;">
         <div class="scripture-header-row">
-          <span class="scripture-section-title">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            Texto do Dia
-          </span>
-
-                    <!-- No Básico Gratuito: Apenas 1 Tag Fixa da Bíblia Livre -->
-          <div class="show-basico-free">
-            <span class="single-version-tag">BLIVRE (Bíblia Livre)</span>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="scripture-section-title">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              Texto do Dia
+            </span>
+            <!-- Botão (i) Discreto ao Lado do Texto do Dia -->
+            <button class="version-info-btn" onclick="toggleVersionFloatingCard(event)" title="Informações sobre a tradução ativa" aria-label="Informações sobre a tradução ativa">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            </button>
           </div>
 
-          <!-- No Básico (R$ 5,90): Alternador Livre entre BLIVRE e NVI -->
-          <div class="version-tabs-nav show-basico-pago">
-            <button class="v-tab-btn" id="btn-ver-bp-blivre" onclick="setVersion('blivre')">BLIVRE</button>
-            <button class="v-tab-btn active" id="btn-ver-bp-nvi" onclick="setVersion('nvi')">NVI</button>
-          </div>
+          <!-- Seletores de Versão Limpos -->
+          <div style="display:flex; align-items:center; gap:8px;">
+            <!-- No Básico Gratuito: Apenas 1 Tag Fixa da Bíblia Livre -->
+            <div class="show-basico-free">
+              <span class="single-version-tag">BLIVRE (Bíblia Livre)</span>
+            </div>
 
-          <!-- No Intermediário: 2 Abas Alternáveis (NVI / NAA) -->
-          <div class="version-tabs-nav show-intermediario">
-            <button class="v-tab-btn active" id="btn-ver-nvi" onclick="setVersion('nvi')">NVI</button>
-            <button class="v-tab-btn" id="btn-ver-naa" onclick="setVersion('naa')">NAA</button>
-          </div>
+            <!-- No Básico (R$ 5,90): Alternador Livre entre BLIVRE e NVI -->
+            <div class="version-tabs-nav show-basico-pago">
+              <button class="v-tab-btn" id="btn-ver-bp-blivre" onclick="setVersion('blivre')">BLIVRE</button>
+              <button class="v-tab-btn active" id="btn-ver-bp-nvi" onclick="setVersion('nvi')">NVI</button>
+            </div>
 
-          <!-- No Avançado: 4 Versões Simultâneas -->
-          <div class="version-tabs-nav show-avancado">
-            <button class="v-tab-btn active" id="btn-ver-adv-nvi" onclick="setVersion('nvi')">NVI</button>
-            <button class="v-tab-btn" id="btn-ver-adv-naa" onclick="setVersion('naa')">NAA</button>
-            <button class="v-tab-btn" id="btn-ver-adv-nvt" onclick="setVersion('nvt')">NVT</button>
-            <button class="v-tab-btn" id="btn-ver-adv-arc" onclick="setVersion('arc')">ARC</button>
+            <!-- No Intermediário: 2 Abas Alternáveis (NVI / NAA) -->
+            <div class="version-tabs-nav show-intermediario">
+              <button class="v-tab-btn active" id="btn-ver-nvi" onclick="setVersion('nvi')">NVI</button>
+              <button class="v-tab-btn" id="btn-ver-naa" onclick="setVersion('naa')">NAA</button>
+            </div>
+
+            <!-- No Avançado: 4 Versões Simultâneas -->
+            <div class="version-tabs-nav show-avancado">
+              <button class="v-tab-btn active" id="btn-ver-adv-nvi" onclick="setVersion('nvi')">NVI</button>
+              <button class="v-tab-btn" id="btn-ver-adv-naa" onclick="setVersion('naa')">NAA</button>
+              <button class="v-tab-btn" id="btn-ver-adv-nvt" onclick="setVersion('nvt')">NVT</button>
+              <button class="v-tab-btn" id="btn-ver-adv-arc" onclick="setVersion('arc')">ARC</button>
+            </div>
+
+            <!-- Botão de Comparação Lado a Lado (Exclusivo Interm. e Avançado) -->
+            <button class="compare-toggle-btn show-int-adv" id="btn-toggle-compare" onclick="toggleCompareMode()" title="Comparar traduções lado a lado">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+              <span id="compare-btn-text">Comparar</span>
+            </button>
           </div>
         </div>
 
-        <!-- Banner Explicativo da Tradução em Uso & Ação de Comparar -->
-        <div class="version-status-banner" id="version-status-banner">
-          <div>
-            <span class="version-status-label" id="current-version-name">Nova Versão Internacional (NVI)</span>
-            <span class="version-status-desc" id="current-version-desc">Equilíbrio e clareza contemporânea para leitura fluida</span>
+        <!-- Micro-Cartão Flutuante Sutil da Tradução (Popover Discreto) -->
+        <div class="version-floating-card" id="version-floating-card" style="display:none;" onclick="event.stopPropagation()">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+            <div>
+              <div style="font-size:12px; font-weight:700; color:var(--brand-gold);" id="floating-ver-title">Bíblia Livre (BLIVRE)</div>
+              <div style="font-size:11.5px; color:var(--text-secondary); line-height:1.45; margin-top:2px;" id="floating-ver-desc">Domínio público • Fiel aos textos originais sem restrições de licença</div>
+            </div>
+            <button onclick="closeVersionFloatingCard()" style="background:transparent; border:none; color:var(--text-tertiary); font-size:13px; cursor:pointer; padding:2px;">✕</button>
           </div>
-          <button class="compare-toggle-btn" id="btn-toggle-compare" onclick="toggleCompareMode()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
-            <span id="compare-btn-text">Comparar Lado a Lado</span>
-          </button>
         </div>
 
         <!-- Texto da Passagem Bíblica (Visão Padrão) -->
@@ -2826,13 +2888,13 @@
             <span class="v-num">2</span> <span id="v2-text">Conforme está escrito no profeta Isaías: 'Envio o meu mensageiro diante de você, para preparar o seu caminho' —</span>
           </p>
 
-          <!-- Versículo 3 (Versículo-Âncora) -->
+          <!-- Versículo 3 (Versículo-Chave) -->
           <div class="anchor-verse-highlight">
             <span class="v-num">3</span> 
             <span id="v3-text" style="color:var(--text-primary);">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas".</span>
-            <button class="anchor-icon-btn" onclick="showAnchorToast(event)" title="Versículo-Âncora da Passagem" aria-label="Versículo-Âncora">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
-              <span>Âncora</span>
+            <button class="anchor-icon-btn" onclick="showAnchorToast(event)" title="Versículo-Chave da Perícope (Memorização e Meditação)" aria-label="Versículo-Chave">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>
+              <span>Versículo-Chave</span>
             </button>
           </div>
 
@@ -4531,6 +4593,44 @@
     </div>
   </div>
 
+  <!-- TOAST TOOLTIP DO VERSÍCULO-CHAVE (FADE IN/OUT 3S) -->
+  <div class="anchor-toast" id="anchor-toast">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>
+    <span>Este é o Versículo-Chave da Perícope (Memorização e Meditação)</span>
+  </div>
+
+  <!-- PÍLULA FLUTUANTE DA BEREIA (FAB NO CANTO INFERIOR) -->
+  <button class="floating-bereia-fab" id="floating-bereia-fab" onclick="openBereiaDrawer('pista')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <span>✦ BereIA</span>
+  </button>
+
+  <!-- GAVETA RETRÁTIL IN-SCREEN DA BEREIA (BOTTOM-SHEET) -->
+  <div class="bereia-drawer-backdrop" id="bereia-drawer-backdrop" onclick="closeBereiaDrawer()">
+    <div class="bereia-drawer-sheet" onclick="event.stopPropagation()">
+      <div class="bereia-drawer-header">
+        <div class="bereia-drawer-tabs">
+          <button class="bereia-drawer-tab-btn active" id="drawer-tab-pista" onclick="switchBereiaDrawerTab('pista')">✦ Pista de Marcos 1:1-8</button>
+          <button class="bereia-drawer-tab-btn" id="drawer-tab-livre" onclick="switchBereiaDrawerTab('livre')">Diálogo Livre & Vida</button>
+        </div>
+        <button onclick="closeBereiaDrawer()" style="background:transparent; border:none; color:var(--text-secondary); font-size:16px; cursor:pointer; padding:4px;">✕</button>
+      </div>
+
+      <div class="bereia-drawer-body" id="bereia-drawer-chat-body">
+        <div class="bereia-msg-bubble bereia-msg-assistant" id="bereia-chat-welcome">
+          Olá! Estou aqui ao seu lado no estudo de <strong>Marcos 1:1-8</strong>. Não vou te dar respostas prontas, mas farei perguntas para guiar seu olhar indutivo. Em qual versículo você gostaria de uma pista socrática?
+        </div>
+      </div>
+
+      <div class="bereia-drawer-footer">
+        <input type="text" class="bereia-drawer-input" id="bereia-drawer-user-input" placeholder="Pergunte sobre a perícope ou tire uma dúvida..." onkeydown="if(event.key==='Enter') sendBereiaMessage()">
+        <button class="bereia-drawer-send-btn" onclick="sendBereiaMessage()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT REFINADO & SEM ERROS -->
   <script>
     // DADOS DAS 5 VERSÕES BÍBLICAS REAIS & CERTIFICADAS
@@ -5798,6 +5898,7 @@ ${document.getElementById('cad-res-prat').innerText}
         switchPlan(planKey);
       }
       updatePerfilPlanUI(planKey);
+      updateContextKeysGating();
     }
 
     // 5. Ajustar a Navegação Principal para Suportar 'perfil'
@@ -5936,6 +6037,139 @@ ${document.getElementById('cad-res-prat').innerText}
       const allBtns = document.querySelectorAll('.context-chip-btn');
       allBtns.forEach(btn => btn.classList.remove('active'));
     }
+
+  
+    // ==========================================================================
+    // CONTROLE DE GATING DAS CHAVES DE CONTEXTO POR PLANO (DOCS/15)
+    // ==========================================================================
+    function updateContextKeysGating() {
+      const isBasico = (currentPlan === 'basico_free' || currentPlan === 'basico_pago');
+      const isInterm = (currentPlan === 'intermediario');
+      const isAvanc = (currentPlan === 'avancado');
+
+      // Chave Romano (Camada 2 - Interm e Avançado)
+      const btnRomano = document.getElementById('chip-ctx-romano');
+      const lockRomano = document.getElementById('lock-badge-romano');
+      if (btnRomano) {
+        if (isBasico) {
+          btnRomano.classList.add('is-locked');
+          btnRomano.classList.remove('is-unlocked');
+          if (lockRomano) lockRomano.style.display = 'inline-block';
+        } else {
+          btnRomano.classList.remove('is-locked');
+          btnRomano.classList.add('is-unlocked');
+          if (lockRomano) lockRomano.style.display = 'none';
+        }
+      }
+
+      // Chave Estrutura (Camada 2 - Interm e Avançado)
+      const btnEstrutura = document.getElementById('chip-ctx-estrutura');
+      const lockEstrutura = document.getElementById('lock-badge-estrutura');
+      if (btnEstrutura) {
+        if (isBasico) {
+          btnEstrutura.classList.add('is-locked');
+          btnEstrutura.classList.remove('is-unlocked');
+          if (lockEstrutura) lockEstrutura.style.display = 'inline-block';
+        } else {
+          btnEstrutura.classList.remove('is-locked');
+          btnEstrutura.classList.add('is-unlocked');
+          if (lockEstrutura) lockEstrutura.style.display = 'none';
+        }
+      }
+
+      // Chave Êxodo (Camada 3 - Exclusivo Avançado)
+      const btnExodo = document.getElementById('chip-ctx-exodo');
+      const lockExodo = document.getElementById('lock-badge-exodo');
+      if (btnExodo) {
+        if (isAvanc) {
+          btnExodo.classList.remove('is-locked');
+          btnExodo.classList.add('is-unlocked');
+          if (lockExodo) lockExodo.style.display = 'none';
+        } else {
+          btnExodo.classList.add('is-locked');
+          btnExodo.classList.remove('is-unlocked');
+          if (lockExodo) lockExodo.style.display = 'inline-block';
+        }
+      }
+    }
+
+    function handleContextChipClick(key) {
+      const isBasico = (currentPlan === 'basico_free' || currentPlan === 'basico_pago');
+      const isInterm = (currentPlan === 'intermediario');
+      const isAvanc = (currentPlan === 'avancado');
+
+      const viewer = document.getElementById('context-insight-viewer');
+      const badgeTitle = document.getElementById('insight-badge-title');
+      const contentBody = document.getElementById('insight-content-body');
+
+      // Verifica se a chave está bloqueada no plano atual
+      if ((key === 'romano' || key === 'estrutura') && isBasico) {
+        if (badgeTitle) badgeTitle.innerText = "🔒 Recurso Exclusivo do Intermediário";
+        if (contentBody) {
+          contentBody.innerHTML = `
+            <div style="padding:10px 0;">
+              <p style="color:var(--brand-gold); font-weight:600; margin-bottom:6px;">Aprofundamento Histórico & Literário (Camada 2)</p>
+              <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
+                Esta chave investiga a subversão da propaganda imperial de César em Roma e a estrutura em dois atos do Evangelho de Marcos. Disponível para assinantes a partir do plano <strong>Intermediário (R$ 12,90/mês)</strong>.
+              </p>
+              <button class="master-conclude-btn" style="margin:0; padding:8px 14px; display:inline-flex; width:auto;" onclick="openUpgradeModal()">
+                Conhecer o Plano Intermediário →
+              </button>
+            </div>
+          `;
+        }
+        if (viewer) viewer.style.display = 'block';
+        return;
+      }
+
+      if (key === 'exodo' && !isAvanc) {
+        if (badgeTitle) badgeTitle.innerText = "🔒 Recurso Exclusivo do Avançado";
+        if (contentBody) {
+          contentBody.innerHTML = `
+            <div style="padding:10px 0;">
+              <p style="color:#A384D8; font-weight:600; margin-bottom:6px;">Teologia Bíblica Canônica do Segundo Êxodo (Camada 3)</p>
+              <p style="color:var(--text-secondary); line-height:1.6; margin-bottom:12px;">
+                Esta chave explora a fusão profética veterotestamentária (Êxodo, Isaías e Malaquias) e os testemunhos patrísticos sobre a pregação de Pedro. Disponível com exclusividade no plano <strong>Avançado (R$ 19,90/mês)</strong>.
+              </p>
+              <button class="master-conclude-btn" style="margin:0; padding:8px 14px; display:inline-flex; width:auto; background:#6B4FA0;" onclick="openUpgradeModal()">
+                Conhecer o Plano Avançado →
+              </button>
+            </div>
+          `;
+        }
+        if (viewer) viewer.style.display = 'block';
+        return;
+      }
+
+      // Se liberado, abre o conteúdo normal
+      toggleContextInsight(key);
+    }
+
+    // CONTROLE DO POPOVER FLUTUANTE DA BÍBLIA
+    function toggleVersionFloatingCard(e) {
+      if (e) e.stopPropagation();
+      const card = document.getElementById('version-floating-card');
+      if (!card) return;
+      if (card.style.display === 'block') {
+        card.style.display = 'none';
+        return;
+      }
+      const info = typeof VERSION_INFOS !== 'undefined' ? (VERSION_INFOS[currentVersion] || VERSION_INFOS['blivre']) : null;
+      if (info) {
+        document.getElementById('floating-ver-title').innerText = info.title;
+        document.getElementById('floating-ver-desc').innerText = info.desc;
+      }
+      card.style.display = 'block';
+    }
+
+    function closeVersionFloatingCard() {
+      const card = document.getElementById('version-floating-card');
+      if (card) card.style.display = 'none';
+    }
+
+    document.addEventListener('click', () => {
+      closeVersionFloatingCard();
+    });
 
   </script>
 </body>
