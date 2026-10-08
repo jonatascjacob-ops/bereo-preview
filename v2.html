@@ -1676,6 +1676,8 @@
     .bottom-app-nav {
       position: fixed;
       bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
       max-width: 480px;
       height: 62px;
@@ -2079,6 +2081,399 @@
       line-height: 1.45;
     }
 
+  
+    /* ==========================================================================
+       ETAPA 2: REFINAMENTOS DE UI/UX — DOXAZEN QUIET LUXURY
+       ========================================================================== */
+    
+    /* 1. Limpeza do Cabeçalho e Foco no [DIA 01] */
+    .trail-sub-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    
+    .day-focus-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--brand-gold-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(197, 155, 75, 0.1);
+    }
+
+    /* Suavização da Tipografia Bíblica (Sem parecer negrito no escuro) */
+    .bible-reading-body p {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 400 !important;
+      line-height: 1.8 !important;
+      color: var(--text-primary);
+      letter-spacing: 0.1px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .bible-reading-body p span {
+      font-weight: 400 !important;
+    }
+
+    /* Versículo Âncora Suave */
+    .anchor-verse-highlight {
+      background: rgba(197, 155, 75, 0.08) !important;
+      border-left: 3px solid var(--brand-gold) !important;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      position: relative;
+    }
+
+    .anchor-verse-highlight strong {
+      font-weight: 400 !important;
+      color: var(--text-primary);
+    }
+
+    .anchor-icon-btn {
+      background: transparent;
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold);
+      border-radius: 4px;
+      padding: 3px 7px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10.5px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .anchor-icon-btn:hover {
+      background: var(--brand-gold-subtle);
+    }
+
+    /* Toast Tooltip do Versículo Âncora */
+    .anchor-toast {
+      position: fixed;
+      bottom: 84px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(24, 28, 35, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold-light);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .anchor-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    /* Ícone (i) de Informação da Versão */
+    .version-info-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-left: 6px;
+      flex-shrink: 0;
+    }
+    .version-info-btn:hover {
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+      background: var(--brand-gold-subtle);
+    }
+
+    /* Auto-Save Indicator */
+    .auto-save-status {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.3s ease;
+    }
+    .auto-save-status.saved {
+      color: #3E8E66;
+    }
+    .auto-save-status.saving {
+      color: var(--brand-gold);
+    }
+
+    /* Pílula Flutuante da BereIA */
+    /* Docking do FAB no simulador desktop e mobile */
+    .floating-bereia-fab {
+      position: fixed;
+      bottom: 74px;
+      right: calc(50% - 240px + 16px);
+      background: linear-gradient(135deg, #2A2218 0%, #1A1D24 100%);
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold-light);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 9px 16px;
+      border-radius: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4), 0 0 10px rgba(197, 155, 75, 0.15);
+      z-index: 450;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @media (max-width: 480px) {
+      .floating-bereia-fab {
+        right: 16px;
+      }
+    }
+    /* No plano Básico Free, botão do tutor/BereIA NÃO aparece */
+    html[data-plan="basico_free"] .floating-bereia-fab {
+      display: none !important;
+    }
+    .floating-bereia-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5), 0 0 16px rgba(197, 155, 75, 0.3);
+      border-color: var(--brand-gold);
+    }
+
+    /* Gaveta Retrátil In-Screen da BereIA (Bottom-Sheet de ~52vh) */
+    .bereia-drawer-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
+      z-index: 550;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .bereia-drawer-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .bereia-drawer-sheet {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      width: 100%;
+      max-width: 480px;
+      height: 54vh;
+      max-height: 520px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-gold);
+      border-left: 1px solid var(--border-gold);
+      border-right: 1px solid var(--border-gold);
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6);
+      transform: translateX(-50%) translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 551;
+    }
+    .bereia-drawer-backdrop.active .bereia-drawer-sheet {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .bereia-drawer-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .bereia-drawer-tabs {
+      display: flex;
+      gap: 6px;
+    }
+    .bereia-drawer-tab-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .bereia-drawer-tab-btn.active {
+      background: var(--brand-gold-subtle);
+      border-color: var(--border-gold);
+      color: var(--brand-gold);
+      font-weight: 700;
+    }
+
+    .bereia-drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bereia-msg-bubble {
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      line-height: 1.55;
+      max-width: 90%;
+    }
+    .bereia-msg-assistant {
+      align-self: flex-start;
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--brand-gold);
+      color: var(--text-primary);
+    }
+    .bereia-msg-user {
+      align-self: flex-end;
+      background: var(--brand-gold-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold-light);
+    }
+
+    .bereia-drawer-footer {
+      padding: 10px 16px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      gap: 8px;
+      background: var(--bg-card);
+      flex-shrink: 0;
+    }
+    .bereia-drawer-input {
+      flex: 1;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      outline: none;
+    }
+    .bereia-drawer-input:focus {
+      border-color: var(--brand-gold);
+    }
+    .bereia-drawer-send-btn {
+      background: var(--brand-gold);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 0 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease;
+    }
+    .bereia-drawer-send-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Modal de Informação de Versões Bíblicas */
+    .version-modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      max-width: 480px;
+      width: 90%;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    /* Estilos da View de Perfil */
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .profile-header-user {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .profile-avatar-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--brand-gold-subtle);
+      border: 2px solid var(--brand-gold);
+      color: var(--brand-gold);
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .profile-select-control {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      padding: 8px 10px;
+      outline: none;
+      width: 100%;
+    }
+    .profile-select-control:focus {
+      border-color: var(--brand-gold);
+    }
+
   </style>
 </head>
 <body>
@@ -2136,23 +2531,7 @@
     <!-- VIEW 1: ESTUDO DE HOJE -->
     <div class="app-content app-view active" id="view-hoje">
 
-            <!-- 0. BANNER STATUS DO PLANO SELECIONADO -->
-      <section class="plan-status-banner" id="plan-status-banner">
-        <div class="plan-status-left">
-          <span class="plan-pill" id="banner-plan-pill">Intermediário</span>
-          <span class="plan-status-info" id="banner-plan-desc">R$ 12,90/mês • Modo Comparativo NVI + NAA • Comunhão em Dupla</span>
-        </div>
-        <div class="plan-status-right">
-          <div class="tutor-quota-pill" id="banner-tutor-quota" onclick="openPlanSelectorModal()" title="Créditos mensais de IA Socrática">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span id="quota-counter-text">Tutor: 60 créditos</span>
-          </div>
-          <span class="sync-status-indicator cloud" id="banner-sync-indicator">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-            <span id="sync-indicator-text">Nuvem Ativa</span>
-          </span>
-        </div>
-      </section>
+            <!-- Banner de plano removido (Modo Produto Real) -->
 
       <!-- 1. CABEÇALHO DO DIA -->
       <section class="devotional-header">
@@ -2358,8 +2737,11 @@
           <!-- Versículo 3 (Versículo-Âncora) -->
           <div class="anchor-verse-highlight">
             <span class="v-num">3</span> 
-            <strong id="v3-text">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas".</strong>
-            <div><span class="anchor-tag-label">• Versículo-Âncora da Passagem</span></div>
+            <span id="v3-text" style="color:var(--text-primary);">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas".</span>
+            <button class="anchor-icon-btn" onclick="showAnchorToast(event)" title="Versículo-Âncora da Passagem" aria-label="Versículo-Âncora">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              <span>Âncora</span>
+            </button>
           </div>
 
           <!-- Versículo 4 -->
@@ -2476,13 +2858,14 @@
             <span class="q-badge-label">Síntese Ativa</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-sintese', 'ta-sintese')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Em uma frase com suas próprias palavras: Qual é o fato central narrado nesta passagem?</div>
           
           <textarea id="ta-sintese" class="response-input" oninput="autoExpand(this)" placeholder="Ex: João Batista prepara o caminho no deserto anunciando Aquele que é mais poderoso..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-sintese">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2505,13 +2888,14 @@
             <span class="q-badge-label">Pergunta de Observação</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs-basico', 'ta-obs-basico')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Leia os versículos 4 a 6. Onde João Batista realizava o seu ministério, como ele se vestia e o que as pessoas de Jerusalém faziam quando iam até ele?</div>
           <div class="q-helper-text">Dica: Anote os fatos que seus olhos leem diretamente na página, sem tentar interpretar ainda.</div>
           <textarea id="ta-obs-basico" class="response-input" oninput="autoExpand(this)" placeholder="Anote os fatos observados..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs-basico">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2535,13 +2919,14 @@
             <span class="q-badge-label">Observação 1: Títulos & Profecia</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs1-interm', 'ta-obs1-interm')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Observe os versículos 1 a 3. Que títulos Marcos atribui a Jesus logo no início, e quais profetas antigos são combinados para inaugurar o livro?</div>
           
           <textarea id="ta-obs1-interm" class="response-input" oninput="autoExpand(this)" placeholder="Anote os títulos e conexões..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs1-interm">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2563,13 +2948,14 @@
             <span class="q-badge-label">Observação 2: Contrastes</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs2-interm', 'ta-obs2-interm')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Examine os versículos 7 e 8: Liste as duas diferenças fundamentais que João aponta entre o seu ministério e o ministério dAquele que viria após ele.</div>
           
           <textarea id="ta-obs2-interm" class="response-input" oninput="autoExpand(this)" placeholder="Anote os dois contrastes textuais..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs2-interm">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2598,7 +2984,7 @@
             </div>
             <button class="tutor-hint-trigger" onclick="toggleTutor('tutor-p1')">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              Pedir Pista do Tutor (1 Crédito)
+              ✦ Pista da BereIA (1 Crédito)
             </button>
             <div class="tutor-answer-pinned" id="tutor-p1">
               <strong>[Pista do Tutor Fixada no Caderno]:</strong> Observe que João Batista não pedia que o povo ficasse lamentando, mas que confessasse os pecados e entrasse na água como marco de uma nova direção. Qual rota da sua rotina precisa dessa rotação de 180° hoje?
@@ -2613,13 +2999,14 @@
             <span class="q-badge-label">Investigação 1: Conexões com o Antigo Testamento</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs1-adv', 'ta-obs1-adv')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Embora Marcos mencione Isaías no v. 2, o texto funde Êxodo 23:20, Malaquias 3:1 e Isaías 40:3. Como essa fusão estabelece a divindade de Jesus como o próprio Yahweh que visita Seu povo?</div>
           
           <textarea id="ta-obs1-adv" class="response-input" oninput="autoExpand(this)" placeholder="Análise de teologia bíblica veterotestamentária..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs1-adv">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2641,13 +3028,14 @@
             <span class="q-badge-label">Investigação 2: O Retorno do Profeta Elias</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs2-adv', 'ta-obs2-adv')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Compare a indumentária de João (v. 6) com 2 Reis 1:8 e Malaquias 4:5. Qual o impacto dessa caracterização para a expectativa escatológica dos judeus?</div>
           
           <textarea id="ta-obs2-adv" class="response-input" oninput="autoExpand(this)" placeholder="Análise histórico-redentora..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs2-adv">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2669,13 +3057,14 @@
             <span class="q-badge-label">Investigação 3: Contrastes Gramaticais no Texto</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs3-adv', 'ta-obs3-adv')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">No v. 8, analise a antítese gramatical entre as partículas gregas <em>men... de</em> (μὲν... δὲ) ao opor o batismo com água e o batismo messiânico no Espírito Santo.</div>
           
           <textarea id="ta-obs3-adv" class="response-input" oninput="autoExpand(this)" placeholder="Análise gramatical do texto original..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs3-adv">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2711,13 +3100,14 @@
             <span class="q-badge-label">Compreensão Central</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp-basico', 'ta-comp-basico')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">No versículo 7, João diz que não é digno sequer de desamarrar as sandálias de Jesus. O que essa atitude revela sobre quem Jesus é e sobre como devemos nos colocar diante d'Ele?</div>
           
           <textarea id="ta-comp-basico" class="response-input" oninput="autoExpand(this)" placeholder="Sua compreensão do significado..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp-basico">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2759,13 +3149,14 @@
             <span class="q-badge-label">Contexto do Autor</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp1-interm', 'ta-comp1-interm')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Por que um autor que escrevia para cristãos perseguidos em Roma escolheu abrir seu livro chamando Jesus de "Filho de Deus" antes de narrar qualquer milagre público?</div>
           
           <textarea id="ta-comp1-interm" class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão contextual..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp1-interm">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2787,13 +3178,14 @@
             <span class="q-badge-label">O Simbolismo do Deserto</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp2-interm', 'ta-comp2-interm')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Por que Deus enviou a voz profética para o deserto árido em vez de colocar João pregando nos pátios nobres do Templo de Jerusalém?</div>
           
           <textarea id="ta-comp2-interm" class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão histórica..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp2-interm">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2835,13 +3227,14 @@
             <span class="q-badge-label">Compreensão 1: O Batismo no Jordão e a Tradição Judaica</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp1-adv', 'ta-comp1-adv')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Por que os judeus da Judeia aceitavam o batismo de purificação no Jordão, sabendo que a imersão era historicamente reservada a gentios pagãos convertidos? O que isso indica sobre a falência espiritual da época?</div>
           
           <textarea id="ta-comp1-adv" class="response-input" oninput="autoExpand(this)" placeholder="Sua análise bíblica e histórica..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp1-adv">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2863,13 +3256,14 @@
             <span class="q-badge-label">Compreensão 2: O Deserto como Cenário do Reino</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp2-adv', 'ta-comp2-adv')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Como a teologia profética do deserto (Oséias 2:14; Isaías 40) antecipa a natureza de um Reino que não depende das instituições do poder político romano ou sacerdotal judaico?</div>
           
           <textarea id="ta-comp2-adv" class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão bíblica..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp2-adv">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2891,13 +3285,14 @@
             <span class="q-badge-label">Compreensão 3: Citações Combinadas dos Profetas</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp3-adv', 'ta-comp3-adv')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Como a prática clássica de encabeçar citações mistas pelo nome do profeta maior harmoniza a leitura "no profeta Isaías" com "nos profetas"?</div>
           
           <textarea id="ta-comp3-adv" class="response-input" oninput="autoExpand(this)" placeholder="Sua observação textual..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp3-adv">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2949,13 +3344,14 @@
             <span class="q-badge-label">Aplicação Prática</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-prat-basico', 'ta-prat-basico')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">João Batista preparou o caminho para que Jesus chegasse ao coração das pessoas. O que está bagunçado ou fora do lugar na sua rotina hoje que você precisa "endireitar" para dar mais espaço a Jesus?</div>
           
           <textarea id="ta-prat-basico" class="response-input" oninput="autoExpand(this)" placeholder="Sua decisão prática para hoje..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-prat-basico">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -2984,6 +3380,7 @@
             </div>
             <div class="q-main-text" style="font-size:12.5px;">Que ilusão ou mentira sobre quem você é precisa ser confrontada hoje pela verdade de que Jesus é infinitamente superior e digno de ser exaltado?</div>
             <textarea id="ta-triad-mente" class="response-input" oninput="autoExpand(this)" placeholder="Alinhamento dos pensamentos..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
             <div class="tutor-hint-bubble" id="hint-triad-mente">
               <div class="tutor-hint-top"><span>✦ Pista na Mente</span><span>1 crédito</span></div>
               <div>Qual mentira sobre controle ou autossuficiência tem tentado ocupar o lugar central da sua mente nesta semana?</div>
@@ -3003,6 +3400,7 @@
             </div>
             <div class="q-main-text" style="font-size:12.5px;">O deserto foi o lugar onde o barulho silenciou para ouvir Deus. Qual é a principal distração que tem gerado ruído e impedido você de ouvir o Senhor com clareza?</div>
             <textarea id="ta-triad-coracao" class="response-input" oninput="autoExpand(this)" placeholder="Sondagem do coração..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
             <div class="tutor-hint-bubble" id="hint-triad-coracao">
               <div class="tutor-hint-top"><span>✦ Pista no Coração</span><span>1 crédito</span></div>
               <div>Qual apego ou distração ruidosa tem tirado a sensibilidade espiritual e a paz do seu interior?</div>
@@ -3022,6 +3420,7 @@
             </div>
             <div class="q-main-text" style="font-size:12.5px;">João teve a nobreza de diminuir para que Cristo crescesse. Em qual conversa ou ambiente de hoje você precisa abrir mão de ter razão para que a graça de Cristo apareça?</div>
             <textarea id="ta-triad-pratica" class="response-input" oninput="autoExpand(this)" placeholder="Decisão prática em relacionamentos..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
             <div class="tutor-hint-bubble" id="hint-triad-pratica">
               <div class="tutor-hint-top"><span>✦ Pista na Prática</span><span>1 crédito</span></div>
               <div>Assim como João diminuiu para Cristo crescer, onde você precisa renunciar ao orgulho e servir a alguém hoje?</div>
@@ -3039,13 +3438,14 @@
             <span class="q-badge-label">1. Desnudamento da Autojustiça</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-adv-autojustica', 'ta-adv-autojustica')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Quais "credenciais religiosas" (tempo de igreja, ministério, teologia correta) você secretamente usa como escudo para não se dobrar em arrependimento radical diante da santidade de Cristo?</div>
           
           <textarea id="ta-adv-autojustica" class="response-input" oninput="autoExpand(this)" placeholder="Sondagem de autojustiça..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-adv-autojustica">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -3067,13 +3467,14 @@
             <span class="q-badge-label">2. Vocação e Esferas Comunitárias</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-adv-vocacao', 'ta-adv-vocacao')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">Na sua profissão ou liderança, onde você tem sido tentado a reter autoridade pessoal ou manipular pessoas em vez de direcionar o foco exclusivamente para o Senhor?</div>
           
           <textarea id="ta-adv-vocacao" class="response-input" oninput="autoExpand(this)" placeholder="Exame de integridade vocacional..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-adv-vocacao">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -3095,13 +3496,14 @@
             <span class="q-badge-label">3. Ação Reformadora Concreta (24h)</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-adv-reforma', 'ta-adv-reforma')">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista do Tutor</span>
+              <span>✦ Pista da BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-main-text">A <em>metanoia</em> exige frutos visíveis. Qual conversa difícil, pedido de perdão ou corte de hábito você realizará nas próximas 24 horas como sinal concreto de alinhamento com Cristo?</div>
           
           <textarea id="ta-adv-reforma" class="response-input" oninput="autoExpand(this)" placeholder="Ação de reforma pessoal imediata..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-adv-reforma">
             <div class="tutor-hint-top">
               <span>✦ Pista Socrática do Tutor</span>
@@ -3146,6 +3548,7 @@
             • "Ajuda-me hoje a endireitar o meu coração quando eu estiver..."
           </div>
           <textarea id="ta-orar-basico" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Escreva sua oração sincera ao Senhor..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-orar-basico">
             <div class="tutor-hint-top"><span>✦ Pista na Oração</span><span>1 crédito</span></div>
             <div>Deixe que o sentimento de reverência guie sua oração sincera: comece agradecendo pela vinda de Jesus ao deserto do seu coração.</div>
@@ -3171,6 +3574,7 @@
             3. <strong>Súplica:</strong> Peça que o Espírito Santo conceda mansidão na prática de hoje.
           </div>
           <textarea id="ta-orar-interm" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua oração tridimensional..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-orar-interm">
             <div class="tutor-hint-top"><span>✦ Pista na Oração</span><span>1 crédito</span></div>
             <div>Equilibre sua oração em três movimentos: adoração pelo que Cristo é, confissão das distrações e súplica por capacitação do Espírito.</div>
@@ -3196,6 +3600,7 @@
             3. <strong>Consagração Vocacional:</strong> Clame por capacitação soberana para ser voz no deserto.
           </div>
           <textarea id="ta-orar-adv" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua liturgia pactual pessoal..."></textarea>
+          <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-orar-adv">
             <div class="tutor-hint-top"><span>✦ Pista Litúrgica</span><span>1 crédito</span></div>
             <div>Adore a Cristo como Mediador da Nova Aliança, mortifique a autojustiça e consagre sua vocação diante do Senhor.</div>
@@ -3434,7 +3839,147 @@
       </section>
     </div>
 
-        <!-- VIEW 3: TRILHAS DE LEITURA & JORNADAS BÍBLICAS -->
+        <!-- VIEW 4: PERFIL, PERSONALIZAÇÃO DA BEREIA & GESTÃO DE PLANOS -->
+    <div class="app-content app-view" id="view-perfil" style="display:none; flex-direction:column; gap:16px;">
+      
+      <!-- Cabeçalho do Perfil -->
+      <section class="profile-card">
+        <div class="profile-header-user">
+          <div class="profile-avatar-circle">JJ</div>
+          <div style="flex:1;">
+            <div style="font-size:16px; font-weight:700; color:var(--text-primary);">Jonatas Jacob</div>
+            <div style="font-size:12px; color:var(--text-secondary);">jonatas@doxazen.com • Membro Bereo</div>
+            <div style="margin-top:6px;">
+              <span class="day-focus-badge" id="perfil-active-plan-badge">Intermediário • R$ 12,90/mês</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cartão de Acesso Direto à Mentoria Aberta com a BereIA -->
+      <section class="profile-card" style="background:linear-gradient(135deg, rgba(197, 155, 75, 0.12) 0%, rgba(24, 28, 35, 1) 100%); border-color:var(--border-gold);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <span style="font-size:10px; font-weight:700; color:var(--brand-gold); text-transform:uppercase; letter-spacing:0.8px;">Mentoria Pastoral & Vida Cristã</span>
+            <h2 style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--text-primary); margin-top:2px;">Canal Livre com a BereIA</h2>
+            <p style="font-size:12px; line-height:1.5; color:var(--text-secondary); margin-top:4px;">
+              Converse livremente sobre aconselhamento, sofrimento, casamento, dúvidas teológicas e passos práticos de santificação com respostas diretas e acolhedoras.
+            </p>
+          </div>
+        </div>
+        <button class="master-conclude-btn" style="margin:0; padding:10px;" onclick="openBereiaDrawer('livre')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Abrir Diálogo Livre com a BereIA
+        </button>
+      </section>
+
+      <!-- Configurações do Perfil Teológico da BereIA (Triagem de Entrada Editável) -->
+      <section class="profile-card">
+        <h2 style="font-size:14px; font-weight:700; color:var(--text-primary); border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
+          Perfil Teológico & Personalização da BereIA
+        </h2>
+        <div style="font-size:11.5px; color:var(--text-secondary); line-height:1.45;">
+          A BereIA utiliza estas informações para calibrar a empatia pastoral e a profundidade de suas respostas sem impor qualquer partidarismo.
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr; gap:10px; margin-top:4px;">
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Maturidade Bíblica:</label>
+            <select class="profile-select-control" id="prof-maturidade">
+              <option value="iniciante">Iniciante (Criando o Hábito Diário)</option>
+              <option value="intermediario" selected>Intermediário (Estudo Regular e Conexões)</option>
+              <option value="avancado">Avançado (Línguas Originais e Ensino)</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Papel / Ministério na Igreja:</label>
+            <select class="profile-select-control" id="prof-ministerio">
+              <option value="membro">Membro da Comunidade</option>
+              <option value="lider_celula" selected>Líder de Célula / Pequeno Grupo</option>
+              <option value="professor_ebd">Professor de EBD</option>
+              <option value="pastor_presbitero">Pastor / Presbítero</option>
+              <option value="diacono">Diácono / Serviço</option>
+              <option value="visitante">Visitante / Em Busca de Igreja</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Tradição Confessional:</label>
+            <select class="profile-select-control" id="prof-tradicao">
+              <option value="batista" selected>Batista (Clássica / Reformada)</option>
+              <option value="presbiteriana">Presbiteriana / Reformada</option>
+              <option value="pentecostal">Pentecostal / Carismática</option>
+              <option value="metodista">Metodista / Wesleyana</option>
+              <option value="anglicana">Anglicana / Episcopal</option>
+              <option value="ampla">Bíblica / Não-Denominacional</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Lente Teológica da BereIA no Diálogo Livre:</label>
+            <select class="profile-select-control" id="prof-lente">
+              <option value="panoramica">Panorâmica & Irênica (Apresenta as visões com respeito)</option>
+              <option value="confessional" selected>Sintonizada com Minha Tradição (Fica à vontade pastoral)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ritmo Semanal & Notificações Flexíveis -->
+      <section class="profile-card">
+        <h2 style="font-size:14px; font-weight:700; color:var(--text-primary); border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
+          Ritmo Semanal & Notificações
+        </h2>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Meta de Dias por Semana:</label>
+            <div style="display:flex; gap:8px;">
+              <button class="trail-filter-chip" onclick="setWeeklyGoal(3)" id="chip-goal-3">3 Dias / Semana</button>
+              <button class="trail-filter-chip" onclick="setWeeklyGoal(5)" id="chip-goal-5">5 Dias / Semana</button>
+              <button class="trail-filter-chip active" onclick="setWeeklyGoal(6)" id="chip-goal-6">6 Dias / Semana (Padrão)</button>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Horário Preferido do Lembrete:</label>
+            <input type="time" class="profile-select-control" value="06:30" style="max-width:140px;">
+          </div>
+        </div>
+      </section>
+
+      <!-- Gestão dos 4 Planos no Preview -->
+      <section class="profile-card">
+        <h2 style="font-size:14px; font-weight:700; color:var(--text-primary); border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
+          Gestão de Assinatura & Níveis de Aprofundamento
+        </h2>
+        <div style="font-size:11.5px; color:var(--text-secondary);">
+          Alterne entre os planos para simular o comportamento da interface:
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:4px;">
+          <button class="plan-btn" id="btn-perfil-p-free" onclick="selectPlan('basico_free')">
+            <div style="font-weight:700;">Básico Free</div>
+            <div style="font-size:10px; opacity:0.8;">R$ 0,00 • BLIVRE</div>
+          </button>
+          <button class="plan-btn" id="btn-perfil-p-pago" onclick="selectPlan('basico_pago')">
+            <div style="font-weight:700;">Básico Semente</div>
+            <div style="font-size:10px; opacity:0.8;">R$ 5,90 • NVI + IA</div>
+          </button>
+          <button class="plan-btn active" id="btn-perfil-p-interm" onclick="selectPlan('intermediario')">
+            <div style="font-weight:700;">Intermediário</div>
+            <div style="font-size:10px; opacity:0.8;">R$ 12,90 • Tríade + Dupla</div>
+          </button>
+          <button class="plan-btn" id="btn-perfil-p-avanc" onclick="selectPlan('avancado')">
+            <div style="font-weight:700;">Avançado Mestre</div>
+            <div style="font-size:10px; opacity:0.8;">R$ 19,90 • 4 Versões + Léxico</div>
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- VIEW 3: TRILHAS DE LEITURA & JORNADAS BÍBLICAS -->
     <div class="app-content app-view" id="view-trilhas" style="display:none;">
       <!-- Cabeçalho das Trilhas -->
       <section class="trails-header-card">
@@ -3645,9 +4190,9 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Duplas
       </div>
-      <div class="nav-tab-item" id="nav-btn-perfil" onclick="openPlanSelectorModal()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        Planos
+      <div class="nav-tab-item" id="nav-btn-perfil" onclick="switchNavTab('perfil')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Perfil
       </div>
     </nav>
   </main>
@@ -4893,6 +5438,265 @@ ${document.getElementById('cad-res-prat').innerText}
         }
       });
     }
+
+
+    // ==========================================================================
+    // ETAPA 2: SCRIPTS INTERATIVOS DA BEREIA, AUTO-SAVE E PERFIL
+    // ==========================================================================
+    
+    // 1. Toast do Versículo Âncora (3 Segundos Fade In/Out)
+    let anchorToastTimer = null;
+    function showAnchorToast(e) {
+      if (e) e.stopPropagation();
+      const toast = document.getElementById('anchor-toast');
+      if (!toast) return;
+      toast.classList.add('show');
+      if (anchorToastTimer) clearTimeout(anchorToastTimer);
+      anchorToastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 2. Modal de Informações da Versão Bíblica (i)
+    const VERSION_INFOS = {
+      nvi: {
+        title: "Nova Versão Internacional (NVI)",
+        desc: "Tradução contemporânea de equivalência funcional/dinâmica produzida por um comitê evangélico internacional (Biblica Inc.). Combina alta fidelidade aos manuscritos originais com linguagem fluida em português moderno.",
+        tipo: "Equivalência Funcional",
+        ano: "2001 (Rev. 2011) • Biblica Inc."
+      },
+      naa: {
+        title: "Nova Almeida Atualizada (NAA)",
+        desc: "Tradução de equivalência formal da Sociedade Bíblica do Brasil (SBB). Mantém o estilo clássico de João Ferreira de Almeida com gramática e concordância atualizadas para o leitor do século XXI.",
+        tipo: "Equivalência Formal",
+        ano: "2017 • Sociedade Bíblica do Brasil (SBB)"
+      },
+      blivre: {
+        title: "Bíblia Livre (BLIVRE)",
+        desc: "Tradução cristã aberta em domínio público, fiel ao Texto Recebido e manuscritos gregos clássicos. Usada no plano Básico Gratuito do Bereo para acesso perpétuo sem cobrança de royalties.",
+        tipo: "Equivalência Formal Aberta",
+        ano: "Domínio Público / Licença Livre"
+      },
+      nvt: {
+        title: "Nova Versão Transformadora (NVT)",
+        desc: "Tradução com ênfase na clareza e acessibilidade das frases, ideal para leitura contínua e compreensão imediata do texto sagrado (Editora Mundo Cristão).",
+        tipo: "Equivalência Dinâmica",
+        ano: "2016 • Editora Mundo Cristão"
+      },
+      arc: {
+        title: "Almeida Revista e Corrigida (ARC)",
+        desc: "A tradução mais tradicional do mundo de língua portuguesa, reverenciada pela sonoridade solene e herança histórica dos hinos clássicos.",
+        tipo: "Equivalência Formal Clássica",
+        ano: "1898 / 1969 / 1995 • SBB"
+      }
+    };
+
+    function openVersionInfoModal() {
+      const modal = document.getElementById('version-info-modal');
+      const info = VERSION_INFOS[currentVersion] || VERSION_INFOS['nvi'];
+      document.getElementById('info-ver-title').innerText = info.title;
+      document.getElementById('info-ver-desc').innerText = info.desc;
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeVersionInfoModal() {
+      const modal = document.getElementById('version-info-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    // 3. Auto-Save em Tempo Real com Debounce de 800ms
+    let autoSaveTimeout = null;
+    function triggerAutoSave(textarea) {
+      const statusEls = document.querySelectorAll('.auto-save-status');
+      statusEls.forEach(el => {
+        el.className = 'auto-save-status saving';
+        el.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Salvando...';
+      });
+
+      if (autoSaveTimeout) clearTimeout(autoSaveTimeout);
+      autoSaveTimeout = setTimeout(() => {
+        if (textarea && textarea.id) {
+          localStorage.setItem('bereo_autosave_' + textarea.id, textarea.value);
+        }
+        statusEls.forEach(el => {
+          el.className = 'auto-save-status saved';
+          el.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real';
+        });
+      }, 800);
+    }
+
+    // 4. Gaveta Retrátil In-Screen da BereIA
+    let activeBereiaDrawerTab = 'pista';
+
+    function openBereiaDrawer(tab) {
+      if (currentPlan === 'basico_free') {
+        openUpgradeModal();
+        return;
+      }
+      activeBereiaDrawerTab = tab || 'pista';
+      const drawer = document.getElementById('bereia-drawer-backdrop');
+      if (drawer) drawer.classList.add('active');
+      switchBereiaDrawerTab(activeBereiaDrawerTab);
+    }
+
+    function closeBereiaDrawer() {
+      const drawer = document.getElementById('bereia-drawer-backdrop');
+      if (drawer) drawer.classList.remove('active');
+    }
+
+    function switchBereiaDrawerTab(tab) {
+      activeBereiaDrawerTab = tab;
+      const btnPista = document.getElementById('drawer-tab-pista');
+      const btnLivre = document.getElementById('drawer-tab-livre');
+      const chatBody = document.getElementById('bereia-drawer-chat-body');
+      const inputEl = document.getElementById('bereia-drawer-user-input');
+
+      if (btnPista) btnPista.classList.toggle('active', tab === 'pista');
+      if (btnLivre) btnLivre.classList.toggle('active', tab === 'livre');
+
+      if (tab === 'pista') {
+        chatBody.innerHTML = `
+          <div class="bereia-msg-bubble bereia-msg-assistant">
+            ✦ <strong>Tutor Socrático de Marcos 1:1-8:</strong><br>
+            Estou focado no texto de hoje. Não dou respostas prontas para não tirar a alegria da sua própria descoberta. Observe: que detalhe no v. 6 sobre as roupas de João Batista chama a sua atenção?
+          </div>
+        `;
+        if (inputEl) inputEl.placeholder = "Pergunte sobre Marcos 1:1-8...";
+      } else {
+        chatBody.innerHTML = `
+          <div class="bereia-msg-bubble bereia-msg-assistant">
+            ✦ <strong>Mentoria & Diálogo Livre:</strong><br>
+            A paz! Aqui temos total liberdade para conversar sobre a sua vida, aconselhamento, casamento, oração e dúvidas teológicas com base bíblica profunda. Como posso te apoiar hoje?
+          </div>
+        `;
+        if (inputEl) inputEl.placeholder = "Pergunte sobre sua vida, dúvidas ou aconselhamento...";
+      }
+    }
+
+    function sendBereiaMessage() {
+      const input = document.getElementById('bereia-drawer-user-input');
+      const chatBody = document.getElementById('bereia-drawer-chat-body');
+      if (!input || !input.value.trim()) return;
+
+      const userText = input.value.trim();
+      input.value = '';
+
+      // Adiciona mensagem do usuário
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bereia-msg-bubble bereia-msg-user';
+      userBubble.innerText = userText;
+      chatBody.appendChild(userBubble);
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Consome crédito no plano
+      if (tutorCreditsRemaining > 0) {
+        tutorCreditsRemaining--;
+        updateTutorBadges();
+      }
+
+      // Resposta simulada socrática em tempo real
+      setTimeout(() => {
+        const assistantBubble = document.createElement('div');
+        assistantBubble.className = 'bereia-msg-bubble bereia-msg-assistant';
+        
+        if (activeBereiaDrawerTab === 'pista') {
+          assistantBubble.innerHTML = `
+            ✦ <strong>BereIA:</strong> Excelente observação! Ao comparar esse ponto com 2 Reis 1:8, note que Elias também usava cinto de couro. Que mensagem isso transmitia ao povo de Israel no deserto?
+          `;
+        } else {
+          assistantBubble.innerHTML = `
+            ✦ <strong>BereIA:</strong> Entendo profundamente a sua dúvida. À luz das Escrituras, a paz de Deus excede todo o entendimento (Filipenses 4:6-7) não porque os problemas somem, mas porque depositamos a ansiedade nAquele que cuida de nós. Como você pode levar essa questão a Deus em oração sincera hoje?
+          `;
+        }
+        chatBody.appendChild(assistantBubble);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 700);
+    }
+
+        // Sincronização do Perfil com os Planos
+    function updatePerfilPlanUI(planKey) {
+      const profMap = {
+        'basico_free': 'btn-perfil-p-free',
+        'basico_pago': 'btn-perfil-p-pago',
+        'intermediario': 'btn-perfil-p-interm',
+        'avancado': 'btn-perfil-p-avanc'
+      };
+      Object.keys(profMap).forEach(k => {
+        const b = document.getElementById(profMap[k]);
+        if (b) b.classList.toggle('active', k === planKey);
+      });
+      const pBadge = document.getElementById('perfil-active-plan-badge');
+      const cfg = typeof PLAN_CONFIGS !== 'undefined' ? PLAN_CONFIGS[planKey] : null;
+      if (pBadge && cfg) {
+        const priceText = planKey === 'basico_free' ? 'R$ 0,00 • Grátis' : (planKey === 'basico_pago' ? 'R$ 5,90/mês' : (planKey === 'intermediario' ? 'R$ 12,90/mês' : 'R$ 19,90/mês'));
+        pBadge.innerText = `${cfg.name} • ${priceText}`;
+      }
+    }
+
+    function selectPlan(planKey) {
+      if (typeof switchPlan === 'function') {
+        switchPlan(planKey);
+      }
+      updatePerfilPlanUI(planKey);
+    }
+
+    // 5. Ajustar a Navegação Principal para Suportar 'perfil'
+    const origSwitchNavTab = switchNavTab;
+    switchNavTab = function(tab) {
+      activeNavTab = tab;
+      const viewHoje = document.getElementById('view-hoje');
+      const viewCaderno = document.getElementById('view-caderno');
+      const viewTrilhas = document.getElementById('view-trilhas');
+      const viewPerfil = document.getElementById('view-perfil');
+      
+      const btnHoje = document.getElementById('nav-btn-hoje');
+      const btnCaderno = document.getElementById('nav-btn-caderno');
+      const btnTrilhas = document.getElementById('nav-btn-trilhas');
+      const btnPerfil = document.getElementById('nav-btn-perfil');
+
+      // Ocultar todas
+      if (viewHoje) viewHoje.style.display = 'none';
+      if (viewCaderno) viewCaderno.style.display = 'none';
+      if (viewTrilhas) viewTrilhas.style.display = 'none';
+      if (viewPerfil) viewPerfil.style.display = 'none';
+
+      // Desativar botões
+      if (btnHoje) btnHoje.classList.remove('active');
+      if (btnCaderno) btnCaderno.classList.remove('active');
+      if (btnTrilhas) btnTrilhas.classList.remove('active');
+      if (btnPerfil) btnPerfil.classList.remove('active');
+
+      if (tab === 'caderno') {
+        syncCadernoData();
+        if (viewCaderno) viewCaderno.style.display = 'flex';
+        if (btnCaderno) btnCaderno.classList.add('active');
+      } else if (tab === 'trilhas') {
+        if (viewTrilhas) viewTrilhas.style.display = 'flex';
+        if (btnTrilhas) btnTrilhas.classList.add('active');
+      } else if (tab === 'perfil') {
+        if (viewPerfil) viewPerfil.style.display = 'flex';
+        if (btnPerfil) btnPerfil.classList.add('active');
+      } else {
+        if (viewHoje) viewHoje.style.display = 'flex';
+        if (btnHoje) btnHoje.classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    function setWeeklyGoal(days) {
+      [3, 5, 6].forEach(d => {
+        const chip = document.getElementById('chip-goal-' + d);
+        if (chip) chip.classList.toggle('active', d === days);
+      });
+    }
+
+    // Conectar auto-save a todos os textareas
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('textarea.response-input').forEach(ta => {
+        ta.addEventListener('input', () => triggerAutoSave(ta));
+      });
+    });
 
   </script>
 </body>
