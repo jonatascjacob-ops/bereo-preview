@@ -309,7 +309,7 @@
     html[data-depth="basico"] .inline-basico,
     html[data-depth="basico"] .inline-basic-int { display: inline-flex !important; }
 
-    /* Isolamento Fino do Básico Free vs Básico Semente (R$ 5,90) */
+    /* Isolamento Fino do Básico Free vs Básico (R$ 5,90) */
     html[data-plan="basico_free"] .show-basico-free { display: block !important; }
     html[data-plan="basico_free"] span.show-basico-free,
     html[data-plan="basico_free"] .inline-basico-free { display: inline-flex !important; }
@@ -2474,6 +2474,142 @@
       border-color: var(--brand-gold);
     }
 
+  
+    /* ==========================================================================
+       CHAVES DE CONTEXTO: MENOS TEXTO, MAIS ÍCONES & ESPAÇAMENTO RELAXADO
+       ========================================================================== */
+    .context-keys-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .context-keys-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .context-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 420px) {
+      .context-chips-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .context-chip-btn {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text-primary);
+    }
+
+    .context-chip-btn:hover {
+      border-color: var(--brand-gold);
+      background: var(--brand-gold-subtle);
+      transform: translateY(-1px);
+    }
+
+    .context-chip-btn.active {
+      background: var(--brand-gold-subtle);
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+
+    .context-chip-btn .chip-icon {
+      color: var(--brand-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .context-chip-btn .chip-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      text-align: center;
+    }
+
+    .context-insight-viewer {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-top: 4px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .insight-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .insight-close-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .insight-close-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--text-primary);
+    }
+
+    .insight-content-body {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: var(--text-primary);
+      margin-top: 10px;
+    }
+
+    .insight-content-body p {
+      margin-bottom: 8px;
+    }
+
+    .insight-content-body strong {
+      color: var(--brand-gold-light);
+    }
+
+    /* Espaçamento generoso e respiração no devocional */
+    .study-prompt-card, .scripture-card {
+      padding: 18px 20px !important;
+      margin-bottom: 16px !important;
+    }
+
+    .study-prompt-text {
+      font-size: 13.5px !important;
+      line-height: 1.7 !important;
+      color: var(--text-secondary);
+      margin-bottom: 12px !important;
+    }
+
   </style>
 </head>
 <body>
@@ -2495,7 +2631,7 @@
         </button>
         <button class="depth-btn" id="plan-btn-basico_pago" onclick="switchPlan('basico_pago')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          Básico Semente (R$ 5,90)
+          Básico (R$ 5,90)
         </button>
         <button class="depth-btn active" id="plan-btn-intermediario" onclick="switchPlan('intermediario')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -2533,30 +2669,23 @@
 
             <!-- Banner de plano removido (Modo Produto Real) -->
 
-      <!-- 1. CABEÇALHO DO DIA -->
-      <section class="devotional-header">
-        <div>
-          <div class="trail-breadcrumb">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>
-            Marcos em 32 Dias • Dia 01
-          </div>
-          <h1 class="pericope-heading" style="font-size:20px; line-height:1.25;">O Princípio do Evangelho e a Voz no Deserto</h1>
-          <div style="font-size:13.5px; font-weight:600; color:var(--brand-gold); margin-top:2px;">Marcos 1:1-8</div>
+      <!-- 1. CABEÇALHO DO DIA (PRODUTO REAL - ZERO POLUIÇÃO) -->
+      <section class="devotional-header" style="margin-top:6px; margin-bottom:12px; display:flex; flex-direction:column; gap:4px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="trail-sub-tag">Marcos em 32 Dias</span>
+          <span class="day-focus-badge">Dia 01</span>
         </div>
-
-                <span class="depth-badge show-basico-free basico-free">Básico Free</span>
-        <span class="depth-badge show-basico-pago basico-pago">Básico Semente (R$ 5,90)</span>
-        <span class="depth-badge show-intermediario intermediario">Intermediário</span>
-        <span class="depth-badge show-avancado avancado">Avançado</span>
+        <h1 class="pericope-heading" style="font-size:21px; line-height:1.3; margin:2px 0 2px 0;">O Princípio do Evangelho e a Voz no Deserto</h1>
+        <div style="font-size:13px; font-weight:600; color:var(--brand-gold); letter-spacing:0.3px;">Marcos 1:1–8</div>
       </section>
 
       <!-- 2. FITA DA SEMANA COM DIAS (SOMENTE DIA 01 ATIVO) -->
       <section class="week-calendar-card">
         <div class="week-calendar-top">
           <span class="week-info-title">Semana 1 de 5</span>
-          <span class="grace-days-pill">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Dias de Graça: 1 de 5 dias
+          <span class="grace-days-pill" style="font-size:11px; font-weight:600; color:var(--text-secondary); background:transparent; border:none; display:inline-flex; align-items:center; gap:5px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            No Seu Ritmo • Sem Pressa
           </span>
         </div>
 
@@ -2592,84 +2721,47 @@
         </div>
       </section>
 
-      <!-- 3. CARTÃO DE EMBARQUE DO LIVRO DE MARCOS (3 PROFUNDIDADES) -->
-      <section class="context-intro-card">
-        <div class="context-header" onclick="toggleContext()">
-          <span class="context-title">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-            Cartão de Embarque: Introdução a Marcos
-          </span>
-          <svg id="context-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <!-- 3. CHAVES DE CONTEXTO DE MARCOS (MENOS TEXTO, MAIS ÍCONES) -->
+      <section class="context-keys-card">
+        <div class="context-keys-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            <span style="font-family:var(--font-sans); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-secondary);">Chaves de Contexto • Marcos</span>
+          </div>
+          <span style="font-size:11px; color:var(--text-tertiary);">Toque em uma chave para explorar</span>
         </div>
-        <div class="context-body" id="context-content">
-          <!-- CAMADA 1: BÁSICO (Fundamento Essencial) -->
-          <div class="context-layer-block">
-            <div class="context-layer-header">
-              <span class="context-layer-tag">Camada 1 • Fundamento Essencial</span>
-              <span class="context-layer-status" style="color:var(--brand-gold);">Ativa em todos os níveis</span>
-            </div>
-            <div class="context-grid">
-              <div>
-                <div class="context-field-label">Autor Histórico</div>
-                <div class="context-field-val">João Marcos (c. 64-68 d.C.)</div>
-              </div>
-              <div>
-                <div class="context-field-label">Destinatários</div>
-                <div class="context-field-val">Cristãos sob perseguição em Roma</div>
-              </div>
-              <div>
-                <div class="context-field-label">Palavra-Chave Motora</div>
-                <div class="context-field-val"><em>Euthys</em> (εὐθύς — "imediatamente", 41x)</div>
-              </div>
-              <div>
-                <div class="context-field-label">Propósito Teológico</div>
-                <div class="context-field-val">O Servo Divino em ação (Mc 10:45)</div>
-              </div>
-            </div>
-          </div>
 
-          <!-- CAMADA 2: INTERMEDIÁRIO (Contexto Romano & Estrutura) -->
-          <div class="context-layer-block">
-            <div class="context-layer-header">
-              <span class="context-layer-tag">Camada 2 • Contexto Romano & Estrutura</span>
-              <span class="context-layer-status show-basico">Desbloqueada no Intermediário</span>
-              <span class="context-layer-status show-int-adv" style="color:var(--brand-gold);">Ativa</span>
-            </div>
-            <div class="show-basico" style="font-size:11.5px; color:var(--text-secondary); font-style:italic;">
-              No plano Intermediário, esta camada aprofunda a subversão da propaganda imperial de César e a arquitetura dramática de Marcos dividida em dois grandes atos.
-            </div>
-            <div class="show-int-adv context-grid">
-              <div style="grid-column: span 2;">
-                <div class="context-field-label">Contexto Imperial Romano</div>
-                <div class="context-field-val">Escrito sob o governo de Nero após o incêndio de Roma. O termo grego <em>Euangelion</em> subvertia os editais triunfais de César: o verdadeiro Salvador e Senhor não domina pela opressão das legiões, mas se entrega pelos pecadores.</div>
-              </div>
-              <div style="grid-column: span 2;">
-                <div class="context-field-label">Estrutura Dramática em Dois Atos</div>
-                <div class="context-field-val">Ato 1 (Cap. 1-8): "Quem é este Homem?" (Autoridade divina e milagres na Galileia) • Ato 2 (Cap. 9-16): "Por que Ele veio morrer?" (O caminho sacrificial da cruz em Jerusalém).</div>
-              </div>
-            </div>
-          </div>
+        <!-- Grade de Ícones / Botões Interativos -->
+        <div class="context-chips-grid">
+          <button class="context-chip-btn" id="chip-ctx-autor" onclick="toggleContextInsight('autor')" title="Autor Histórico & Propósito">
+            <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <span class="chip-label">Autor & Data</span>
+          </button>
 
-          <!-- CAMADA 3: AVANÇADO (Cânon do AT & Fonte Apostólica) -->
-          <div class="context-layer-block">
-            <div class="context-layer-header">
-              <span class="context-layer-tag" style="color:#A384D8;">Camada 3 • Pano de Fundo Canônico</span>
-              <span class="context-layer-status show-basic-int">Desbloqueada no Avançado</span>
-              <span class="context-layer-status show-avancado" style="color:#A384D8;">Ativa</span>
-            </div>
-            <div class="show-basic-int" style="font-size:11.5px; color:var(--text-secondary); font-style:italic;">
-              No plano Avançado, esta camada investiga a teologia bíblica do Segundo Êxodo (Êxodo, Isaías e Malaquias) e a preservação viva das pregações de Pedro em Roma.
-            </div>
-            <div class="show-avancado context-grid">
-              <div style="grid-column: span 2;">
-                <div class="context-field-label">O Segundo Êxodo Veterotestamentário</div>
-                <div class="context-field-val">A citação de abertura funde Êxodo 23:20, Isaías 40:3 e Malaquias 3:1. Para a teologia bíblica, isso anuncia a chegada do próprio Yahweh ao deserto para guiar Seu povo no retorno definitivo do exílio espiritual.</div>
-              </div>
-              <div style="grid-column: span 2;">
-                <div class="context-field-label">Memória Viva do Apóstolo Pedro</div>
-                <div class="context-field-val">Conforme os testemunhos patrísticos de Pápias e Irineu, João Marcos atuou como intérprete de Pedro em Roma, registrando suas memórias oculares, o que justifica a linguagem vívida, direta e sem rodeios do livro.</div>
-              </div>
-            </div>
+          <button class="context-chip-btn" id="chip-ctx-romano" onclick="toggleContextInsight('romano')" title="Contexto Imperial Romano">
+            <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l8-7 8 7"/></svg></span>
+            <span class="chip-label">Império Romano</span>
+          </button>
+
+          <button class="context-chip-btn" id="chip-ctx-estrutura" onclick="toggleContextInsight('estrutura')" title="Estrutura Literária em Dois Atos">
+            <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg></span>
+            <span class="chip-label">Dois Atos</span>
+          </button>
+
+          <button class="context-chip-btn" id="chip-ctx-exodo" onclick="toggleContextInsight('exodo')" title="Teologia Bíblica do Segundo Êxodo">
+            <span class="chip-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+            <span class="chip-label">Segundo Êxodo</span>
+          </button>
+        </div>
+
+        <!-- Painel Leitor Expansível do Insight Selecionado (Respirável & Confortável) -->
+        <div class="context-insight-viewer" id="context-insight-viewer" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="insight-badge" id="insight-badge-title">Título do Contexto</span>
+            <button onclick="closeContextInsight()" class="insight-close-btn">✕ Fechar</button>
+          </div>
+          <div class="insight-content-body" id="insight-content-body">
+            <!-- Conteúdo injetado via JS -->
           </div>
         </div>
       </section>
@@ -2687,7 +2779,7 @@
             <span class="single-version-tag">BLIVRE (Bíblia Livre)</span>
           </div>
 
-          <!-- No Básico Semente (R$ 5,90): Alternador Livre entre BLIVRE e NVI -->
+          <!-- No Básico (R$ 5,90): Alternador Livre entre BLIVRE e NVI -->
           <div class="version-tabs-nav show-basico-pago">
             <button class="v-tab-btn" id="btn-ver-bp-blivre" onclick="setVersion('blivre')">BLIVRE</button>
             <button class="v-tab-btn active" id="btn-ver-bp-nvi" onclick="setVersion('nvi')">NVI</button>
@@ -3840,9 +3932,9 @@
     </div>
 
         <!-- VIEW 4: PERFIL, PERSONALIZAÇÃO DA BEREIA & GESTÃO DE PLANOS -->
-    <div class="app-content app-view" id="view-perfil" style="display:none; flex-direction:column; gap:16px;">
+    <div class="app-content app-view" id="view-perfil" style="display:none; flex-direction:column; gap:18px;">
       
-      <!-- Cabeçalho do Perfil -->
+      <!-- Cabeçalho do Usuário -->
       <section class="profile-card">
         <div class="profile-header-user">
           <div class="profile-avatar-circle">JJ</div>
@@ -3862,7 +3954,7 @@
           <div>
             <span style="font-size:10px; font-weight:700; color:var(--brand-gold); text-transform:uppercase; letter-spacing:0.8px;">Mentoria Pastoral & Vida Cristã</span>
             <h2 style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--text-primary); margin-top:2px;">Canal Livre com a BereIA</h2>
-            <p style="font-size:12px; line-height:1.5; color:var(--text-secondary); margin-top:4px;">
+            <p style="font-size:12px; line-height:1.55; color:var(--text-secondary); margin-top:4px;">
               Converse livremente sobre aconselhamento, sofrimento, casamento, dúvidas teológicas e passos práticos de santificação com respostas diretas e acolhedoras.
             </p>
           </div>
@@ -3873,67 +3965,135 @@
         </button>
       </section>
 
-      <!-- Configurações do Perfil Teológico da BereIA (Triagem de Entrada Editável) -->
+      <!-- Perfil Teológico Detalhado (Campos Separados para IA Calibrar Respostas) -->
       <section class="profile-card">
         <h2 style="font-size:14px; font-weight:700; color:var(--text-primary); border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
-          Perfil Teológico & Personalização da BereIA
+          Perfil Teológico & Calibragem da BereIA
         </h2>
-        <div style="font-size:11.5px; color:var(--text-secondary); line-height:1.45;">
-          A BereIA utiliza estas informações para calibrar a empatia pastoral e a profundidade de suas respostas sem impor qualquer partidarismo.
+        <div style="font-size:11.5px; color:var(--text-secondary); line-height:1.5;">
+          A BereIA utiliza estas informações para calibrar a empatia pastoral e a profundidade de suas respostas sem impor qualquer partidarismo sectário.
         </div>
 
-        <div style="display:grid; grid-template-columns:1fr; gap:10px; margin-top:4px;">
+        <div style="display:grid; grid-template-columns:1fr; gap:12px; margin-top:6px;">
+          
+          <!-- 1. DENOMINAÇÃO ECLESIAL (CAMPO SEPARADO) -->
           <div>
-            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Maturidade Bíblica:</label>
-            <select class="profile-select-control" id="prof-maturidade">
-              <option value="iniciante">Iniciante (Criando o Hábito Diário)</option>
-              <option value="intermediario" selected>Intermediário (Estudo Regular e Conexões)</option>
-              <option value="avancado">Avançado (Línguas Originais e Ensino)</option>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">1. Denominação / Comunidade Local:</label>
+            <select class="profile-select-control" id="prof-denominacao">
+              <option value="batista" selected>Batista (Tradicional / Renovada / Bíblica)</option>
+              <option value="presbiteriana">Presbiteriana / Reformada Tradicional</option>
+              <option value="assembleia_deus">Assembleia de Deus / Pentecostal Clássica</option>
+              <option value="metodista">Metodista / Wesleyana</option>
+              <option value="anglicana">Anglicana / Episcopal</option>
+              <option value="luterana">Luterana</option>
+              <option value="congregacional">Congregacional</option>
+              <option value="adventista">Adventista do Sétimo Dia</option>
+              <option value="comunidade_ampla">Comunidade Cristã / Não-Denominacional</option>
+              <option value="em_transicao">Em transição / Em busca de comunidade local</option>
             </select>
           </div>
 
+          <!-- 2. LINHA TEOLÓGICA & HERMENÊUTICA (CAMPO SEPARADO) -->
           <div>
-            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Papel / Ministério na Igreja:</label>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">2. Linha Teológica & Matriz Hermenêutica:</label>
+            <select class="profile-select-control" id="prof-linha-teologica">
+              <option value="reformada_calvinista" selected>Reformada / Calvinista (Soberania da Graça, Cinco Solas)</option>
+              <option value="arminiana_wesleyana">Arminiana / Wesleyana (Graça Preveniente, Santificação)</option>
+              <option value="pactual_aliancista">Pactual / Aliancista (Unidade do Pacto da Graça)</option>
+              <option value="dispensacionalista">Dispensacionalista (Distinção de Dispensações e Israel/Igreja)</option>
+              <option value="pentecostal_carismatica">Pentecostal / Carismática (Contemporaneidade dos Dons)</option>
+              <option value="historica_ampla">Evangélica Histórica / Ampla (Foco nos Consensos Clássicos)</option>
+              <option value="aberto">Em exploração / Sem rótulo específico</option>
+            </select>
+          </div>
+
+          <!-- 3. TEMPO DE FÉ & MATURIDADE BÍBLICA -->
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">3. Tempo de Caminhada na Fé (Maturidade Bíblica):</label>
+            <select class="profile-select-control" id="prof-maturidade">
+              <option value="iniciante">Recém-convertido (Até 1 ano — Criando hábito diário)</option>
+              <option value="em_crescimento">Em consolidação (1 a 5 anos — Compreendendo a narrativa bíblica)</option>
+              <option value="intermediario" selected>Praticante Maduro (5 a 15 anos — Estudo regular e discernimento)</option>
+              <option value="avancado">Veterano / Ensino Bíblico (Mais de 15 anos — Exegese e discipulado)</option>
+            </select>
+          </div>
+
+          <!-- 4. PAPEL & MINISTÉRIO NA IGREJA -->
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">4. Papel & Ministério na Igreja:</label>
             <select class="profile-select-control" id="prof-ministerio">
               <option value="membro">Membro da Comunidade</option>
               <option value="lider_celula" selected>Líder de Célula / Pequeno Grupo</option>
-              <option value="professor_ebd">Professor de EBD</option>
-              <option value="pastor_presbitero">Pastor / Presbítero</option>
-              <option value="diacono">Diácono / Serviço</option>
-              <option value="visitante">Visitante / Em Busca de Igreja</option>
+              <option value="professor_ebd">Professor de EBD / Discipulador</option>
+              <option value="pastor_presbitero">Pastor / Presbítero / Ministro da Palavra</option>
+              <option value="diacono">Diácono / Ministério de Misericórdia e Serviço</option>
+              <option value="louvor">Ministério de Louvor / Música</option>
+              <option value="estudante_teologia">Estudante de Teologia / Vocacionado</option>
             </select>
           </div>
 
+          <!-- 5. OBJETIVO PRIMÁRIO DE ESTUDO -->
           <div>
-            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Tradição Confessional:</label>
-            <select class="profile-select-control" id="prof-tradicao">
-              <option value="batista" selected>Batista (Clássica / Reformada)</option>
-              <option value="presbiteriana">Presbiteriana / Reformada</option>
-              <option value="pentecostal">Pentecostal / Carismática</option>
-              <option value="metodista">Metodista / Wesleyana</option>
-              <option value="anglicana">Anglicana / Episcopal</option>
-              <option value="ampla">Bíblica / Não-Denominacional</option>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">5. Objetivo Primário no Estudo Devocional:</label>
+            <select class="profile-select-control" id="prof-objetivo">
+              <option value="intimidade" selected>Intimidade devocional e comunhão diária com Deus</option>
+              <option value="preparo_ensino">Preparo para ensinar outros e pregar a Palavra</option>
+              <option value="dilemas_praticos">Respostas bíblicas para dilemas morais e decisões da vida</option>
+              <option value="consolo_ansiedade">Consolo e fortalecimento em meio à ansiedade e sofrimento</option>
+              <option value="exegese_originais">Aprofundamento exegético e riqueza das línguas originais</option>
             </select>
           </div>
 
+          <!-- 6. ALVO PESSOAL DE ORAÇÃO & BATALHA ATUAL -->
           <div>
-            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Lente Teológica da BereIA no Diálogo Livre:</label>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">6. Alvo Principal de Oração & Batalha Atual:</label>
+            <select class="profile-select-control" id="prof-alvo-oracao">
+              <option value="ansiedade_trabalho" selected>Ansiedade, estresse e sobrecarga profissional</option>
+              <option value="casamento_familia">Família, casamento e criação dos filhos</option>
+              <option value="disciplina_espiritual">Disciplina na oração e constância devocional</option>
+              <option value="pureza_integridade">Pureza moral, santidade e pensamentos</option>
+              <option value="relacionamentos_perdao">Relacionamentos difíceis, mágoas e perdão</option>
+              <option value="luto_sofrimento">Luto, perdas, enfermidade ou provação</option>
+            </select>
+          </div>
+
+          <!-- 7. LENTE DA BEREIA NO DIÁLOGO LIVRE -->
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">7. Lente Hermenêutica no Diálogo Livre:</label>
             <select class="profile-select-control" id="prof-lente">
-              <option value="panoramica">Panorâmica & Irênica (Apresenta as visões com respeito)</option>
-              <option value="confessional" selected>Sintonizada com Minha Tradição (Fica à vontade pastoral)</option>
+              <option value="panoramica">Panorâmica & Irênica (Apresenta as visões com respeito mútuo)</option>
+              <option value="confessional" selected>Sintonizada com Minha Tradição (Fica à vontade pastoral na minha linha)</option>
             </select>
           </div>
+
+          <!-- 8. TOM PASTORAL PREFERIDO DA BEREIA -->
+          <div>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">8. Tom de Mentoria Preferido da BereIA:</label>
+            <select class="profile-select-control" id="prof-tom-pastoral">
+              <option value="pastoral_acolhedor" selected>Pastoral e Acolhedor (Consolo, graça e encorajamento)</option>
+              <option value="socratico_reflexivo">Socrático e Reflexivo (Perguntas que instigam autodescoberta)</option>
+              <option value="direto_pratico">Direto e Prático (Foco em passos claros de obediência)</option>
+              <option value="exegetico_profundo">Teológico e Exegético (História, originais e teologia bíblica)</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Box Informativo: Aprendizado Contínuo & Privacidade -->
+        <div style="background:var(--bg-card-subtle); border:1px solid var(--border-subtle); border-radius:6px; padding:12px; margin-top:10px; font-size:11px; line-height:1.5; color:var(--text-secondary);">
+          <strong style="color:var(--brand-gold);">ℹ️ Memória Contínua da BereIA:</strong>
+          Seu perfil é armazenado com criptografia e privacidade absoluta no Supabase (RLS). A BereIA conecta o seu perfil e as suas anotações do Caderno Espiritual (via vetores semânticos) para oferecer um acompanhamento pastoral que se lembra de suas lutas, alvos de oração e crescimento ao longo do tempo.
         </div>
       </section>
 
-      <!-- Ritmo Semanal & Notificações Flexíveis -->
+      <!-- Ritmo Semanal Flexível -->
       <section class="profile-card">
         <h2 style="font-size:14px; font-weight:700; color:var(--text-primary); border-bottom:1px solid var(--border-subtle); padding-bottom:8px;">
           Ritmo Semanal & Notificações
         </h2>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <div>
-            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Meta de Dias por Semana:</label>
+            <label style="font-size:11px; font-weight:600; color:var(--text-secondary); display:block; margin-bottom:4px;">Meta de Dias por Semana (Sem Pressão):</label>
             <div style="display:flex; gap:8px;">
               <button class="trail-filter-chip" onclick="setWeeklyGoal(3)" id="chip-goal-3">3 Dias / Semana</button>
               <button class="trail-filter-chip" onclick="setWeeklyGoal(5)" id="chip-goal-5">5 Dias / Semana</button>
@@ -3963,7 +4123,7 @@
             <div style="font-size:10px; opacity:0.8;">R$ 0,00 • BLIVRE</div>
           </button>
           <button class="plan-btn" id="btn-perfil-p-pago" onclick="selectPlan('basico_pago')">
-            <div style="font-weight:700;">Básico Semente</div>
+            <div style="font-weight:700;">Básico</div>
             <div style="font-size:10px; opacity:0.8;">R$ 5,90 • NVI + IA</div>
           </button>
           <button class="plan-btn active" id="btn-perfil-p-interm" onclick="selectPlan('intermediario')">
@@ -3971,7 +4131,7 @@
             <div style="font-size:10px; opacity:0.8;">R$ 12,90 • Tríade + Dupla</div>
           </button>
           <button class="plan-btn" id="btn-perfil-p-avanc" onclick="selectPlan('avancado')">
-            <div style="font-weight:700;">Avançado Mestre</div>
+            <div style="font-weight:700;">Avançado</div>
             <div style="font-size:10px; opacity:0.8;">R$ 19,90 • 4 Versões + Léxico</div>
           </button>
         </div>
@@ -4339,7 +4499,7 @@
 
       <div style="display:flex; flex-direction:column; gap:8px;">
         <button class="master-conclude-btn" style="margin:0; padding:12px;" onclick="upgradeToPlan('basico_pago')">
-          Experimentar Básico Semente (R$ 5,90) no Simulador
+          Experimentar Básico (R$ 5,90) no Simulador
         </button>
         <button onclick="closeUpgradeModal()" style="background:transparent; border:none; color:var(--text-tertiary); font-size:11.5px; font-weight:600; cursor:pointer; padding:4px;">
           Continuar no Plano Básico Gratuito
@@ -4452,7 +4612,7 @@
       },
       basico_pago: {
         depth: 'basico',
-        name: 'Básico Semente',
+        name: 'Básico',
         badgeClass: 'basico-pago',
         price: 'R$ 5,90/mês',
         desc: 'R$ 5,90/mês • Escolha entre NVI e BLIVRE • 25 Créditos de IA • Nuvem',
@@ -5697,6 +5857,85 @@ ${document.getElementById('cad-res-prat').innerText}
         ta.addEventListener('input', () => triggerAutoSave(ta));
       });
     });
+
+  
+    // ==========================================================================
+    // CHAVES DE CONTEXTO INTERATIVAS (MENOS TEXTO, MAIS ÍCONES)
+    // ==========================================================================
+    const CONTEXT_INSIGHTS = {
+      autor: {
+        title: "Autor Histórico & Propósito Teológico",
+        badge: "Fundamento Histórico",
+        body: `
+          <p><strong>Autor:</strong> João Marcos (c. 64–68 d.C.), companheiro de Paulo e Barnabé, e filho espiritual de Pedro (1Pe 5:13).</p>
+          <p><strong>Destinatários:</strong> Cristãos romanos vivendo sob intensa perseguição imperial de Nero após o grande incêndio de Roma.</p>
+          <p><strong>Palavra-Chave Motora:</strong> <em>Euthys</em> (εὐθύς — "imediatamente", repetida 41 vezes no grego), imprimindo urgência dramática ao Evangelho.</p>
+          <p><strong>Propósito Canônico:</strong> Apresentar o Filho de Deus como o Servo Divino em ação sacrificial (Mc 10:45), cuja coroa é a própria cruz.</p>
+        `
+      },
+      romano: {
+        title: "Subversão do Contexto Imperial Romano",
+        badge: "Pano de Fundo Imperial",
+        body: `
+          <p>Ao abrir sua narrativa com a frase <em>"Princípio do Evangelho de Jesus Cristo, Filho de Deus"</em>, Marcos desafiava frontalmente o vocabulário oficial de Roma.</p>
+          <p>O termo grego <strong>Euangelion</strong> era utilizado exclusivamente para anunciar vitórias das legiões e aniversários de entronização de César como senhor supremo.</p>
+          <p>Marcos subverte essa propaganda: o verdadeiro Salvador da humanidade não domina pela violência ou opressão das legiões, mas entrega a própria vida voluntariamente para resgate de muitos.</p>
+        `
+      },
+      estrutura: {
+        title: "Estrutura Literária Dramática em Dois Atos",
+        badge: "Arquitetura do Livro",
+        body: `
+          <p>O Evangelho de Marcos é estruturado como um drama teológico dividido em dois grandes movimentos:</p>
+          <p><strong>• Ato 1 (Capítulos 1 a 8):</strong> <em>"Quem é este Homem?"</em> — Foco na autoridade divina, milagres e cura na Galileia, culminando na confissão de Pedro em Cesareia de Filipe.</p>
+          <p><strong>• Ato 2 (Capítulos 9 a 16):</strong> <em>"Por que Ele veio morrer?"</em> — O caminho resoluto para Jerusalém, o anúncio da Paixão e a vitória do Servo Sofredor na cruz.</p>
+        `
+      },
+      exodo: {
+        title: "O Segundo Êxodo & Cumprimento Profético",
+        badge: "Conexão Veterotestamentária",
+        body: `
+          <p>A citação composta em Marcos 1:2-3 une <strong>Êxodo 23:20</strong>, <strong>Isaías 40:3</strong> e <strong>Malaquias 3:1</strong>.</p>
+          <p>Para a teologia bíblica da Aliança, o deserto não era mero acidente geográfico: era o lugar onde Yahweh conduziria Seu povo em um <strong>Segundo Êxodo definitivo</strong>, resgatando-os do exílio do pecado.</p>
+          <p>João Batista não prega nos palácios da Judeia, mas clama no deserto, indicando que o tempo da preparação chegou e o Rei está às portas.</p>
+        `
+      }
+    };
+
+    let activeContextInsightKey = null;
+
+    function toggleContextInsight(key) {
+      const viewer = document.getElementById('context-insight-viewer');
+      const badgeTitle = document.getElementById('insight-badge-title');
+      const contentBody = document.getElementById('insight-content-body');
+      
+      const allBtns = document.querySelectorAll('.context-chip-btn');
+      allBtns.forEach(btn => btn.classList.remove('active'));
+
+      if (activeContextInsightKey === key && viewer.style.display !== 'none') {
+        closeContextInsight();
+        return;
+      }
+
+      activeContextInsightKey = key;
+      const data = CONTEXT_INSIGHTS[key];
+      if (!data) return;
+
+      const activeBtn = document.getElementById('chip-ctx-' + key);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (badgeTitle) badgeTitle.innerText = data.badge + " • " + data.title;
+      if (contentBody) contentBody.innerHTML = data.body;
+      if (viewer) viewer.style.display = 'block';
+    }
+
+    function closeContextInsight() {
+      activeContextInsightKey = null;
+      const viewer = document.getElementById('context-insight-viewer');
+      if (viewer) viewer.style.display = 'none';
+      const allBtns = document.querySelectorAll('.context-chip-btn');
+      allBtns.forEach(btn => btn.classList.remove('active'));
+    }
 
   </script>
 </body>
