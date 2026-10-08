@@ -277,9 +277,430 @@
       gap: 16px;
     }
 
+    
     /* ==========================================================================
-       ISOLAMENTO ESTRITO DOS 3 NÍVEIS (ZERO VAZAMENTO ENTRE ELES)
+       ISOLAMENTO ESTRITO DOS PLANOS & NÍVEIS
        ========================================================================== */
+    .show-basico-free,
+    .show-basico-pago,
+    .show-basico,
+    .show-intermediario,
+    .show-avancado,
+    .show-int-adv,
+    .show-basic-int,
+    .show-paid,
+    .flex-basico,
+    .flex-intermediario,
+    .flex-avancado,
+    .inline-basico,
+    .inline-intermediario,
+    .inline-avancado,
+    .inline-int-adv,
+    .inline-basic-int,
+    .inline-basico-free,
+    .inline-basico-pago {
+      display: none !important;
+    }
+
+    html[data-depth="basico"] .show-basico { display: block !important; }
+    html[data-depth="basico"] .show-basic-int { display: block !important; }
+    html[data-depth="basico"] .flex-basico { display: flex !important; }
+    html[data-depth="basico"] span.show-basico,
+    html[data-depth="basico"] .inline-basico,
+    html[data-depth="basico"] .inline-basic-int { display: inline-flex !important; }
+
+    /* Isolamento Fino do Básico Free vs Básico Semente (R$ 5,90) */
+    html[data-plan="basico_free"] .show-basico-free { display: block !important; }
+    html[data-plan="basico_free"] span.show-basico-free,
+    html[data-plan="basico_free"] .inline-basico-free { display: inline-flex !important; }
+
+    html[data-plan="basico_pago"] .show-basico-pago { display: block !important; }
+    html[data-plan="basico_pago"] span.show-basico-pago,
+    html[data-plan="basico_pago"] .inline-basico-pago { display: inline-flex !important; }
+    html[data-plan="basico_pago"] .version-tabs-nav.show-basico-pago { display: inline-flex !important; }
+
+    /* Elementos Exclusivos de Planos Pagos */
+    html[data-plan="basico_pago"] .show-paid,
+    html[data-plan="intermediario"] .show-paid,
+    html[data-plan="avancado"] .show-paid { display: block !important; }
+
+    html[data-depth="intermediario"] .show-intermediario { display: block !important; }
+    html[data-depth="intermediario"] .show-int-adv { display: block !important; }
+    html[data-depth="intermediario"] .show-basic-int { display: block !important; }
+    html[data-depth="intermediario"] .flex-intermediario { display: flex !important; }
+    html[data-depth="intermediario"] .version-tabs-nav.show-intermediario { display: inline-flex !important; }
+    html[data-depth="intermediario"] span.show-intermediario,
+    html[data-depth="intermediario"] .inline-intermediario,
+    html[data-depth="intermediario"] .inline-int-adv,
+    html[data-depth="intermediario"] .inline-basic-int { display: inline-flex !important; }
+
+    html[data-depth="avancado"] .show-avancado { display: block !important; }
+    html[data-depth="avancado"] .show-int-adv { display: block !important; }
+    html[data-depth="avancado"] .flex-avancado { display: flex !important; }
+    html[data-depth="avancado"] .version-tabs-nav.show-avancado { display: inline-flex !important; }
+    html[data-depth="avancado"] span.show-avancado,
+    html[data-depth="avancado"] .strong-tag.show-avancado,
+    html[data-depth="avancado"] .inline-avancado,
+    html[data-depth="avancado"] .inline-int-adv { display: inline-flex !important; }
+
+    /* Badges dos Planos */
+    .depth-badge.basico-free {
+      background: rgba(104, 176, 136, 0.12);
+      color: #68B088;
+      border: 1px solid rgba(104, 176, 136, 0.3);
+    }
+    .depth-badge.basico-pago {
+      background: rgba(224, 186, 106, 0.15);
+      color: var(--brand-gold);
+      border: 1px solid var(--border-gold);
+    }
+
+    /* Banner Informativo do Plano Selecionado */
+    .plan-status-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 11px;
+      transition: all 0.25s ease;
+    }
+    .plan-status-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .plan-pill {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2.5px 8px;
+      border-radius: 4px;
+      background: var(--brand-gold-subtle);
+      color: var(--brand-gold);
+      border: 1px solid var(--border-gold);
+    }
+    .plan-status-info {
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+    .plan-status-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tutor-quota-pill {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tutor-quota-pill:hover {
+      background: var(--brand-gold-subtle);
+    }
+    .sync-status-indicator {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .sync-status-indicator.cloud {
+      background: rgba(45, 122, 88, 0.12);
+      color: #68B088;
+      border: 1px solid rgba(45, 122, 88, 0.25);
+    }
+    .sync-status-indicator.local {
+      background: rgba(220, 150, 40, 0.12);
+      color: #DCA028;
+      border: 1px solid rgba(220, 150, 40, 0.25);
+    }
+
+    /* ==========================================================================
+       BOTÕES DO TUTOR BEREANO & BALÕES SOCRÁTICOS
+       ========================================================================== */
+    .q-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+    .tutor-mini-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold);
+      font-family: var(--font-sans);
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .tutor-mini-btn:hover {
+      background: var(--brand-gold-subtle);
+      border-color: var(--brand-gold);
+      transform: translateY(-0.5px);
+      box-shadow: 0 2px 6px rgba(197, 155, 75, 0.15);
+    }
+    .tutor-credit-badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: var(--brand-gold-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold);
+    }
+
+    .tutor-hint-bubble {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-left: 3px solid var(--brand-gold);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text-primary);
+      animation: fadeIn 0.25s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+    .tutor-hint-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--brand-gold);
+      margin-bottom: 6px;
+    }
+    .tutor-pin-action {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px dashed var(--border-subtle);
+      padding-top: 8px;
+    }
+    .tutor-pin-btn {
+      background: var(--brand-gold-subtle);
+      border: 1px solid var(--border-gold);
+      color: var(--brand-gold);
+      font-family: var(--font-sans);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .tutor-pin-btn:hover {
+      background: var(--brand-gold);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       MODAL DE UPGRADE DO TUTOR (PARA PLANO BÁSICO GRATUITO)
+       ========================================================================== */
+    .upgrade-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 2500;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+    .upgrade-modal-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      animation: fadeIn 0.25s ease;
+    }
+    .upgrade-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+    .upgrade-feature-item strong {
+      color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       SEÇÃO DO CADERNO DEVOCIONAL (VIEW CADERNO)
+       ========================================================================== */
+    .caderno-header-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .caderno-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .caderno-stat-box {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: center;
+    }
+    .caderno-stat-num {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--brand-gold);
+    }
+    .caderno-stat-lbl {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .caderno-segmented-tabs {
+      display: flex;
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      gap: 3px;
+    }
+    .caderno-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .caderno-tab-btn.active {
+      background: var(--bg-card);
+      color: var(--brand-gold);
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .caderno-entry-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .caderno-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 4px;
+    }
+    .caderno-entry-block {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .caderno-entry-q {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .caderno-entry-val {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+    }
+    .timeline-compare-card {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .timeline-compare-badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--brand-gold);
+    }
+    .timeline-compare-text {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
     .show-basico,
     .show-intermediario,
     .show-avancado,
@@ -1295,20 +1716,25 @@
     <div class="lab-header-inner">
       <div class="brand-group">
         <span class="brand-tag">Bereo v2.0</span>
-        <span class="brand-title">As Três Profundidades</span>
+        <span class="brand-title">Simulador de Planos & Métodos</span>
       </div>
 
       <!-- Seletor dos 3 Níveis -->
+            <!-- Seletor dos 4 Planos Bereo -->
       <div class="depth-switcher-group" id="depth-controls">
-        <button class="depth-btn" onclick="switchDepth('basico')">
+        <button class="depth-btn" id="plan-btn-basico_free" onclick="switchPlan('basico_free')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
-          Básico (Gratuito / R$ 5,90)
+          Básico Free
         </button>
-        <button class="depth-btn active" onclick="switchDepth('intermediario')">
+        <button class="depth-btn" id="plan-btn-basico_pago" onclick="switchPlan('basico_pago')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Básico Semente (R$ 5,90)
+        </button>
+        <button class="depth-btn active" id="plan-btn-intermediario" onclick="switchPlan('intermediario')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           Intermediário (R$ 12,90)
         </button>
-        <button class="depth-btn" onclick="switchDepth('avancado')">
+        <button class="depth-btn" id="plan-btn-avancado" onclick="switchPlan('avancado')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           Avançado (R$ 19,90)
         </button>
@@ -1335,7 +1761,26 @@
 
   <!-- CONTAINER DO APLICATIVO REAL (SEM MOLDURA DE SMARTPHONE) -->
   <main class="app-screen-container">
-    <div class="app-content">
+    <!-- VIEW 1: ESTUDO DE HOJE -->
+    <div class="app-content app-view active" id="view-hoje">
+
+            <!-- 0. BANNER STATUS DO PLANO SELECIONADO -->
+      <section class="plan-status-banner" id="plan-status-banner">
+        <div class="plan-status-left">
+          <span class="plan-pill" id="banner-plan-pill">Intermediário</span>
+          <span class="plan-status-info" id="banner-plan-desc">R$ 12,90/mês • Modo Comparativo NVI + NAA • Comunhão em Dupla</span>
+        </div>
+        <div class="plan-status-right">
+          <div class="tutor-quota-pill" id="banner-tutor-quota" onclick="openPlanSelectorModal()" title="Créditos mensais de IA Socrática">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span id="quota-counter-text">Tutor: 60 créditos</span>
+          </div>
+          <span class="sync-status-indicator cloud" id="banner-sync-indicator">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            <span id="sync-indicator-text">Nuvem Ativa</span>
+          </span>
+        </div>
+      </section>
 
       <!-- 1. CABEÇALHO DO DIA -->
       <section class="devotional-header">
@@ -1348,9 +1793,10 @@
           <div style="font-size:13.5px; font-weight:600; color:var(--brand-gold); margin-top:2px;">Marcos 1:1-8</div>
         </div>
 
-        <span class="depth-badge show-basico basico">Nível Básico</span>
-        <span class="depth-badge show-intermediario intermediario">Nível Intermediário</span>
-        <span class="depth-badge show-avancado avancado">Nível Avançado</span>
+                <span class="depth-badge show-basico-free basico-free">Básico Free</span>
+        <span class="depth-badge show-basico-pago basico-pago">Básico Semente (R$ 5,90)</span>
+        <span class="depth-badge show-intermediario intermediario">Intermediário</span>
+        <span class="depth-badge show-avancado avancado">Avançado</span>
       </section>
 
       <!-- 2. FITA DA SEMANA COM DIAS (SOMENTE DIA 01 ATIVO) -->
@@ -1485,9 +1931,15 @@
             Texto do Dia
           </span>
 
-          <!-- No Básico: Apenas 1 Tag da Bíblia Livre -->
-          <div class="show-basico">
+                    <!-- No Básico Gratuito: Apenas 1 Tag Fixa da Bíblia Livre -->
+          <div class="show-basico-free">
             <span class="single-version-tag">BLIVRE (Bíblia Livre)</span>
+          </div>
+
+          <!-- No Básico Semente (R$ 5,90): Alternador Livre entre BLIVRE e NVI -->
+          <div class="version-tabs-nav show-basico-pago">
+            <button class="v-tab-btn" id="btn-ver-bp-blivre" onclick="setVersion('blivre')">BLIVRE</button>
+            <button class="v-tab-btn active" id="btn-ver-bp-nvi" onclick="setVersion('nvi')">NVI</button>
           </div>
 
           <!-- No Intermediário: 2 Abas Alternáveis (NVI / NAA) -->
@@ -1648,32 +2100,119 @@
 
         <!-- Ideia Central (Síntese Ativa presente em todos os níveis) -->
         <div class="question-box">
-          <span class="q-badge-label">Síntese Ativa</span>
+          <div class="q-header-row">
+            <span class="q-badge-label">Síntese Ativa</span>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-sintese', 'ta-sintese')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
+          </div>
           <div class="q-main-text">Em uma frase com suas próprias palavras: Qual é o fato central narrado nesta passagem?</div>
-          <textarea class="response-input" oninput="autoExpand(this)" placeholder="Ex: João Batista prepara o caminho no deserto anunciando Aquele que é mais poderoso..."></textarea>
+          
+          <textarea id="ta-sintese" class="response-input" oninput="autoExpand(this)" placeholder="Ex: João Batista prepara o caminho no deserto anunciando Aquele que é mais poderoso..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-sintese">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Tente não resumir tudo nos detalhes da roupa ou comida. Olhe para o versículo 1: quem é o centro absoluto de Marcos e qual solene declaração abre toda a narrativa?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-sintese', 'ta-sintese', '[Síntese do Tutor]: O início do Evangelho de Jesus Cristo, Filho de Deus, é anunciado pelo ministério precursor de João Batista no deserto preparando os caminhos do Senhor.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
         </div>
 
         <!-- [BÁSICO]: 1 Pergunta Direta -->
         <div class="question-box show-basico">
-          <span class="q-badge-label">Pergunta de Observação</span>
+          <div class="q-header-row">
+            <span class="q-badge-label">Pergunta de Observação</span>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-obs-basico', 'ta-obs-basico')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
+          </div>
           <div class="q-main-text">Leia os versículos 4 a 6. Onde João Batista realizava o seu ministério, como ele se vestia e o que as pessoas de Jerusalém faziam quando iam até ele?</div>
           <div class="q-helper-text">Dica: Anote os fatos que seus olhos leem diretamente na página, sem tentar interpretar ainda.</div>
-          <textarea class="response-input" oninput="autoExpand(this)" placeholder="Anote os fatos observados..."></textarea>
+          <textarea id="ta-obs-basico" class="response-input" oninput="autoExpand(this)" placeholder="Anote os fatos observados..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-obs-basico">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Olhe com atenção para o versículo 5: qual atitude interior acompanhava as multidões enquanto eram batizadas no rio Jordão?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-obs-basico', 'ta-obs-basico', '[Observação Guiada]: João atuava no deserto da Judeia, vestia pele de camelo com cinto de couro, alimentava-se de gafanhotos e mel silvestre, e o povo vinha confessando publicamente seus pecados.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
         </div>
 
         <!-- [INTERMEDIÁRIO]: 2 Perguntas + Pista Léxica Sem Spoiler + Tutor -->
         <div class="show-intermediario" style="display:flex; flex-direction:column; gap:10px;">
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Observação 1: Títulos & Profecia</span>
-            <div class="q-main-text">Observe os versículos 1 a 3. Que títulos Marcos atribui a Jesus logo no início, e quais profetas antigos são combinados para inaugurar o livro?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Anote os títulos e conexões..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-obs1-interm', 'ta-obs1-interm')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Observe os versículos 1 a 3. Que títulos Marcos atribui a Jesus logo no início, e quais profetas antigos são combinados para inaugurar o livro?</div>
+          
+          <textarea id="ta-obs1-interm" class="response-input" oninput="autoExpand(this)" placeholder="Anote os títulos e conexões..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-obs1-interm">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Observe que Marcos cita 'Filho de Deus' e combina dois profetas do Antigo Testamento sob a menção de Isaías. O que isso antecipa sobre quem está chegando?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-obs1-interm', 'ta-obs1-interm', '[Pista do Tutor]: Marcos combina Êxodo 23:20 e Malaquias 3:1 para indicar que a chegada de Jesus cumpre o Segundo Êxodo prometido pelos profetas.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Observação 2: Contrastes</span>
-            <div class="q-main-text">Examine os versículos 7 e 8: Liste as duas diferenças fundamentais que João aponta entre o seu ministério e o ministério dAquele que viria após ele.</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Anote os dois contrastes textuais..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-obs2-interm', 'ta-obs2-interm')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Examine os versículos 7 e 8: Liste as duas diferenças fundamentais que João aponta entre o seu ministério e o ministério dAquele que viria após ele.</div>
+          
+          <textarea id="ta-obs2-interm" class="response-input" oninput="autoExpand(this)" placeholder="Anote os dois contrastes textuais..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-obs2-interm">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Veja os versos 7 e 8: há um contraste de dignidade pessoal (desatar correias) e um contraste de poder espiritual (água exterior vs Espírito Santo interior).</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-obs2-interm', 'ta-obs2-interm', '[Pista do Tutor]: Contrastes: 1) Pessoal: João não se considera digno de desatar Suas correias; 2) Ministerial: João batiza com água externa, enquanto Jesus batiza com o Espírito Santo interior.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <!-- Pista Léxica Sem Spoiler -->
           <div class="lexicon-card">
@@ -1698,22 +2237,88 @@
         <!-- [AVANÇADO]: 3 Perguntas de Investigação Profunda -->
         <div class="show-avancado" style="display:flex; flex-direction:column; gap:10px;">
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Investigação 1: Conexões com o Antigo Testamento</span>
-            <div class="q-main-text">Embora Marcos mencione Isaías no v. 2, o texto funde Êxodo 23:20, Malaquias 3:1 e Isaías 40:3. Como essa fusão estabelece a divindade de Jesus como o próprio Yahweh que visita Seu povo?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Análise de teologia bíblica veterotestamentária..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-obs1-adv', 'ta-obs1-adv')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Embora Marcos mencione Isaías no v. 2, o texto funde Êxodo 23:20, Malaquias 3:1 e Isaías 40:3. Como essa fusão estabelece a divindade de Jesus como o próprio Yahweh que visita Seu povo?</div>
+          
+          <textarea id="ta-obs1-adv" class="response-input" oninput="autoExpand(this)" placeholder="Análise de teologia bíblica veterotestamentária..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-obs1-adv">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Em Isaías 40:3, a voz prepara o caminho de Yahweh (o SENHOR em hebraico). Ao aplicar esse texto a Jesus, que confissão cristológica categórica Marcos faz logo no verso 2?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-obs1-adv', 'ta-obs1-adv', '[Pista Teológica]: Ao fundir Êxodo 23:20, Malaquias 3:1 e Isaías 40:3, Marcos proclama que Jesus é o próprio Yahweh que vem visitar Seu povo no cumprimento do Segundo Êxodo.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Investigação 2: O Retorno do Profeta Elias</span>
-            <div class="q-main-text">Compare a indumentária de João (v. 6) com 2 Reis 1:8 e Malaquias 4:5. Qual o impacto dessa caracterização para a expectativa escatológica dos judeus?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Análise histórico-redentora..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-obs2-adv', 'ta-obs2-adv')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Compare a indumentária de João (v. 6) com 2 Reis 1:8 e Malaquias 4:5. Qual o impacto dessa caracterização para a expectativa escatológica dos judeus?</div>
+          
+          <textarea id="ta-obs2-adv" class="response-input" oninput="autoExpand(this)" placeholder="Análise histórico-redentora..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-obs2-adv">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Compare a indumentária de João (v. 6) com 2 Reis 1:8 e Malaquias 4:5. Por que Marcos faz questão de registrar o cinto de couro e a vestimenta áspera de pelos?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-obs2-adv', 'ta-obs2-adv', '[Pista Histórico-Redentora]: A vestimenta de João replica intencionalmente a indumentária de Elias, sinalizando à mente judaica o cumprimento de Malaquias 4:5 antes do grande Dia do Senhor.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Investigação 3: Contrastes Gramaticais no Texto</span>
-            <div class="q-main-text">No v. 8, analise a antítese gramatical entre as partículas gregas <em>men... de</em> (μὲν... δὲ) ao opor o batismo com água e o batismo messiânico no Espírito Santo.</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Análise gramatical do texto original..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-obs3-adv', 'ta-obs3-adv')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">No v. 8, analise a antítese gramatical entre as partículas gregas <em>men... de</em> (μὲν... δὲ) ao opor o batismo com água e o batismo messiânico no Espírito Santo.</div>
+          
+          <textarea id="ta-obs3-adv" class="response-input" oninput="autoExpand(this)" placeholder="Análise gramatical do texto original..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-obs3-adv">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>No v. 8, a antítese μὲν... δὲ (men... de) estabelece uma subordinação hierárquica entre o ministério preparatório e a consumação messiânica definitiva.</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-obs3-adv', 'ta-obs3-adv', '[Pista Gramatical]: A construção μὲν... δὲ opõe a ação limitada humana com água à imersão soberana e escatológica no Espírito Santo efetuada exclusivamente pelo Filho de Deus.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1730,10 +2335,32 @@
         <!-- [BÁSICO]: 1 Pergunta Direta + A Ponte para Cristo -->
         <div class="show-basico" style="display:flex; flex-direction:column; gap:10px;">
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Compreensão Central</span>
-            <div class="q-main-text">No versículo 7, João diz que não é digno sequer de desamarrar as sandálias de Jesus. O que essa atitude revela sobre quem Jesus é e sobre como devemos nos colocar diante d'Ele?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua compreensão do significado..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-comp-basico', 'ta-comp-basico')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">No versículo 7, João diz que não é digno sequer de desamarrar as sandálias de Jesus. O que essa atitude revela sobre quem Jesus é e sobre como devemos nos colocar diante d'Ele?</div>
+          
+          <textarea id="ta-comp-basico" class="response-input" oninput="autoExpand(this)" placeholder="Sua compreensão do significado..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-comp-basico">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Desatar sandálias era tarefa tão humilhante que nem discípulos judeus faziam para seus rabinos. O que a atitude de João nos ensina sobre humildade sincera?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-comp-basico', 'ta-comp-basico', '[Compreensão Guiada]: João se coloca voluntariamente na posição mais humilde diante da grandeza de Cristo. A verdadeira honra espiritual consiste em exaltar a Jesus.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <!-- A Ponte para Cristo (Básico) -->
           <div class="christ-key-card">
@@ -1756,16 +2383,60 @@
         <!-- [INTERMEDIÁRIO]: 2 Perguntas + Cristo no Texto (2 Tempos) -->
         <div class="show-intermediario" style="display:flex; flex-direction:column; gap:10px;">
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Contexto do Autor</span>
-            <div class="q-main-text">Por que um autor que escrevia para cristãos perseguidos em Roma escolheu abrir seu livro chamando Jesus de "Filho de Deus" antes de narrar qualquer milagre público?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão contextual..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-comp1-interm', 'ta-comp1-interm')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Por que um autor que escrevia para cristãos perseguidos em Roma escolheu abrir seu livro chamando Jesus de "Filho de Deus" antes de narrar qualquer milagre público?</div>
+          
+          <textarea id="ta-comp1-interm" class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão contextual..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-comp1-interm">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Sob o imperador romano que exigia adoração militar, por que era tão revolucionário proclamar que as verdadeiras Boas-Novas (Euangelion) vinham de um profeta no deserto?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-comp1-interm', 'ta-comp1-interm', '[Compreensão Contextual]: Marcos subverte a propaganda romana: a salvação real não vem do poder bélico ou dos editais de César, mas da graça redentora do Filho de Deus.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">O Simbolismo do Deserto</span>
-            <div class="q-main-text">Por que Deus enviou a voz profética para o deserto árido em vez de colocar João pregando nos pátios nobres do Templo de Jerusalém?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão histórica..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-comp2-interm', 'ta-comp2-interm')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Por que Deus enviou a voz profética para o deserto árido em vez de colocar João pregando nos pátios nobres do Templo de Jerusalém?</div>
+          
+          <textarea id="ta-comp2-interm" class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão histórica..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-comp2-interm">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Por que Deus levou João para o deserto em vez de dar a ele uma cátedra no Templo de Jerusalém?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-comp2-interm', 'ta-comp2-interm', '[Compreensão Histórica]: Deus atrai o povo ao deserto para despojá-los das ilusões religiosas institucionais e falar intimamente ao coração longe do ruído da cidade.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <!-- Cristo no Texto (Chave Redentora) -->
           <div class="christ-key-card">
@@ -1788,22 +2459,88 @@
         <!-- [AVANÇADO]: 3 Perguntas de Compreensão Profunda + Cumprimento Redentor no Cânon -->
         <div class="show-avancado" style="display:flex; flex-direction:column; gap:10px;">
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Compreensão 1: O Batismo no Jordão e a Tradição Judaica</span>
-            <div class="q-main-text">Por que os judeus da Judeia aceitavam o batismo de purificação no Jordão, sabendo que a imersão era historicamente reservada a gentios pagãos convertidos? O que isso indica sobre a falência espiritual da época?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua análise bíblica e histórica..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-comp1-adv', 'ta-comp1-adv')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Por que os judeus da Judeia aceitavam o batismo de purificação no Jordão, sabendo que a imersão era historicamente reservada a gentios pagãos convertidos? O que isso indica sobre a falência espiritual da época?</div>
+          
+          <textarea id="ta-comp1-adv" class="response-input" oninput="autoExpand(this)" placeholder="Sua análise bíblica e histórica..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-comp1-adv">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>O batismo de prosélitos era imposto aos gentios impuros. O que a submissão dos judeus ao batismo de João indica sobre o sentimento de ruína espiritual da nação?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-comp1-adv', 'ta-comp1-adv', '[Análise Teológica]: Ao entrarem nas águas como se fossem gentios, os judeus confessavam publicamente a falência da sua justiça própria e a necessidade de regeneração radical.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Compreensão 2: O Deserto como Cenário do Reino</span>
-            <div class="q-main-text">Como a teologia profética do deserto (Oséias 2:14; Isaías 40) antecipa a natureza de um Reino que não depende das instituições do poder político romano ou sacerdotal judaico?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão bíblica..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-comp2-adv', 'ta-comp2-adv')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Como a teologia profética do deserto (Oséias 2:14; Isaías 40) antecipa a natureza de um Reino que não depende das instituições do poder político romano ou sacerdotal judaico?</div>
+          
+          <textarea id="ta-comp2-adv" class="response-input" oninput="autoExpand(this)" placeholder="Sua reflexão bíblica..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-comp2-adv">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Como a teologia do deserto em Oséias 2:14 e Isaías 40 redefine as noções triunfalistas de poder e messianismo secular?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-comp2-adv', 'ta-comp2-adv', '[Teologia do Deserto]: O deserto estabelece que o Reino de Deus não se apoia em conchavos políticos ou riqueza terrena, operando a partir do despojo e da dependência soberana do Espírito.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">Compreensão 3: Citações Combinadas dos Profetas</span>
-            <div class="q-main-text">Como a prática clássica de encabeçar citações mistas pelo nome do profeta maior harmoniza a leitura "no profeta Isaías" com "nos profetas"?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua observação textual..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-comp3-adv', 'ta-comp3-adv')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Como a prática clássica de encabeçar citações mistas pelo nome do profeta maior harmoniza a leitura "no profeta Isaías" com "nos profetas"?</div>
+          
+          <textarea id="ta-comp3-adv" class="response-input" oninput="autoExpand(this)" placeholder="Sua observação textual..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-comp3-adv">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Como a convenção literária judaica do segundo templo resolvia compilações de múltiplos profetas encabeçando pelo profeta de maior relevância messiânica?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-comp3-adv', 'ta-comp3-adv', '[Crítica Textual]: A menção 'no profeta Isaías' segue o princípio hermenêutico do texto dominante, onde Isaías ancora o tema teológico principal do Segundo Êxodo.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <!-- Cumprimento Redentor no Cânon (Avançado) -->
           <div class="christ-key-card">
@@ -1836,51 +2573,178 @@
 
         <!-- [BÁSICO]: 1 Aplicação Direta -->
         <div class="question-box show-basico">
-          <span class="q-badge-label">Aplicação Prática</span>
+          <div class="q-header-row">
+            <span class="q-badge-label">Aplicação Prática</span>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-prat-basico', 'ta-prat-basico')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
+          </div>
           <div class="q-main-text">João Batista preparou o caminho para que Jesus chegasse ao coração das pessoas. O que está bagunçado ou fora do lugar na sua rotina hoje que você precisa "endireitar" para dar mais espaço a Jesus?</div>
-          <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sua decisão prática para hoje..."></textarea>
+          
+          <textarea id="ta-prat-basico" class="response-input" oninput="autoExpand(this)" placeholder="Sua decisão prática para hoje..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-prat-basico">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Pense em uma situação concreta das próximas 12 horas: qual área da sua rotina precisa ser desobstruída para que você ouça a voz de Deus sem pressa?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-prat-basico', 'ta-prat-basico', '[Aplicação Sugerida]: Vou desobstruir meus primeiros 20 minutos da manhã, desligando notificações e abrindo a Palavra antes de qualquer mensagem do trabalho.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
         </div>
 
-        <!-- [INTERMEDIÁRIO]: Tríade Indutiva Canônica (Mente, Coração, Prática) -->
+                <!-- [INTERMEDIÁRIO]: Tríade Indutiva Canônica (Mente, Coração, Prática) -->
         <div class="triad-container show-intermediario">
           <div class="triad-branch mente">
-            <span class="triad-branch-title">1. Na Mente (Verdade & Cosmovisão)</span>
+            <div class="q-header-row">
+              <span class="triad-branch-title">1. Na Mente (Verdade & Cosmovisão)</span>
+              <button class="tutor-mini-btn" onclick="askTutor('hint-triad-mente', 'ta-triad-mente')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+              </button>
+            </div>
             <div class="q-main-text" style="font-size:12.5px;">Que ilusão ou mentira sobre quem você é precisa ser confrontada hoje pela verdade de que Jesus é infinitamente superior e digno de ser exaltado?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Alinhamento dos pensamentos..."></textarea>
+            <textarea id="ta-triad-mente" class="response-input" oninput="autoExpand(this)" placeholder="Alinhamento dos pensamentos..."></textarea>
+            <div class="tutor-hint-bubble" id="hint-triad-mente">
+              <div class="tutor-hint-top"><span>✦ Pista na Mente</span><span>1 crédito</span></div>
+              <div>Qual mentira sobre controle ou autossuficiência tem tentado ocupar o lugar central da sua mente nesta semana?</div>
+              <div class="tutor-pin-action">
+                <button class="tutor-pin-btn" onclick="pinTutorHint('hint-triad-mente', 'ta-triad-mente', '[Alinhamento da Mente]: Rejeito o pensamento ansioso de que tudo depende do meu controle; confio na soberania de Jesus que cuida de cada detalhe da minha jornada.')">Fixar Insight</button>
+              </div>
+            </div>
           </div>
 
           <div class="triad-branch coracao">
-            <span class="triad-branch-title">2. No Coração (Afetos & Deserto)</span>
+            <div class="q-header-row">
+              <span class="triad-branch-title">2. No Coração (Afetos & Deserto)</span>
+              <button class="tutor-mini-btn" onclick="askTutor('hint-triad-coracao', 'ta-triad-coracao')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+              </button>
+            </div>
             <div class="q-main-text" style="font-size:12.5px;">O deserto foi o lugar onde o barulho silenciou para ouvir Deus. Qual é a principal distração que tem gerado ruído e impedido você de ouvir o Senhor com clareza?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sondagem do coração..."></textarea>
+            <textarea id="ta-triad-coracao" class="response-input" oninput="autoExpand(this)" placeholder="Sondagem do coração..."></textarea>
+            <div class="tutor-hint-bubble" id="hint-triad-coracao">
+              <div class="tutor-hint-top"><span>✦ Pista no Coração</span><span>1 crédito</span></div>
+              <div>Qual apego ou distração ruidosa tem tirado a sensibilidade espiritual e a paz do seu interior?</div>
+              <div class="tutor-pin-action">
+                <button class="tutor-pin-btn" onclick="pinTutorHint('hint-triad-coracao', 'ta-triad-coracao', '[Sondagem do Coração]: Reconheço que o barulho das redes sociais tem endurecido meus afetos; decido buscar momentos de silêncio e oração ao longo do dia de hoje.')">Fixar Insight</button>
+              </div>
+            </div>
           </div>
 
           <div class="triad-branch pratica">
-            <span class="triad-branch-title">3. Na Prática (Vida & Ação)</span>
+            <div class="q-header-row">
+              <span class="triad-branch-title">3. Na Prática (Vida & Ação)</span>
+              <button class="tutor-mini-btn" onclick="askTutor('hint-triad-pratica', 'ta-triad-pratica')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+              </button>
+            </div>
             <div class="q-main-text" style="font-size:12.5px;">João teve a nobreza de diminuir para que Cristo crescesse. Em qual conversa ou ambiente de hoje você precisa abrir mão de ter razão para que a graça de Cristo apareça?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Decisão prática em relacionamentos..."></textarea>
+            <textarea id="ta-triad-pratica" class="response-input" oninput="autoExpand(this)" placeholder="Decisão prática em relacionamentos..."></textarea>
+            <div class="tutor-hint-bubble" id="hint-triad-pratica">
+              <div class="tutor-hint-top"><span>✦ Pista na Prática</span><span>1 crédito</span></div>
+              <div>Assim como João diminuiu para Cristo crescer, onde você precisa renunciar ao orgulho e servir a alguém hoje?</div>
+              <div class="tutor-pin-action">
+                <button class="tutor-pin-btn" onclick="pinTutorHint('hint-triad-pratica', 'ta-triad-pratica', '[Decisão Prática]: Em vez de disputar a última palavra na conversa de hoje, vou ouvir com paciência e buscar edificar meu irmão com mansidão.')">Fixar Insight</button>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- [AVANÇADO]: Sondagem Vertical & Desnudamento de Autojustiça -->
         <div class="show-avancado" style="display:flex; flex-direction:column; gap:10px;">
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">1. Desnudamento da Autojustiça</span>
-            <div class="q-main-text">Quais "credenciais religiosas" (tempo de igreja, ministério, teologia correta) você secretamente usa como escudo para não se dobrar em arrependimento radical diante da santidade de Cristo?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Sondagem de autojustiça..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-adv-autojustica', 'ta-adv-autojustica')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Quais "credenciais religiosas" (tempo de igreja, ministério, teologia correta) você secretamente usa como escudo para não se dobrar em arrependimento radical diante da santidade de Cristo?</div>
+          
+          <textarea id="ta-adv-autojustica" class="response-input" oninput="autoExpand(this)" placeholder="Sondagem de autojustiça..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-adv-autojustica">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>A ortodoxia teológica pode virar um ídolo de orgulho quando usamos o conhecimento bíblico para julgar os outros em vez de nos quebrantarmos.</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-adv-autojustica', 'ta-adv-autojustica', '[Autoexame]: Renuncio ao orgulho de achar que meu conhecimento bíblico me torna superior; a teologia correta deve produzir lágrimas de gratidão e misericórdia, não arrogância.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">2. Vocação e Esferas Comunitárias</span>
-            <div class="q-main-text">Na sua profissão ou liderança, onde você tem sido tentado a reter autoridade pessoal ou manipular pessoas em vez de direcionar o foco exclusivamente para o Senhor?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Exame de integridade vocacional..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-adv-vocacao', 'ta-adv-vocacao')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">Na sua profissão ou liderança, onde você tem sido tentado a reter autoridade pessoal ou manipular pessoas em vez de direcionar o foco exclusivamente para o Senhor?</div>
+          
+          <textarea id="ta-adv-vocacao" class="response-input" oninput="autoExpand(this)" placeholder="Exame de integridade vocacional..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-adv-vocacao">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Lembre-se de João Batista: sua alegria era ver Cristo crescer e ele diminuir (Jo 3:30). Onde você está buscando glória própria na liderança?</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-adv-vocacao', 'ta-adv-vocacao', '[Integridade Vocacional]: Abro mão de buscar reconhecimento pessoal nos projetos da minha equipe, dando visibilidade e crédito aos meus liderados para a glória de Deus.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
 
           <div class="question-box">
+          <div class="q-header-row">
             <span class="q-badge-label">3. Ação Reformadora Concreta (24h)</span>
-            <div class="q-main-text">A <em>metanoia</em> exige frutos visíveis. Qual conversa difícil, pedido de perdão ou corte de hábito você realizará nas próximas 24 horas como sinal concreto de alinhamento com Cristo?</div>
-            <textarea class="response-input" oninput="autoExpand(this)" placeholder="Ação de reforma pessoal imediata..."></textarea>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-adv-reforma', 'ta-adv-reforma')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista do Tutor</span>
+              <span class="tutor-credit-badge">1 cr</span>
+            </button>
           </div>
+          <div class="q-main-text">A <em>metanoia</em> exige frutos visíveis. Qual conversa difícil, pedido de perdão ou corte de hábito você realizará nas próximas 24 horas como sinal concreto de alinhamento com Cristo?</div>
+          
+          <textarea id="ta-adv-reforma" class="response-input" oninput="autoExpand(this)" placeholder="Ação de reforma pessoal imediata..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-adv-reforma">
+            <div class="tutor-hint-top">
+              <span>✦ Pista Socrática do Tutor</span>
+              <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
+            </div>
+            <div>Estabeleça um compromisso que possa ser checado amanhã: uma ligação, um pedido de perdão ou um ato concreto de restituição.</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-adv-reforma', 'ta-adv-reforma', '[Compromisso em 24h]: Vou procurar um irmão com quem tive desentendimento recente e pedir perdão com sinceridade ainda hoje.')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                Fixar Insight na Resposta
+              </button>
+              <span style="font-size:10px; color:var(--text-tertiary);">Transfere para o Caderno</span>
+            </div>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1894,37 +2758,79 @@
         </div>
         <div class="step-title-text">Transformando aprendizado em oração</div>
 
-        <!-- [BÁSICO]: Prompts de Partida -->
+                <!-- [BÁSICO]: Prompts de Partida -->
         <div class="question-box show-basico">
+          <div class="q-header-row">
+            <span class="q-badge-label">Prompts de Partida</span>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-orar-basico', 'ta-orar-basico')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+            </button>
+          </div>
           <div class="q-helper-text" style="margin-bottom:6px;">Use estas 3 frases para começar sua conversa sincera com Deus:</div>
           <div style="font-size:12.5px; line-height:1.6; color:var(--text-secondary);">
             • "Senhor Jesus, reconheço a Tua grandeza e confesso que às vezes tento ser o centro..."<br>
             • "Peço perdão sincero na área de..."<br>
             • "Ajuda-me hoje a endireitar o meu coração quando eu estiver..."
           </div>
-          <textarea class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Escreva sua oração sincera ao Senhor..."></textarea>
+          <textarea id="ta-orar-basico" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Escreva sua oração sincera ao Senhor..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-orar-basico">
+            <div class="tutor-hint-top"><span>✦ Pista na Oração</span><span>1 crédito</span></div>
+            <div>Deixe que o sentimento de reverência guie sua oração sincera: comece agradecendo pela vinda de Jesus ao deserto do seu coração.</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-orar-basico', 'ta-orar-basico', 'Senhor Jesus, reconheço a Tua grandeza soberana. Perdoa quando tento ser o centro dos meus planos e me ajuda a endireitar o meu coração na rotina de hoje. Em Teu nome, amém.')">Fixar Oração Sugerida</button>
+            </div>
+          </div>
         </div>
 
-        <!-- [INTERMEDIÁRIO]: Roteiro Tridimensional -->
+                <!-- [INTERMEDIÁRIO]: Roteiro Tridimensional -->
         <div class="question-box show-intermediario">
+          <div class="q-header-row">
+            <span class="q-badge-label">Roteiro Tridimensional</span>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-orar-interm', 'ta-orar-interm')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+            </button>
+          </div>
           <div class="q-helper-text" style="margin-bottom:6px;">Tridimensionalidade de Oração:</div>
           <div style="font-size:12.5px; line-height:1.6; color:var(--text-secondary);">
             1. <strong>Adoração:</strong> Contemple a supremacia de Cristo sobre sua vida e planos.<br>
             2. <strong>Confissão:</strong> Confesse as distrações e a sede de controle sondadas no coração.<br>
             3. <strong>Súplica:</strong> Peça que o Espírito Santo conceda mansidão na prática de hoje.
           </div>
-          <textarea class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua oração tridimensional..."></textarea>
+          <textarea id="ta-orar-interm" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua oração tridimensional..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-orar-interm">
+            <div class="tutor-hint-top"><span>✦ Pista na Oração</span><span>1 crédito</span></div>
+            <div>Equilibre sua oração em três movimentos: adoração pelo que Cristo é, confissão das distrações e súplica por capacitação do Espírito.</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-orar-interm', 'ta-orar-interm', 'Pai, Te adoro porque enviaste Teu Filho Amado. Confesso minhas distrações e apego ao controle. Suplico que o Espírito Santo renove meu coração em santidade e mansidão para servir aos outros hoje.')">Fixar Oração Sugerida</button>
+            </div>
+          </div>
         </div>
 
-        <!-- [AVANÇADO]: Liturgia Pactual Teocêntrica -->
+                <!-- [AVANÇADO]: Liturgia Pactual Teocêntrica -->
         <div class="question-box show-avancado">
+          <div class="q-header-row">
+            <span class="q-badge-label">Liturgia Pactual Teocêntrica</span>
+            <button class="tutor-mini-btn" onclick="askTutor('hint-orar-adv', 'ta-orar-adv')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+            </button>
+          </div>
           <div class="q-helper-text" style="margin-bottom:6px;">Oração ancorada na Aliança da Graça:</div>
           <div style="font-size:12.5px; line-height:1.6; color:var(--text-secondary);">
             1. <strong>Proclamação Cósmica:</strong> Adore a divindade eterna de Cristo que cumpre toda a Escritura.<br>
             2. <strong>Mortificação:</strong> Renuncie à autojustiça diante dAquele que batiza no Espírito Santo.<br>
             3. <strong>Consagração Vocacional:</strong> Clame por capacitação soberana para ser voz no deserto.
           </div>
-          <textarea class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua liturgia pactual pessoal..."></textarea>
+          <textarea id="ta-orar-adv" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua liturgia pactual pessoal..."></textarea>
+          <div class="tutor-hint-bubble" id="hint-orar-adv">
+            <div class="tutor-hint-top"><span>✦ Pista Litúrgica</span><span>1 crédito</span></div>
+            <div>Adore a Cristo como Mediador da Nova Aliança, mortifique a autojustiça e consagre sua vocação diante do Senhor.</div>
+            <div class="tutor-pin-action">
+              <button class="tutor-pin-btn" onclick="pinTutorHint('hint-orar-adv', 'ta-orar-adv', 'Eterno Deus e Pai, exaltamos a Cristo, Yahweh encarnado e Mediador da Nova Aliança. Mortificamos nossa justiça própria e consagramos nossa vida para sermos voz fiel no deserto da nossa geração. Pelo Sangue da Aliança Eterna, amém.')">Fixar Liturgia Sugerida</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1954,35 +2860,283 @@
           <span id="btn-conclude-label">Registrar Estudo no Caderno & Concluir o Dia</span>
         </button>
       </section>
+    </div>
 
+    <!-- VIEW 2: CADERNO ESPIRITUAL DO DISCÍPULO -->
+    <div class="app-content app-view" id="view-caderno" style="display:none;">
+      <!-- Cabeçalho do Caderno -->
+      <section class="caderno-header-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+          <div>
+            <div class="trail-breadcrumb">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Bereo • Diário Espiritual
+            </div>
+            <h1 class="pericope-heading" style="font-size:20px; line-height:1.25;">Meu Caderno Bereano</h1>
+            <div style="font-size:11.5px; color:var(--text-secondary); margin-top:2px;">Seu diário permanente de reflexão bíblica e crescimento espiritual</div>
+          </div>
+          <span class="depth-badge intermediario" id="caderno-header-badge">Intermediário</span>
+        </div>
+
+        <!-- Banner de Status de Sincronização -->
+        <div id="caderno-sync-status-card" class="plan-status-banner" style="margin:0; background:var(--bg-card-subtle);">
+          <div class="plan-status-left">
+            <span class="sync-status-indicator cloud" id="caderno-sync-pill">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+              <span id="caderno-sync-pill-text">Nuvem Ativa</span>
+            </span>
+            <span style="font-size:11px; color:var(--text-secondary);" id="caderno-sync-desc">
+              Sincronizado na Nuvem Bereo • Seguro e Permanente
+            </span>
+          </div>
+          <button id="caderno-upgrade-sync-btn" onclick="openUpgradeModal()" class="tutor-mini-btn" style="display:none;">
+            Ativar Backup em Nuvem
+          </button>
+        </div>
+
+        <!-- Grid de Métricas do Caderno -->
+        <div class="caderno-stats-grid">
+          <div class="caderno-stat-box">
+            <span class="caderno-stat-num">14</span>
+            <span class="caderno-stat-lbl">Dias Seguidos</span>
+          </div>
+          <div class="caderno-stat-box">
+            <span class="caderno-stat-num">42</span>
+            <span class="caderno-stat-lbl">Estudos Salvos</span>
+          </div>
+          <div class="caderno-stat-box">
+            <span class="caderno-stat-num" id="caderno-credits-stat">60</span>
+            <span class="caderno-stat-lbl">Créditos de IA</span>
+          </div>
+        </div>
+
+        <!-- Navegação Segmentada Interna do Caderno -->
+        <div class="caderno-segmented-tabs">
+          <button class="caderno-tab-btn active" id="tab-btn-cad-hoje" onclick="switchCadernoSubTab('hoje')">Registro de Hoje</button>
+          <button class="caderno-tab-btn" id="tab-btn-cad-timeline" onclick="switchCadernoSubTab('timeline')">Linha do Tempo (2025 vs 2026)</button>
+          <button class="caderno-tab-btn" id="tab-btn-cad-export" onclick="switchCadernoSubTab('export')">Exportar & Partilha</button>
+        </div>
+      </section>
+
+      <!-- SUBVIEW 1: REGISTRO DE HOJE -->
+      <section id="caderno-subview-hoje" class="caderno-entry-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+          <div>
+            <div style="font-size:15px; font-weight:700; color:var(--text-primary);">Marcos 1:1-8</div>
+            <div style="font-size:11px; color:var(--text-secondary); margin-top:2px;">
+              Registrado hoje • Versão: <strong id="caderno-meta-ver" style="color:var(--brand-gold);">NVI</strong> • Plano: <span id="caderno-meta-plan">Intermediário</span>
+            </div>
+          </div>
+          <span style="font-size:10px; font-weight:700; color:var(--brand-olive); background:rgba(62,142,102,0.12); padding:3px 8px; border-radius:4px; border:1px solid rgba(62,142,102,0.3);">
+            ✓ Concluído
+          </span>
+        </div>
+
+        <!-- Versículo-Âncora Memorizado -->
+        <div class="anchor-verse-highlight" style="margin:0;">
+          <span class="v-num">3</span>
+          <strong id="caderno-anchor-text">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas".</strong>
+          <div><span class="anchor-tag-label">• Versículo-Âncora do Dia</span></div>
+        </div>
+
+        <!-- Bloco 1: Observação -->
+        <div class="caderno-entry-block">
+          <div class="caderno-section-title">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            1. Observação do Texto
+          </div>
+          <div class="caderno-entry-q">Síntese Ativa:</div>
+          <div class="caderno-entry-val" id="cad-res-sintese">João Batista prepara o caminho no deserto anunciando Aquele que é mais poderoso do que ele.</div>
+          
+          <div class="caderno-entry-q" style="margin-top:6px;">Fatos Textuais / Conexões:</div>
+          <div class="caderno-entry-val" id="cad-res-obs">João pregava no deserto da Judeia; batizava com água; vestia pele de camelo e se alimentava de gafanhotos e mel silvestre. Ele aponta para o ministério superior de Cristo que batiza com o Espírito Santo.</div>
+        </div>
+
+        <!-- Bloco 2: Compreensão & Cristo no Texto -->
+        <div class="caderno-entry-block">
+          <div class="caderno-section-title">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            2. Compreensão & Chave de Cristo
+          </div>
+          <div class="caderno-entry-q">Significado Central:</div>
+          <div class="caderno-entry-val" id="cad-res-comp">João não é digno de desatar as sandálias do Senhor. A verdadeira postura do servo de Deus é diminuir para que a glória de Jesus resplandeça.</div>
+          
+          <div class="caderno-entry-q" style="margin-top:6px;">A Ponte para Cristo / Cumprimento:</div>
+          <div class="caderno-entry-val" id="cad-res-christ" style="color:var(--brand-gold);">Em Cristo, o próprio Yahweh visita o deserto do nosso coração. João Batista apenas sinalizava com água exterior, mas somente Jesus regenera o coração pela habitação do Espírito Santo.</div>
+        </div>
+
+        <!-- Bloco 3: Aplicação Prática -->
+        <div class="caderno-entry-block">
+          <div class="caderno-section-title">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            3. Aplicação Prática & Decisão
+          </div>
+          <div class="caderno-entry-val" id="cad-res-prat">Hoje vou desobstruir meus primeiros 20 minutos da manhã, desligando notificações do celular e abrindo a Palavra antes de atender aos pedidos de urgência do trabalho.</div>
+        </div>
+
+        <!-- Bloco 4: Oração Registrada -->
+        <div class="caderno-entry-block">
+          <div class="caderno-section-title">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            4. Oração Registrada ao Senhor
+          </div>
+          <div class="caderno-entry-val" id="cad-res-oracao" style="font-style:italic;">Senhor Jesus, reconheço a Tua grandeza soberana. Perdoa quando tento ser o centro dos meus planos e me ajuda a endireitar o meu coração na rotina de hoje. Em Teu nome, amém.</div>
+        </div>
+
+        <!-- Ações do Registro -->
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;">
+          <button class="tutor-pin-btn" onclick="switchNavTab('hoje')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Voltar ao Estudo para Editar
+          </button>
+          <button class="tutor-pin-btn" onclick="copyCadernoToday()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar Resumo do Estudo
+          </button>
+        </div>
+      </section>
+
+      <!-- SUBVIEW 2: LINHA DO TEMPO (2025 vs 2026) -->
+      <section id="caderno-subview-timeline" class="caderno-entry-card" style="display:none;">
+        <div style="font-size:14px; font-weight:700; color:var(--text-primary);">
+          Memória Anual Bereana • Camadas Temporais
+        </div>
+        <div style="font-size:12px; line-height:1.5; color:var(--text-secondary);">
+          O Bereo preserva o que você escreveu nas mesmas passagens ao longo dos anos para você testemunhar a fidelidade de Deus e o amadurecimento da sua caminhada espiritual.
+        </div>
+
+        <!-- Registro de 2025 -->
+        <div class="timeline-compare-card" style="border-left:3px solid var(--text-tertiary);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="timeline-compare-badge" style="color:var(--text-secondary);">08 de Outubro de 2025 • Há 1 Ano</span>
+            <span style="font-size:10px; color:var(--text-tertiary);">Marcos 1:1-8</span>
+          </div>
+          <div class="timeline-compare-text">
+            "Eu estava muito angustiado com o início do novo trabalho e a mudança de residência. Anotei: 'O deserto não é castigo; é o lugar onde Deus cala o ruído da cidade para afinar meu coração'. Lembro que achei que não suportaria a pressão financeira daquele mês."
+          </div>
+        </div>
+
+        <!-- Registro de 2026 (Hoje) -->
+        <div class="timeline-compare-card" style="border-left:3px solid var(--brand-gold);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="timeline-compare-badge" style="color:var(--brand-gold);">08 de Outubro de 2026 • Hoje</span>
+            <span style="font-size:10px; color:var(--brand-gold); font-weight:700;">Ciclo Renovado</span>
+          </div>
+          <div class="timeline-compare-text" style="color:var(--text-primary); font-style:normal;">
+            "Hoje, relendo Marcos 1 exatamente um ano depois, percebo que Deus proveu cada detalhe daquela transição. O deserto produziu dependência santa e me ensinou a desatar as sandálias para Cristo reinar na minha família. O que era angústia virou memorial de gratidão."
+          </div>
+        </div>
+
+        <div style="background:var(--brand-gold-subtle); border:1px solid var(--border-gold); border-radius:8px; padding:12px; font-size:12px; color:var(--text-primary); line-height:1.5;">
+          <strong>Insight do Tutor:</strong> Em 2025 você orou pedindo livramento do deserto; em 2026 você agradeceu pelos frutos que o deserto gerou. Essa é a beleza da teologia bíblica aplicada no tempo.
+        </div>
+      </section>
+
+      <!-- SUBVIEW 3: EXPORTAR & COMPARTILHAR -->
+      <section id="caderno-subview-export" class="caderno-entry-card" style="display:none;">
+        <div style="font-size:14px; font-weight:700; color:var(--text-primary);">
+          Exportação & Discipulado
+        </div>
+        <div style="font-size:12px; line-height:1.5; color:var(--text-secondary);">
+          Compartilhe suas anotações com sua dupla de oração ou gere um documento formatado para o seu arquivo pessoal.
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <button class="master-conclude-btn" style="margin:0; padding:12px; justify-content:flex-start;" onclick="exportPdfNotice()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Gerar PDF Devocional A4 (Diagramado)
+          </button>
+          <button class="master-conclude-btn" style="margin:0; padding:12px; justify-content:flex-start; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-subtle); box-shadow:none;" onclick="shareWithPartner()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Enviar Resumo para a Dupla (Lucas R.)
+          </button>
+          <button class="master-conclude-btn" style="margin:0; padding:12px; justify-content:flex-start; background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-subtle); box-shadow:none;" onclick="copyWhatsAppFormat()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4M12 16V8"/></svg>
+            Copiar para WhatsApp (Com Formatação)
+          </button>
+        </div>
+
+        <div style="font-size:11px; color:var(--text-tertiary); font-style:italic;" id="caderno-export-notice">
+          • No Plano Gratuito, as exportações contêm a marca d\'água Bereo. No Plano Semente (R$ 5,90) e superiores, o PDF é limpo e diagramado editorialmente.
+        </div>
+      </section>
     </div>
 
     <!-- BARRA DE NAVEGAÇÃO INFERIOR DO APP -->
     <nav class="bottom-app-nav">
-      <div class="nav-tab-item active">
+      <div class="nav-tab-item active" id="nav-btn-hoje" onclick="switchNavTab('hoje')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Hoje
       </div>
-      <div class="nav-tab-item">
+      <div class="nav-tab-item" onclick="alert('Trilhas de Leitura: Em breve no roadmap Bereo!')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         Trilhas
       </div>
-      <div class="nav-tab-item">
+      <div class="nav-tab-item" id="nav-btn-caderno" onclick="switchNavTab('caderno')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         Caderno
       </div>
-      <div class="nav-tab-item">
+      <div class="nav-tab-item" onclick="alert('Comunhão em Duplas: Acesse a seção no passo de aplicação!')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Duplas
       </div>
-      <div class="nav-tab-item">
+      <div class="nav-tab-item" id="nav-btn-perfil" onclick="openPlanSelectorModal()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        Perfil
+        Planos
       </div>
     </nav>
   </main>
 
   <!-- MODAL INFERIOR LÉXICO STRONG (EXCLUSIVO DO AVANÇADO) -->
+    <!-- MODAL DE UPGRADE DO TUTOR (PARA PLANO BÁSICO GRATUITO) -->
+  <div class="upgrade-modal-backdrop" id="tutor-upgrade-modal" onclick="closeUpgradeModal()">
+    <div class="upgrade-modal-card" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="width:32px; height:32px; border-radius:8px; background:var(--brand-gold-subtle); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; color:var(--brand-gold);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14px; font-weight:700; color:var(--text-primary);">Tutor Bereano • IA Socrática</div>
+            <div style="font-size:11px; color:var(--brand-gold); font-weight:600;">Disponível a partir do Plano Semente</div>
+          </div>
+        </div>
+        <button onclick="closeUpgradeModal()" style="background:transparent; border:none; color:var(--text-tertiary); cursor:pointer; font-size:16px;">✕</button>
+      </div>
+
+      <div style="font-size:12.5px; line-height:1.55; color:var(--text-secondary);">
+        No <strong style="color:var(--text-primary);">Plano Gratuito</strong>, você estuda a Bíblia Livre (BLIVRE) todos os dias com anotações salvas localmente no aparelho. O Tutor Bereano é o companheiro socrático que guia seu olhar sem spoilers.
+      </div>
+
+      <div style="background:var(--bg-card-subtle); border:1px solid var(--border-subtle); border-radius:8px; padding:12px; display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--brand-gold);">
+          O que o Plano Semente (R$ 5,90/mês) desbloqueia:
+        </div>
+        <div class="upgrade-feature-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--brand-gold); flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
+          <div><strong>25 Créditos mensais do Tutor Bereano:</strong> Pistas reflexivas e socráticas em cada pergunta com opção de fixar no Caderno.</div>
+        </div>
+        <div class="upgrade-feature-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--brand-gold); flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
+          <div><strong>Escolha de Tradução:</strong> Alterne livremente entre NVI e Bíblia Livre (BLIVRE).</div>
+        </div>
+        <div class="upgrade-feature-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--brand-gold); flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
+          <div><strong>Caderno Sincronizado na Nuvem:</strong> Suas anotações guardadas com criptografia e acessíveis em qualquer dispositivo.</div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button class="master-conclude-btn" style="margin:0; padding:12px;" onclick="upgradeToPlan('basico_pago')">
+          Experimentar Básico Semente (R$ 5,90) no Simulador
+        </button>
+        <button onclick="closeUpgradeModal()" style="background:transparent; border:none; color:var(--text-tertiary); font-size:11.5px; font-weight:600; cursor:pointer; padding:4px;">
+          Continuar no Plano Básico Gratuito
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="strong-modal-backdrop" id="strong-modal" onclick="closeStrongModal()">
     <div class="strong-modal-sheet" onclick="event.stopPropagation()">
       <div class="modal-close-bar"></div>
@@ -2072,11 +3226,66 @@
       }
     };
 
+    const PLAN_CONFIGS = {
+      basico_free: {
+        depth: 'basico',
+        name: 'Básico Free',
+        badgeClass: 'basico-free',
+        price: 'Grátis',
+        desc: 'Acesso perpétuo • Tradução BLIVRE • Armazenamento Local • Sem IA',
+        tutorQuota: 0,
+        hasCloudSync: false,
+        defaultVersion: 'blivre',
+        allowedVersions: ['blivre'],
+        canCompare: false
+      },
+      basico_pago: {
+        depth: 'basico',
+        name: 'Básico Semente',
+        badgeClass: 'basico-pago',
+        price: 'R$ 5,90/mês',
+        desc: 'R$ 5,90/mês • Escolha entre NVI e BLIVRE • 25 Créditos de IA • Nuvem',
+        tutorQuota: 25,
+        hasCloudSync: true,
+        defaultVersion: 'nvi',
+        allowedVersions: ['blivre', 'nvi'],
+        canCompare: false
+      },
+      intermediario: {
+        depth: 'intermediario',
+        name: 'Intermediário',
+        badgeClass: 'intermediario',
+        price: 'R$ 12,90/mês',
+        desc: 'R$ 12,90/mês • Modo Comparativo NVI + NAA • Comunhão em Dupla • 60 Créditos IA',
+        tutorQuota: 60,
+        hasCloudSync: true,
+        defaultVersion: 'nvi',
+        allowedVersions: ['nvi', 'naa'],
+        canCompare: true
+      },
+      avancado: {
+        depth: 'avancado',
+        name: 'Avançado',
+        badgeClass: 'avancado',
+        price: 'R$ 19,90/mês',
+        desc: 'R$ 19,90/mês • 5 Versões + Léxico Strong • Liturgia Pactual • 120 Créditos IA',
+        tutorQuota: 120,
+        hasCloudSync: true,
+        defaultVersion: 'nvi',
+        allowedVersions: ['nvi', 'naa', 'nvt', 'arc', 'blivre'],
+        canCompare: true
+      }
+    };
+
+    let currentPlan = 'intermediario';
     let currentDepth = 'intermediario';
     let currentVersion = 'nvi';
     let isCompareMode = false;
     let activeComparisonVersions = ['nvi', 'naa'];
     let activeHighlightedKeyword = null;
+    let tutorCreditsRemaining = 60;
+    let activeNavTab = 'hoje';
+    let activeCadernoSubTab = 'hoje';
 
     // AUTO-EXPANSÃO DAS CAIXAS DE TEXTO CONFORME DIGITAÇÃO
     function autoExpand(textarea) {
@@ -2111,51 +3320,406 @@
       }
     }
 
-    // ALTERNÂNCIA DE NÍVEL DE PROFUNDIDADE (BÁSICO, INTERMEDIÁRIO, AVANÇADO)
-    function switchDepth(depth) {
-      currentDepth = depth;
-      document.documentElement.setAttribute('data-depth', depth);
-      
-      const buttons = document.querySelectorAll('#depth-controls .depth-btn');
-      buttons.forEach(btn => {
-        if(btn.getAttribute('onclick').includes(depth)) {
+    // ALTERNÂNCIA DE PLANO E PROFUNDIDADE (BÁSICO FREE, BÁSICO PAGO, INTERMEDIÁRIO, AVANÇADO)
+    function switchPlan(planKey) {
+      const cfg = PLAN_CONFIGS[planKey];
+      if (!cfg) return;
+
+      currentPlan = planKey;
+      currentDepth = cfg.depth;
+
+      // Atributos no elemento raiz HTML
+      document.documentElement.setAttribute('data-plan', planKey);
+      document.documentElement.setAttribute('data-depth', cfg.depth);
+
+      // Botões ativos do seletor superior
+      document.querySelectorAll('#depth-controls .depth-btn').forEach(btn => {
+        if (btn.id === `plan-btn-${planKey}`) {
           btn.classList.add('active');
         } else {
           btn.classList.remove('active');
         }
       });
 
-      const compBtn = document.getElementById('btn-toggle-compare');
+      // Atualiza banner de status do plano
+      const pillEl = document.getElementById('banner-plan-pill');
+      const descEl = document.getElementById('banner-plan-desc');
+      const quotaCounter = document.getElementById('quota-counter-text');
+      const syncIndicator = document.getElementById('banner-sync-indicator');
+      const syncText = document.getElementById('sync-indicator-text');
 
-      if(depth === 'basico') {
-        if(compBtn) compBtn.style.display = 'none';
-        if(isCompareMode) toggleCompareMode(false);
+      if (pillEl) pillEl.innerText = cfg.name;
+      if (descEl) descEl.innerText = cfg.desc;
+
+      // Atualiza créditos de IA
+      tutorCreditsRemaining = cfg.tutorQuota;
+      updateTutorQuotaUI();
+
+      // Atualiza status de sincronização no banner
+      if (syncIndicator && syncText) {
+        if (cfg.hasCloudSync) {
+          syncIndicator.className = 'sync-status-indicator cloud';
+          syncText.innerText = 'Nuvem Ativa';
+        } else {
+          syncIndicator.className = 'sync-status-indicator local';
+          syncText.innerText = 'Modo Local';
+        }
+      }
+
+      // Controle do Modo Comparativo
+      const compBtn = document.getElementById('btn-toggle-compare');
+      if (compBtn) {
+        compBtn.style.display = cfg.canCompare ? 'inline-flex' : 'none';
+      }
+      if (!cfg.canCompare && isCompareMode) {
+        toggleCompareMode(false);
+      }
+
+      // Ajuste da Versão Ativa
+      if (planKey === 'basico_free') {
         setVersion('blivre');
-      } else if(depth === 'intermediario') {
-        if(compBtn) compBtn.style.display = 'inline-flex';
-        activeComparisonVersions = ['nvi', 'naa'];
-        updateCompareChipsUI();
-        if(currentVersion !== 'nvi' && currentVersion !== 'naa') {
+      } else if (planKey === 'basico_pago') {
+        if (currentVersion !== 'nvi' && currentVersion !== 'blivre') {
           setVersion('nvi');
         } else {
           setVersion(currentVersion);
         }
-      } else if(depth === 'avancado') {
-        if(compBtn) compBtn.style.display = 'inline-flex';
-        if(!activeComparisonVersions.includes('nvt') && !activeComparisonVersions.includes('arc')) {
+      } else if (planKey === 'intermediario') {
+        activeComparisonVersions = ['nvi', 'naa'];
+        updateCompareChipsUI();
+        if (currentVersion !== 'nvi' && currentVersion !== 'naa') {
+          setVersion('nvi');
+        } else {
+          setVersion(currentVersion);
+        }
+      } else if (planKey === 'avancado') {
+        if (!activeComparisonVersions.includes('nvt') && !activeComparisonVersions.includes('arc')) {
           activeComparisonVersions = ['nvi', 'naa', 'nvt', 'arc'];
         }
         updateCompareChipsUI();
-        if(currentVersion === 'blivre') {
+        if (currentVersion === 'blivre') {
           setVersion('nvi');
         } else {
           setVersion(currentVersion);
         }
       }
 
-      if(isCompareMode) {
-        renderComparisonGrid();
+      // Sincroniza metadados do Caderno
+      updateCadernoPlanMeta();
+    }
+
+    // Compatibilidade com chamadas legadas de switchDepth
+    function switchDepth(depth) {
+      if (depth === 'basico') switchPlan('basico_pago');
+      else switchPlan(depth);
+    }
+
+    // ATUALIZAÇÃO DA COTA DO TUTOR NA INTERFACE
+    function updateTutorQuotaUI() {
+      const quotaCounter = document.getElementById('quota-counter-text');
+      const cadStat = document.getElementById('caderno-credits-stat');
+      
+      const txt = currentPlan === 'basico_free' 
+        ? 'Tutor: Bloqueado (Free)' 
+        : `Tutor: ${tutorCreditsRemaining} créditos`;
+
+      if (quotaCounter) quotaCounter.innerText = txt;
+      if (cadStat) cadStat.innerText = tutorCreditsRemaining;
+    }
+
+    // AÇÃO DE PEDIR PISTA DO TUTOR EM QUALQUER PERGUNTA
+    function askTutor(hintId, taId) {
+      if (currentPlan === 'basico_free') {
+        openUpgradeModal();
+        return;
       }
+
+      if (tutorCreditsRemaining <= 0) {
+        alert("Você utilizou todos os seus créditos de Tutor deste mês. Seus créditos renovam no próximo ciclo.");
+        return;
+      }
+
+      // Deduz 1 crédito
+      tutorCreditsRemaining--;
+      updateTutorQuotaUI();
+
+      // Revela o balão com animação
+      const bubble = document.getElementById(hintId);
+      if (bubble) {
+        bubble.style.display = 'block';
+        bubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // FIXAR O INSIGHT SUGERIDO NO TEXTAREA E NO CADERNO
+    function pinTutorHint(hintId, taId, textToPin) {
+      const ta = document.getElementById(taId);
+      if (ta) {
+        if (ta.value.trim() === '') {
+          ta.value = textToPin;
+        } else {
+          ta.value = ta.value + "\n\n" + textToPin;
+        }
+        autoExpand(ta);
+        ta.focus();
+
+        // Feedback visual sutil no botão
+        const bubble = document.getElementById(hintId);
+        if (bubble) {
+          const btn = bubble.querySelector('.tutor-pin-btn');
+          if (btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✓ Fixado com Sucesso!';
+            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+          }
+        }
+        syncCadernoData();
+      }
+    }
+
+    // MODAL DE UPGRADE DO TUTOR (FREE -> PAGO)
+    function openUpgradeModal() {
+      const modal = document.getElementById('tutor-upgrade-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeUpgradeModal() {
+      const modal = document.getElementById('tutor-upgrade-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function upgradeToPlan(targetPlan) {
+      closeUpgradeModal();
+      switchPlan(targetPlan);
+      alert(`Parabéns! Você está simulando o ${PLAN_CONFIGS[targetPlan].name}. Seus créditos de IA foram liberados!`);
+    }
+
+    function openPlanSelectorModal() {
+      openUpgradeModal();
+    }
+
+    // NAVEGAÇÃO ENTRE AS TELAS PRINCIPAIS (HOJE ↔ CADERNO)
+    function switchNavTab(tab) {
+      activeNavTab = tab;
+      const viewHoje = document.getElementById('view-hoje');
+      const viewCaderno = document.getElementById('view-caderno');
+      const btnHoje = document.getElementById('nav-btn-hoje');
+      const btnCaderno = document.getElementById('nav-btn-caderno');
+
+      if (tab === 'caderno') {
+        syncCadernoData();
+        if (viewHoje) viewHoje.style.display = 'none';
+        if (viewCaderno) viewCaderno.style.display = 'flex';
+        if (btnHoje) btnHoje.classList.remove('active');
+        if (btnCaderno) btnCaderno.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        if (viewCaderno) viewCaderno.style.display = 'none';
+        if (viewHoje) viewHoje.style.display = 'flex';
+        if (btnCaderno) btnCaderno.classList.remove('active');
+        if (btnHoje) btnHoje.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // SUB-ABAS DENTRO DO CADERNO (HOJE, TIMELINE, EXPORTAR)
+    function switchCadernoSubTab(subTab) {
+      activeCadernoSubTab = subTab;
+      ['hoje', 'timeline', 'export'].forEach(t => {
+        const view = document.getElementById(`caderno-subview-${t}`);
+        const btn = document.getElementById(`tab-btn-cad-${t}`);
+        if (view) view.style.display = (t === subTab) ? 'flex' : 'none';
+        if (btn) {
+          if (t === subTab) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+    }
+
+    // ATUALIZA METADADOS DO CADERNO CONFORME PLANO
+    function updateCadernoPlanMeta() {
+      const metaPlan = document.getElementById('caderno-meta-plan');
+      const metaVer = document.getElementById('caderno-meta-ver');
+      const badge = document.getElementById('caderno-header-badge');
+      const syncPill = document.getElementById('caderno-sync-pill');
+      const syncPillText = document.getElementById('caderno-sync-pill-text');
+      const syncDesc = document.getElementById('caderno-sync-desc');
+      const upgradeBtn = document.getElementById('caderno-upgrade-sync-btn');
+      const exportNotice = document.getElementById('caderno-export-notice');
+
+      const cfg = PLAN_CONFIGS[currentPlan];
+      if (!cfg) return;
+
+      if (metaPlan) metaPlan.innerText = cfg.name;
+      if (metaVer) metaVer.innerText = currentVersion.toUpperCase();
+      if (badge) {
+        badge.innerText = cfg.name;
+        badge.className = `depth-badge ${cfg.badgeClass}`;
+      }
+
+      if (cfg.hasCloudSync) {
+        if (syncPill) syncPill.className = 'sync-status-indicator cloud';
+        if (syncPillText) syncPillText.innerText = 'Nuvem Ativa';
+        if (syncDesc) syncDesc.innerText = 'Sincronizado na Nuvem Bereo • Seguro e Permanente';
+        if (upgradeBtn) upgradeBtn.style.display = 'none';
+        if (exportNotice) exportNotice.innerText = '• Seus arquivos são exportados sem marca d\'água em alta definição.';
+      } else {
+        if (syncPill) syncPill.className = 'sync-status-indicator local';
+        if (syncPillText) syncPillText.innerText = 'Modo Local (Dispositivo)';
+        if (syncDesc) syncDesc.innerText = 'Atenção: Salvo apenas neste navegador. Migre para o Plano Semente (R$ 5,90) para backup seguro na nuvem.';
+        if (upgradeBtn) upgradeBtn.style.display = 'inline-flex';
+        if (exportNotice) exportNotice.innerText = '• No Plano Gratuito, as exportações contêm a marca d\'água Bereo. No Plano Semente (R$ 5,90), o PDF é limpo e diagramado editorialmente.';
+      }
+    }
+
+    // SINCRONIZA DADOS DIGITADOS NO FORMULÁRIO COM O CADERNO
+    function syncCadernoData() {
+      // Síntese
+      const taSintese = document.getElementById('ta-sintese');
+      const cadSintese = document.getElementById('cad-res-sintese');
+      if (taSintese && cadSintese && taSintese.value.trim()) {
+        cadSintese.innerText = taSintese.value.trim();
+      }
+
+      // Observação
+      const cadObs = document.getElementById('cad-res-obs');
+      let obsVal = '';
+      if (currentDepth === 'basico') {
+        const ta = document.getElementById('ta-obs-basico');
+        if (ta && ta.value.trim()) obsVal = ta.value.trim();
+      } else if (currentDepth === 'intermediario') {
+        const ta1 = document.getElementById('ta-obs1-interm');
+        const ta2 = document.getElementById('ta-obs2-interm');
+        let parts = [];
+        if (ta1 && ta1.value.trim()) parts.push('Títulos: ' + ta1.value.trim());
+        if (ta2 && ta2.value.trim()) parts.push('Contrastes: ' + ta2.value.trim());
+        obsVal = parts.join("\n\n");
+      } else if (currentDepth === 'avancado') {
+        const ta1 = document.getElementById('ta-obs1-adv');
+        const ta2 = document.getElementById('ta-obs2-adv');
+        const ta3 = document.getElementById('ta-obs3-adv');
+        let parts = [];
+        if (ta1 && ta1.value.trim()) parts.push('Teologia AT: ' + ta1.value.trim());
+        if (ta2 && ta2.value.trim()) parts.push('Profeta Elias: ' + ta2.value.trim());
+        if (ta3 && ta3.value.trim()) parts.push('Gramática: ' + ta3.value.trim());
+        obsVal = parts.join("\n\n");
+      }
+      if (obsVal && cadObs) cadObs.innerText = obsVal;
+
+      // Compreensão
+      const cadComp = document.getElementById('cad-res-comp');
+      let compVal = '';
+      if (currentDepth === 'basico') {
+        const ta = document.getElementById('ta-comp-basico');
+        if (ta && ta.value.trim()) compVal = ta.value.trim();
+      } else if (currentDepth === 'intermediario') {
+        const ta1 = document.getElementById('ta-comp1-interm');
+        const ta2 = document.getElementById('ta-comp2-interm');
+        let parts = [];
+        if (ta1 && ta1.value.trim()) parts.push('Contexto Romano: ' + ta1.value.trim());
+        if (ta2 && ta2.value.trim()) parts.push('Deserto: ' + ta2.value.trim());
+        compVal = parts.join("\n\n");
+      } else if (currentDepth === 'avancado') {
+        const ta1 = document.getElementById('ta-comp1-adv');
+        const ta2 = document.getElementById('ta-comp2-adv');
+        let parts = [];
+        if (ta1 && ta1.value.trim()) parts.push('Batismo no Jordão: ' + ta1.value.trim());
+        if (ta2 && ta2.value.trim()) parts.push('Cenário do Reino: ' + ta2.value.trim());
+        compVal = parts.join("\n\n");
+      }
+      if (compVal && cadComp) cadComp.innerText = compVal;
+
+      // Aplicação Prática
+      const cadPrat = document.getElementById('cad-res-prat');
+      let pratVal = '';
+      if (currentDepth === 'basico') {
+        const ta = document.getElementById('ta-prat-basico');
+        if (ta && ta.value.trim()) pratVal = ta.value.trim();
+      } else if (currentDepth === 'intermediario') {
+        const tm = document.getElementById('ta-triad-mente');
+        const tc = document.getElementById('ta-triad-coracao');
+        const tp = document.getElementById('ta-triad-pratica');
+        let parts = [];
+        if (tm && tm.value.trim()) parts.push('Na Mente: ' + tm.value.trim());
+        if (tc && tc.value.trim()) parts.push('No Coração: ' + tc.value.trim());
+        if (tp && tp.value.trim()) parts.push('Na Prática: ' + tp.value.trim());
+        pratVal = parts.join("\n\n");
+      } else if (currentDepth === 'avancado') {
+        const ta1 = document.getElementById('ta-adv-autojustica');
+        const ta2 = document.getElementById('ta-adv-vocacao');
+        const ta3 = document.getElementById('ta-adv-reforma');
+        let parts = [];
+        if (ta1 && ta1.value.trim()) parts.push('Autojustiça: ' + ta1.value.trim());
+        if (ta2 && ta2.value.trim()) parts.push('Vocação: ' + ta2.value.trim());
+        if (ta3 && ta3.value.trim()) parts.push('Ação em 24h: ' + ta3.value.trim());
+        pratVal = parts.join("\n\n");
+      }
+      if (pratVal && cadPrat) cadPrat.innerText = pratVal;
+
+      // Oração
+      const cadOracao = document.getElementById('cad-res-oracao');
+      let oracaoVal = '';
+      if (currentDepth === 'basico') {
+        const ta = document.getElementById('ta-orar-basico');
+        if (ta && ta.value.trim()) oracaoVal = ta.value.trim();
+      } else if (currentDepth === 'intermediario') {
+        const ta = document.getElementById('ta-orar-interm');
+        if (ta && ta.value.trim()) oracaoVal = ta.value.trim();
+      } else if (currentDepth === 'avancado') {
+        const ta = document.getElementById('ta-orar-adv');
+        if (ta && ta.value.trim()) oracaoVal = ta.value.trim();
+      }
+      if (oracaoVal && cadOracao) cadOracao.innerText = oracaoVal;
+
+      updateCadernoPlanMeta();
+    }
+
+    // COPIAR RESUMO DO CADERNO FORMATADO
+    function copyCadernoToday() {
+      syncCadernoData();
+      const text = `📖 BEREO DEVOCIONAL — Marcos 1:1-8\n` +
+        `Plano: ${PLAN_CONFIGS[currentPlan].name} • Versão: ${currentVersion.toUpperCase()}
+
+` +
+        `• VERSÍCULO-ÂNCORA: "Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas." (Mc 1:3)
+
+` +
+        `1. OBSERVAÇÃO:
+${document.getElementById('cad-res-sintese').innerText}
+
+` +
+        `2. COMPREENSÃO:
+${document.getElementById('cad-res-comp').innerText}
+
+` +
+        `3. APLICAÇÃO:
+${document.getElementById('cad-res-prat').innerText}
+
+` +
+        `4. ORAÇÃO:
+"${document.getElementById('cad-res-oracao').innerText}"`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Resumo do estudo copiado para a área de transferência com sucesso!");
+      }).catch(() => {
+        alert("Texto pronto para cópia:\n\n" + text);
+      });
+    }
+
+    function shareWithPartner() {
+      alert("Resumo devocional enviado com sucesso para a sua Dupla (Lucas R.)!");
+    }
+
+    function exportPdfNotice() {
+      if (currentPlan === 'basico_free') {
+        alert("Gerando PDF com marca d\'água Bereo. Para PDFs limpos e alta resolução editorial, migre para o Plano Semente (R$ 5,90)!");
+      } else {
+        alert("Gerando PDF diagramado canônico de alta definição (Plano " + PLAN_CONFIGS[currentPlan].name + ")... Pronto!");
+      }
+    }
+
+    function copyWhatsAppFormat() {
+      copyCadernoToday();
     }
 
     // ALTERNÂNCIA DE VERSÃO BÍBLICA
@@ -2384,14 +3948,21 @@
       btn.innerText = 'Reflexão da Dupla Revelada com Sucesso';
     }
 
-    // CONCLUIR ESTUDO DO DIA
+    // CONCLUIR ESTUDO DO DIA E ABRIR O CADERNO
     function concludeStudy() {
+      syncCadernoData();
       const btn = document.getElementById('btn-conclude-study');
       const label = document.getElementById('btn-conclude-label');
       if (btn && label) {
         btn.classList.add('concluded');
         label.innerText = '✓ Estudo Salvo no Caderno • Dia 01 Concluído!';
       }
+
+      // Transição suave para a tela do Caderno
+      setTimeout(() => {
+        switchNavTab('caderno');
+        alert("Parabéns! Seu estudo do Dia 01 foi registrado e salvo com sucesso no seu Caderno Bereano.");
+      }, 500);
     }
 
     // MODAL STRONG (EXCLUSIVO AVANÇADO)
@@ -2408,9 +3979,8 @@
 
     // INICIALIZAÇÃO AUTOMÁTICA
     window.addEventListener('DOMContentLoaded', () => {
-      switchDepth('intermediario');
+      switchPlan('intermediario');
       setTypography('balanced');
-      // Inicializa autoExpand em eventuais textareas preenchidas
       document.querySelectorAll('.response-input').forEach(t => autoExpand(t));
     });
   </script>
