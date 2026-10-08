@@ -319,6 +319,11 @@
     html[data-plan="basico_pago"] .inline-basico-pago { display: inline-flex !important; }
     html[data-plan="basico_pago"] .version-tabs-nav.show-basico-pago { display: inline-flex !important; }
 
+        /* No Plano Básico Gratuito, o botão do Tutor Bereano NÃO aparece */
+    html[data-plan="basico_free"] .tutor-mini-btn {
+      display: none !important;
+    }
+
     /* Elementos Exclusivos de Planos Pagos */
     html[data-plan="basico_pago"] .show-paid,
     html[data-plan="intermediario"] .show-paid,
@@ -3232,7 +3237,7 @@
         name: 'Básico Free',
         badgeClass: 'basico-free',
         price: 'Grátis',
-        desc: 'Acesso perpétuo • Tradução BLIVRE • Armazenamento Local • Sem IA',
+        desc: 'Acesso perpétuo • Tradução BLIVRE • Armazenamento Local • Experiência 100% sem IA',
         tutorQuota: 0,
         hasCloudSync: false,
         defaultVersion: 'blivre',
@@ -3417,14 +3422,17 @@
     // ATUALIZAÇÃO DA COTA DO TUTOR NA INTERFACE
     function updateTutorQuotaUI() {
       const quotaCounter = document.getElementById('quota-counter-text');
+      const quotaPill = document.getElementById('banner-tutor-quota');
       const cadStat = document.getElementById('caderno-credits-stat');
       
-      const txt = currentPlan === 'basico_free' 
-        ? 'Tutor: Bloqueado (Free)' 
-        : `Tutor: ${tutorCreditsRemaining} créditos`;
-
-      if (quotaCounter) quotaCounter.innerText = txt;
-      if (cadStat) cadStat.innerText = tutorCreditsRemaining;
+      if (currentPlan === 'basico_free') {
+        if (quotaPill) quotaPill.style.display = 'none';
+        if (cadStat) cadStat.innerText = '0 (Sem IA)';
+      } else {
+        if (quotaPill) quotaPill.style.display = 'inline-flex';
+        if (quotaCounter) quotaCounter.innerText = `Tutor: ${tutorCreditsRemaining} créditos`;
+        if (cadStat) cadStat.innerText = tutorCreditsRemaining;
+      }
     }
 
     // AÇÃO DE PEDIR PISTA DO TUTOR EM QUALQUER PERGUNTA
