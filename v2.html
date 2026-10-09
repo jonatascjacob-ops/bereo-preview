@@ -2284,16 +2284,18 @@
       background: rgba(18, 22, 29, 0.85);
       border: 1px solid rgba(212, 175, 55, 0.2);
       border-radius: 12px;
-      padding: 20px 18px;
+      padding: 22px 18px;
       min-height: 110px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: block;
       text-align: center;
       font-family: var(--font-serif);
       font-size: 17px;
-      line-height: 1.65;
+      line-height: 1.85;
       color: #f0ede6;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
     }
     .faded-word {
       background: rgba(212, 175, 55, 0.08);
@@ -2305,7 +2307,13 @@
       user-select: none;
       transition: all 0.25s ease;
       display: inline-block;
-      margin: 0 2px;
+      margin: 2px 3px;
+      vertical-align: baseline;
+    }
+    .initial-word {
+      display: inline-block;
+      margin: 2px 4px;
+      white-space: nowrap;
     }
     .faded-word:hover {
       border-bottom-color: var(--brand-gold);
@@ -2330,22 +2338,22 @@
     }
     .memory-tools-row {
       display: flex;
-      gap: 8px;
+      justify-content: center;
+      margin: 2px 0;
     }
     .memory-tool-btn {
-      flex: 1;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
-      padding: 9px 12px;
+      padding: 9px 20px;
       border-radius: 8px;
       font-size: 12px;
       font-weight: 500;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 7px;
       transition: all 0.2s ease;
     }
     .memory-tool-btn:hover {
@@ -2900,7 +2908,7 @@
           Intermediário (R$ 12,90)
         </button>
         <button class="depth-btn" id="plan-btn-avancado" onclick="switchPlan('avancado')">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4.5v6c0 5.5-3.8 10.7-8 11.5-4.2-.8-8-6-8-11.5v-6L12 2z"/></svg>
           Avançado (R$ 19,90)
         </button>
       </div>
@@ -3235,8 +3243,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Síntese Ativa</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-sintese', 'ta-sintese')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3246,7 +3254,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-sintese">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Tente não resumir tudo nos detalhes da roupa ou comida. Olhe para o versículo 1: quem é o centro absoluto de Marcos e qual solene declaração abre toda a narrativa?</div>
@@ -3265,8 +3273,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Pergunta de Observação</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs-basico', 'ta-obs-basico')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3276,7 +3284,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs-basico">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Olhe com atenção para o versículo 5: qual atitude interior acompanhava as multidões enquanto eram batizadas no rio Jordão?</div>
@@ -3296,8 +3304,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Observação 1: Títulos & Profecia</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs1-interm', 'ta-obs1-interm')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3307,7 +3315,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs1-interm">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Observe que Marcos cita 'Filho de Deus' e combina dois profetas do Antigo Testamento sob a menção de Isaías. O que isso antecipa sobre quem está chegando?</div>
@@ -3325,8 +3333,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Observação 2: Contrastes</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs2-interm', 'ta-obs2-interm')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3336,7 +3344,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs2-interm">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Veja os versos 7 e 8: há um contraste de dignidade pessoal (desatar correias) e um contraste de poder espiritual (água exterior vs Espírito Santo interior).</div>
@@ -3361,8 +3369,8 @@
               No grego, essa palavra não significa mero remorso passageiro, mas uma mudança de rota de 180°. Como essa pista esclarece a exigência prática do batismo de João?
             </div>
             <button class="tutor-hint-trigger" onclick="toggleTutor('tutor-p1')">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              ✦ Pista da BereIA (1 Crédito)
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              BereIA (1 Crédito)
             </button>
             <div class="tutor-answer-pinned" id="tutor-p1">
               <strong>[Pista do Tutor Fixada no Caderno]:</strong> Observe que João Batista não pedia que o povo ficasse lamentando, mas que confessasse os pecados e entrasse na água como marco de uma nova direção. Qual rota da sua rotina precisa dessa rotação de 180° hoje?
@@ -3376,8 +3384,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Investigação 1: Conexões com o Antigo Testamento</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs1-adv', 'ta-obs1-adv')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3387,7 +3395,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs1-adv">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Em Isaías 40:3, a voz prepara o caminho de Yahweh (o SENHOR em hebraico). Ao aplicar esse texto a Jesus, que confissão cristológica categórica Marcos faz logo no verso 2?</div>
@@ -3405,8 +3413,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Investigação 2: O Retorno do Profeta Elias</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs2-adv', 'ta-obs2-adv')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3416,7 +3424,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs2-adv">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Compare a indumentária de João (v. 6) com 2 Reis 1:8 e Malaquias 4:5. Por que Marcos faz questão de registrar o cinto de couro e a vestimenta áspera de pelos?</div>
@@ -3434,8 +3442,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Investigação 3: Contrastes Gramaticais no Texto</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-obs3-adv', 'ta-obs3-adv')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3445,7 +3453,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-obs3-adv">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>No v. 8, a antítese μὲν... δὲ (men... de) estabelece uma subordinação hierárquica entre o ministério preparatório e a consumação messiânica definitiva.</div>
@@ -3477,8 +3485,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Compreensão Central</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp-basico', 'ta-comp-basico')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3488,7 +3496,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp-basico">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Desatar sandálias era tarefa tão humilhante que nem discípulos judeus faziam para seus rabinos. O que a atitude de João nos ensina sobre humildade sincera?</div>
@@ -3526,8 +3534,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Contexto do Autor</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp1-interm', 'ta-comp1-interm')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3537,7 +3545,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp1-interm">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Sob o imperador romano que exigia adoração militar, por que era tão revolucionário proclamar que as verdadeiras Boas-Novas (Euangelion) vinham de um profeta no deserto?</div>
@@ -3555,8 +3563,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">O Simbolismo do Deserto</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp2-interm', 'ta-comp2-interm')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3566,7 +3574,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp2-interm">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Por que Deus levou João para o deserto em vez de dar a ele uma cátedra no Templo de Jerusalém?</div>
@@ -3604,8 +3612,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Compreensão 1: O Batismo no Jordão e a Tradição Judaica</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp1-adv', 'ta-comp1-adv')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3615,7 +3623,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp1-adv">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>O batismo de prosélitos era imposto aos gentios impuros. O que a submissão dos judeus ao batismo de João indica sobre o sentimento de ruína espiritual da nação?</div>
@@ -3633,8 +3641,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Compreensão 2: O Deserto como Cenário do Reino</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp2-adv', 'ta-comp2-adv')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3644,7 +3652,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp2-adv">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Como a teologia do deserto em Oséias 2:14 e Isaías 40 redefine as noções triunfalistas de poder e messianismo secular?</div>
@@ -3662,8 +3670,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Compreensão 3: Citações Combinadas dos Profetas</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-comp3-adv', 'ta-comp3-adv')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3673,7 +3681,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-comp3-adv">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Como a convenção literária judaica do segundo templo resolvia compilações de múltiplos profetas encabeçando pelo profeta de maior relevância messiânica?</div>
@@ -3721,8 +3729,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Aplicação Prática</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-prat-basico', 'ta-prat-basico')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3732,7 +3740,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-prat-basico">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Pense em uma situação concreta das próximas 12 horas: qual área da sua rotina precisa ser desobstruída para que você ouça a voz de Deus sem pressa?</div>
@@ -3752,15 +3760,15 @@
             <div class="q-header-row">
               <span class="triad-branch-title">1. Na Mente (Verdade & Cosmovisão)</span>
               <button class="tutor-mini-btn" onclick="askTutor('hint-triad-mente', 'ta-triad-mente')">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+                <span>BereIA</span> <span class="tutor-credit-badge">1 cr</span>
               </button>
             </div>
             <div class="q-main-text" style="font-size:12.5px;">Que ilusão ou mentira sobre quem você é precisa ser confrontada hoje pela verdade de que Jesus é infinitamente superior e digno de ser exaltado?</div>
             <textarea id="ta-triad-mente" class="response-input" oninput="autoExpand(this)" placeholder="Alinhamento dos pensamentos..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
             <div class="tutor-hint-bubble" id="hint-triad-mente">
-              <div class="tutor-hint-top"><span>✦ Pista na Mente</span><span>1 crédito</span></div>
+              <div class="tutor-hint-top"><span>Pista na Mente</span><span>1 crédito</span></div>
               <div>Qual mentira sobre controle ou autossuficiência tem tentado ocupar o lugar central da sua mente nesta semana?</div>
               <div class="tutor-pin-action">
                 <button class="tutor-pin-btn" onclick="pinTutorHint('hint-triad-mente', 'ta-triad-mente', '[Alinhamento da Mente]: Rejeito o pensamento ansioso de que tudo depende do meu controle; confio na soberania de Jesus que cuida de cada detalhe da minha jornada.')">Fixar Insight</button>
@@ -3772,15 +3780,15 @@
             <div class="q-header-row">
               <span class="triad-branch-title">2. No Coração (Afetos & Deserto)</span>
               <button class="tutor-mini-btn" onclick="askTutor('hint-triad-coracao', 'ta-triad-coracao')">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+                <span>BereIA</span> <span class="tutor-credit-badge">1 cr</span>
               </button>
             </div>
             <div class="q-main-text" style="font-size:12.5px;">O deserto foi o lugar onde o barulho silenciou para ouvir Deus. Qual é a principal distração que tem gerado ruído e impedido você de ouvir o Senhor com clareza?</div>
             <textarea id="ta-triad-coracao" class="response-input" oninput="autoExpand(this)" placeholder="Sondagem do coração..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
             <div class="tutor-hint-bubble" id="hint-triad-coracao">
-              <div class="tutor-hint-top"><span>✦ Pista no Coração</span><span>1 crédito</span></div>
+              <div class="tutor-hint-top"><span>Pista no Coração</span><span>1 crédito</span></div>
               <div>Qual apego ou distração ruidosa tem tirado a sensibilidade espiritual e a paz do seu interior?</div>
               <div class="tutor-pin-action">
                 <button class="tutor-pin-btn" onclick="pinTutorHint('hint-triad-coracao', 'ta-triad-coracao', '[Sondagem do Coração]: Reconheço que o barulho das redes sociais tem endurecido meus afetos; decido buscar momentos de silêncio e oração ao longo do dia de hoje.')">Fixar Insight</button>
@@ -3792,15 +3800,15 @@
             <div class="q-header-row">
               <span class="triad-branch-title">3. Na Prática (Vida & Ação)</span>
               <button class="tutor-mini-btn" onclick="askTutor('hint-triad-pratica', 'ta-triad-pratica')">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+                <span>BereIA</span> <span class="tutor-credit-badge">1 cr</span>
               </button>
             </div>
             <div class="q-main-text" style="font-size:12.5px;">João teve a nobreza de diminuir para que Cristo crescesse. Em qual conversa ou ambiente de hoje você precisa abrir mão de ter razão para que a graça de Cristo apareça?</div>
             <textarea id="ta-triad-pratica" class="response-input" oninput="autoExpand(this)" placeholder="Decisão prática em relacionamentos..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
             <div class="tutor-hint-bubble" id="hint-triad-pratica">
-              <div class="tutor-hint-top"><span>✦ Pista na Prática</span><span>1 crédito</span></div>
+              <div class="tutor-hint-top"><span>Pista na Prática</span><span>1 crédito</span></div>
               <div>Assim como João diminuiu para Cristo crescer, onde você precisa renunciar ao orgulho e servir a alguém hoje?</div>
               <div class="tutor-pin-action">
                 <button class="tutor-pin-btn" onclick="pinTutorHint('hint-triad-pratica', 'ta-triad-pratica', '[Decisão Prática]: Em vez de disputar a última palavra na conversa de hoje, vou ouvir com paciência e buscar edificar meu irmão com mansidão.')">Fixar Insight</button>
@@ -3815,8 +3823,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">1. Desnudamento da Autojustiça</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-adv-autojustica', 'ta-adv-autojustica')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3826,7 +3834,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-adv-autojustica">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>A ortodoxia teológica pode virar um ídolo de orgulho quando usamos o conhecimento bíblico para julgar os outros em vez de nos quebrantarmos.</div>
@@ -3844,8 +3852,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">2. Vocação e Esferas Comunitárias</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-adv-vocacao', 'ta-adv-vocacao')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3855,7 +3863,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-adv-vocacao">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Lembre-se de João Batista: sua alegria era ver Cristo crescer e ele diminuir (Jo 3:30). Onde você está buscando glória própria na liderança?</div>
@@ -3873,8 +3881,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">3. Ação Reformadora Concreta (24h)</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-adv-reforma', 'ta-adv-reforma')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>✦ Pista da BereIA</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span>
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
@@ -3884,7 +3892,7 @@
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-adv-reforma">
             <div class="tutor-hint-top">
-              <span>✦ Pista Socrática do Tutor</span>
+              <span>Pista Socrática da BereIA</span>
               <span style="font-size:9.5px; opacity:0.8;">1 crédito deduzido</span>
             </div>
             <div>Estabeleça um compromisso que possa ser checado amanhã: uma ligação, um pedido de perdão ou um ato concreto de restituição.</div>
@@ -3915,8 +3923,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Prompts de Partida</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-orar-basico', 'ta-orar-basico')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span> <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-helper-text" style="margin-bottom:6px;">Use estas 3 frases para começar sua conversa sincera com Deus:</div>
@@ -3928,7 +3936,7 @@
           <textarea id="ta-orar-basico" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Escreva sua oração sincera ao Senhor..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-orar-basico">
-            <div class="tutor-hint-top"><span>✦ Pista na Oração</span><span>1 crédito</span></div>
+            <div class="tutor-hint-top"><span>Pista na Oração</span><span>1 crédito</span></div>
             <div>Deixe que o sentimento de reverência guie sua oração sincera: comece agradecendo pela vinda de Jesus ao deserto do seu coração.</div>
             <div class="tutor-pin-action">
               <button class="tutor-pin-btn" onclick="pinTutorHint('hint-orar-basico', 'ta-orar-basico', 'Senhor Jesus, reconheço a Tua grandeza soberana. Perdoa quando tento ser o centro dos meus planos e me ajuda a endireitar o meu coração na rotina de hoje. Em Teu nome, amém.')">Fixar Oração Sugerida</button>
@@ -3941,8 +3949,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Roteiro Tridimensional</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-orar-interm', 'ta-orar-interm')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span> <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-helper-text" style="margin-bottom:6px;">Tridimensionalidade de Oração:</div>
@@ -3954,7 +3962,7 @@
           <textarea id="ta-orar-interm" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua oração tridimensional..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-orar-interm">
-            <div class="tutor-hint-top"><span>✦ Pista na Oração</span><span>1 crédito</span></div>
+            <div class="tutor-hint-top"><span>Pista na Oração</span><span>1 crédito</span></div>
             <div>Equilibre sua oração em três movimentos: adoração pelo que Cristo é, confissão das distrações e súplica por capacitação do Espírito.</div>
             <div class="tutor-pin-action">
               <button class="tutor-pin-btn" onclick="pinTutorHint('hint-orar-interm', 'ta-orar-interm', 'Pai, Te adoro porque enviaste Teu Filho Amado. Confesso minhas distrações e apego ao controle. Suplico que o Espírito Santo renove meu coração em santidade e mansidão para servir aos outros hoje.')">Fixar Oração Sugerida</button>
@@ -3967,8 +3975,8 @@
           <div class="q-header-row">
             <span class="q-badge-label">Liturgia Pactual Teocêntrica</span>
             <button class="tutor-mini-btn" onclick="askTutor('hint-orar-adv', 'ta-orar-adv')">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Pista</span> <span class="tutor-credit-badge">1 cr</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+              <span>BereIA</span> <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
           <div class="q-helper-text" style="margin-bottom:6px;">Oração ancorada na Aliança da Graça:</div>
@@ -3980,7 +3988,7 @@
           <textarea id="ta-orar-adv" class="response-input" oninput="autoExpand(this)" style="margin-top:8px;" placeholder="Registre sua liturgia pactual pessoal..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
           <div class="tutor-hint-bubble" id="hint-orar-adv">
-            <div class="tutor-hint-top"><span>✦ Pista Litúrgica</span><span>1 crédito</span></div>
+            <div class="tutor-hint-top"><span>Pista Litúrgica</span><span>1 crédito</span></div>
             <div>Adore a Cristo como Mediador da Nova Aliança, mortifique a autojustiça e consagre sua vocação diante do Senhor.</div>
             <div class="tutor-pin-action">
               <button class="tutor-pin-btn" onclick="pinTutorHint('hint-orar-adv', 'ta-orar-adv', 'Eterno Deus e Pai, exaltamos a Cristo, Yahweh encarnado e Mediador da Nova Aliança. Mortificamos nossa justiça própria e consagramos nossa vida para sermos voz fiel no deserto da nossa geração. Pelo Sangue da Aliança Eterna, amém.')">Fixar Liturgia Sugerida</button>
@@ -4451,7 +4459,7 @@
       <section class="active-trail-banner" onclick="openTrailModal('marcos')">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span style="font-size:10.5px; font-weight:700; color:var(--brand-gold); text-transform:uppercase; letter-spacing:0.6px; display:flex; align-items:center; gap:5px;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
             Sua Trilha Ativa no Momento
           </span>
           <span style="font-size:11px; font-weight:600; color:var(--brand-gold);">Continuar →</span>
@@ -4751,7 +4759,7 @@
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
         <div style="display:flex; align-items:center; gap:8px;">
           <div style="width:32px; height:32px; border-radius:8px; background:var(--brand-gold-subtle); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; color:var(--brand-gold);">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
           </div>
           <div>
             <div style="font-size:14px; font-weight:700; color:var(--text-primary);">Tutor Bereano • IA Socrática</div>
@@ -4836,14 +4844,14 @@
     </div>
   </div>
 
-  <!-- MODAL: ESTAÇÃO DE MEMORIZAÇÃO (GUARDAR NO CORAÇÃO) -->
+  <!-- MODAL: ESTAÇÃO DE MEMORIZAÇÃO (GUARDAR NO CORAÇÃO - ZERO EMOJIS, CARTÃO DE BLOQUEIO DESLIGADO) -->
   <div class="memory-modal-overlay" id="memory-modal-overlay" onclick="closeMemoryWorkshop(event)">
     <div class="memory-modal-container" onclick="event.stopPropagation()">
       <div class="memory-modal-header">
         <div class="memory-modal-title-box">
           <span class="memory-modal-badge">ESTAÇÃO DE MEMORIZAÇÃO</span>
           <h3 class="memory-modal-title">Guardar no Coração</h3>
-          <span class="memory-modal-ref">Marcos 1:3 • BLIVRE</span>
+          <span class="memory-modal-ref" id="memory-modal-ref">Marcos 1:3 • NVI</span>
         </div>
         <button class="memory-modal-close-btn" onclick="closeMemoryWorkshop(event)" aria-label="Fechar">✕</button>
       </div>
@@ -4856,50 +4864,38 @@
         <button class="memory-tab" id="mem-tab-4" onclick="switchMemoryLevel(4)">4. Iniciais</button>
       </div>
 
-      <!-- Caixa do Versículo Mnemônico -->
+      <!-- Caixa do Versículo Mnemônico (Parágrafo Fluido Sem Overflow) -->
       <div class="memory-verse-box" id="memory-verse-box">
         <!-- Renderizado dinamicamente via JS -->
       </div>
 
       <div class="memory-hint-box" id="memory-hint-box">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-        <span id="memory-hint-text">Leia pausadamente em voz alta 3 vezes para internalizar a melodia e o sentido do texto.</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span id="memory-hint-text">Leia pausadamente em voz alta 3 vezes para internalizar a melodia e o sentido teológico.</span>
       </div>
 
-      <!-- Ferramentas Auxiliares -->
+      <!-- Ferramenta Auxiliar: Ritmo Guiado (Lucide Clock, ZERO EMOJIS) -->
       <div class="memory-tools-row">
         <button class="memory-tool-btn" id="rhythm-btn" onclick="toggleMemoryRhythm()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span id="rhythm-btn-text">⏱️ Ritmo Guiado</span>
-        </button>
-        <button class="memory-tool-btn" id="lockscreen-btn" onclick="toggleLockscreenCard()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>
-          <span>Cartão de Bloqueio</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="rhythm-btn-text">Ritmo Guiado</span>
         </button>
       </div>
 
-      <!-- Preview do Cartão de Bloqueio (Oculto por padrão) -->
-      <div id="lockscreen-preview-card" style="display:none; background:#0b0d11; border:1px solid var(--border-gold); border-radius:12px; padding:16px; text-align:center;">
-        <span style="font-size:10px; color:var(--brand-gold); letter-spacing:0.15em; text-transform:uppercase;">BEREO • PALAVRA NO CORAÇÃO</span>
-        <p style="font-family:var(--font-serif); font-size:15px; color:#f0ede6; font-style:italic; margin:12px 0 8px 0; line-height:1.6;">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas."</p>
-        <span style="font-size:11px; color:var(--brand-gold-light); font-weight:600;">— Marcos 1:3</span>
-        <div style="font-size:10.5px; color:var(--text-secondary); margin-top:10px;">Dica: Salve uma captura desta área como papel de parede para meditar durante o dia!</div>
-      </div>
-
-      <!-- Ação de Triunfo Espiritual -->
+      <!-- Ação de Triunfo Espiritual (Lucide Check) -->
       <div class="memory-footer-action">
         <button class="memory-memorized-btn" id="memorized-confirm-btn" onclick="confirmMemorized()">
-          <span id="memorized-btn-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <span id="memorized-btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
           <span id="memorized-btn-text">Guardei no Coração</span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- PÍLULA FLUTUANTE DA BEREIA (FAB NO CANTO INFERIOR) -->
+  <!-- PÍLULA FLUTUANTE DA BEREIA (FAB NO CANTO INFERIOR - LUCIDE SPARKLES) -->
   <button class="floating-bereia-fab" id="floating-bereia-fab" onclick="openBereiaDrawer('pista')">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-    <span>✦ BereIA</span>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4c0 3.3 2.7 6 6 6-3.3 0-6 2.7-6 6 0-3.3-2.7-6-6-6 3.3 0 6-2.7 6-6z"/><path d="M6 2c0 2 1.6 3.6 3.6 3.6-2 0-3.6 1.6-3.6 3.6 0-2-1.6-3.6-3.6-3.6 2 0 3.6-1.6 3.6-3.6z"/><path d="M5 16c0 1.2 1 2.2 2.2 2.2-1.2 0-2.2 1-2.2 2.2 0-1.2-1-2.2-2.2-2.2 1.2 0 2.2-1 2.2-2.2z"/></svg>
+    <span>BereIA</span>
   </button>
 
   <!-- GAVETA RETRÁTIL IN-SCREEN DA BEREIA (BOTTOM-SHEET) -->
@@ -4907,7 +4903,7 @@
     <div class="bereia-drawer-sheet" onclick="event.stopPropagation()">
       <div class="bereia-drawer-header">
         <div class="bereia-drawer-tabs">
-          <button class="bereia-drawer-tab-btn active" id="drawer-tab-pista" onclick="switchBereiaDrawerTab('pista')">✦ Pista de Marcos 1:1-8</button>
+          <button class="bereia-drawer-tab-btn active" id="drawer-tab-pista" onclick="switchBereiaDrawerTab('pista')">Pistas Indutivas de Marcos</button>
           <button class="bereia-drawer-tab-btn" id="drawer-tab-livre" onclick="switchBereiaDrawerTab('livre')">Diálogo Livre & Vida</button>
         </div>
         <button onclick="closeBereiaDrawer()" style="background:transparent; border:none; color:var(--text-secondary); font-size:16px; cursor:pointer; padding:4px;">✕</button>
@@ -6190,30 +6186,96 @@ ${document.getElementById('cad-res-prat').innerText}
     let memoryRhythmInterval = null;
     let isMemoryRhythmActive = false;
     let isVerseMemorized = false;
+    let activeMemoryLevelsCache = null;
 
-    const MEMORY_LEVELS_CONTENT = {
-      1: {
-        text: '"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas."',
-        hint: "Leia pausadamente em voz alta 3 vezes para internalizar a melodia e o sentido teológico."
-      },
-      2: {
-        html: '"Voz do que <span class="faded-word" onclick="revealWord(this)">clama</span> no deserto: <span class="faded-word" onclick="revealWord(this)">Preparem</span> o caminho para o <span class="faded-word" onclick="revealWord(this)">Senhor</span>, <span class="faded-word" onclick="revealWord(this)">endireitem</span> as suas <span class="faded-word" onclick="revealWord(this)">veredas</span>."',
-        hint: "40% Oculto: Recite mentalmente. Toque nos traços para espiar a palavra se tiver dúvida."
-      },
-      3: {
-        html: '"<span class="faded-word" onclick="revealWord(this)">Voz</span> do que <span class="faded-word" onclick="revealWord(this)">clama</span> no <span class="faded-word" onclick="revealWord(this)">deserto</span>: <span class="faded-word" onclick="revealWord(this)">Preparem</span> o <span class="faded-word" onclick="revealWord(this)">caminho</span> para o <span class="faded-word" onclick="revealWord(this)">Senhor</span>, <span class="faded-word" onclick="revealWord(this)">endireitem</span> as <span class="faded-word" onclick="revealWord(this)">suas</span> <span class="faded-word" onclick="revealWord(this)">veredas</span>."',
-        hint: "75% Oculto: Desafio profundo. Apenas artigos e conexões gramaticais visíveis."
-      },
-      4: {
-        html: '"<strong>V</strong>___ <strong>d</strong>_ <strong>q</strong>__ <strong>c</strong>____ <strong>n</strong>_ <strong>d</strong>______: <strong>P</strong>_______ <strong>o</strong> <strong>c</strong>______ <strong>p</strong>___ <strong>o</strong> <strong>S</strong>_____, <strong>e</strong>_________ <strong>a</strong>_ <strong>s</strong>___ <strong>v</strong>______."',
-        hint: "Mnemônica Pura: Tente recitar guiando-se apenas pelas letras iniciais de cada palavra!"
+    function getActiveAnchorVerseData() {
+      const dayData = (typeof MARCOS_7_DAYS !== 'undefined') ? MARCOS_7_DAYS.find(d => d.day === currentDayNumber) : null;
+      const ref = dayData ? dayData.ancora : 'Marcos 1:3';
+      const verKey = (typeof currentVersion !== 'undefined') ? currentVersion : 'nvi';
+      
+      let text = 'Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas.';
+      if (dayData && dayData.verses) {
+        const vObj = dayData.verses[verKey] || dayData.verses['nvi'] || dayData.verses['blivre'] || {};
+        const m = ref.match(/:(\d+)/);
+        if (m) {
+          const vNum = m[1];
+          if (vObj['v' + vNum]) {
+            text = vObj['v' + vNum];
+          }
+        }
       }
-    };
+      return { ref, version: verKey.toUpperCase(), text };
+    }
+
+    function buildMemoryLevels(verseText) {
+      const cleanText = verseText.replace(/^["'“”«»]+|["'“”«»]+$/g, '').trim();
+      const words = cleanText.split(/\s+/);
+      
+      // Nível 1: Leitura 100%
+      const level1Text = `"${cleanText}"`;
+      
+      // Nível 2: Foco 40% Oculto
+      let countEligible = 0;
+      const level2Tokens = words.map(w => {
+        const pureWord = w.replace(/[.,:;!?—"()]/g, '');
+        if (pureWord.length > 2) {
+          countEligible++;
+          if (countEligible % 2 === 0) {
+            const puncBefore = w.match(/^[—"()]+/)?.[0] || '';
+            const puncAfter = w.match(/[.,:;!?—")]+$/)?.[0] || '';
+            return `${puncBefore}<span class="faded-word" onclick="revealWord(this)">${pureWord}</span>${puncAfter}`;
+          }
+        }
+        return w;
+      });
+      const level2Html = `"${level2Tokens.join(' ')}"`;
+      
+      // Nível 3: Desafio 75% Oculto
+      let countL3 = 0;
+      const level3Tokens = words.map(w => {
+        const pureWord = w.replace(/[.,:;!?—"()]/g, '');
+        countL3++;
+        if (pureWord.length <= 2 && (countL3 % 3 === 1)) {
+          return w;
+        }
+        const puncBefore = w.match(/^[—"()]+/)?.[0] || '';
+        const puncAfter = w.match(/[.,:;!?—")]+$/)?.[0] || '';
+        return `${puncBefore}<span class="faded-word" onclick="revealWord(this)">${pureWord}</span>${puncAfter}`;
+      });
+      const level3Html = `"${level3Tokens.join(' ')}"`;
+      
+      // Nível 4: Mnemônica das Iniciais fluida (com spans individuais .initial-word)
+      const level4Tokens = words.map(w => {
+        const puncBefore = w.match(/^[—"()]+/)?.[0] || '';
+        const puncAfter = w.match(/[.,:;!?—")]+$/)?.[0] || '';
+        const pureWord = w.replace(/[.,:;!?—"()]/g, '');
+        if (!pureWord) return w;
+        const initial = pureWord[0];
+        const underscores = '_'.repeat(Math.min(pureWord.length - 1, 5));
+        return `${puncBefore}<span class="initial-word"><strong>${initial}</strong>${underscores}</span>${puncAfter}`;
+      });
+      const level4Html = `"${level4Tokens.join(' ')}"`;
+      
+      return {
+        1: { text: level1Text, hint: "Leia pausadamente em voz alta 3 vezes para internalizar a melodia e o sentido teológico." },
+        2: { html: level2Html, hint: "40% Oculto: Recite mentalmente. Toque nos traços para espiar a palavra se tiver dúvida." },
+        3: { html: level3Html, hint: "75% Oculto: Desafio profundo. Apenas conexões gramaticais visíveis." },
+        4: { html: level4Html, hint: "Mnemônica Pura: Tente recitar guiando-se apenas pelas letras iniciais de cada palavra!" }
+      };
+    }
 
     function openMemoryWorkshop(e) {
       if (e) e.stopPropagation();
       const overlay = document.getElementById('memory-modal-overlay');
       if (overlay) overlay.classList.add('open');
+      
+      const anchorData = getActiveAnchorVerseData();
+      const refEl = document.getElementById('memory-modal-ref');
+      if (refEl) {
+        refEl.textContent = `${anchorData.ref} • ${anchorData.version}`;
+      }
+      
+      activeMemoryLevelsCache = buildMemoryLevels(anchorData.text);
       switchMemoryLevel(currentMemoryLevel || 1);
     }
 
@@ -6232,7 +6294,11 @@ ${document.getElementById('cad-res-prat').innerText}
       }
       const box = document.getElementById('memory-verse-box');
       const hint = document.getElementById('memory-hint-text');
-      const config = MEMORY_LEVELS_CONTENT[level];
+      if (!activeMemoryLevelsCache) {
+        const anchorData = getActiveAnchorVerseData();
+        activeMemoryLevelsCache = buildMemoryLevels(anchorData.text);
+      }
+      const config = activeMemoryLevelsCache[level];
       if (box && config) {
         if (config.html) {
           box.innerHTML = config.html;
@@ -6266,19 +6332,24 @@ ${document.getElementById('cad-res-prat').innerText}
       const btn = document.getElementById('rhythm-btn');
       if (btn) btn.classList.add('active-rhythm');
       const box = document.getElementById('memory-verse-box');
-      const clauses = [
-        "Voz do que clama no deserto...",
-        "Preparem o caminho para o Senhor...",
-        "Endireitem as suas veredas."
-      ];
+      
+      const anchorData = getActiveAnchorVerseData();
+      const cleanText = anchorData.text.replace(/^["'“”«»]+|["'“”«»]+$/g, '').trim();
+      let clauses = cleanText.split(/[,:;.—]+/).map(s => s.trim()).filter(s => s.length > 0);
+      if (clauses.length < 2) {
+        const words = cleanText.split(' ');
+        const mid = Math.ceil(words.length / 2);
+        clauses = [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
+      }
+      
       let step = 0;
-      if (box) box.innerHTML = '<span style="color:var(--brand-gold); font-weight:600;">' + clauses[0] + '</span>';
+      if (box) box.innerHTML = '<span style="color:var(--brand-gold); font-weight:600; font-size:18px;">"' + clauses[0] + '..."</span>';
       memoryRhythmInterval = setInterval(() => {
         step = (step + 1) % clauses.length;
         if (box) {
           box.style.opacity = '0.3';
           setTimeout(() => {
-            box.innerHTML = '<span style="color:var(--brand-gold); font-weight:600; font-size:18px;">' + clauses[step] + '</span>';
+            box.innerHTML = '<span style="color:var(--brand-gold); font-weight:600; font-size:18px;">"' + clauses[step] + (step === clauses.length - 1 ? '."' : '..."') + '</span>';
             box.style.opacity = '1';
           }, 200);
         }
@@ -6296,12 +6367,6 @@ ${document.getElementById('cad-res-prat').innerText}
       switchMemoryLevel(currentMemoryLevel);
     }
 
-    function toggleLockscreenCard() {
-      const card = document.getElementById('lockscreen-preview-card');
-      if (!card) return;
-      card.style.display = card.style.display === 'none' ? 'block' : 'none';
-    }
-
     function confirmMemorized() {
       isVerseMemorized = true;
       const btn = document.getElementById('memorized-confirm-btn');
@@ -6311,7 +6376,7 @@ ${document.getElementById('cad-res-prat').innerText}
       const mainBtnText = document.getElementById('verse-memory-btn-text');
 
       if (btn) btn.classList.add('saved');
-      if (icon) icon.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+      if (icon) icon.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
       if (text) text.textContent = 'Guardado no Meu Coração!';
 
       if (mainBtn) mainBtn.classList.add('memorized');
@@ -6422,7 +6487,7 @@ ${document.getElementById('cad-res-prat').innerText}
       if (tab === 'pista') {
         chatBody.innerHTML = `
           <div class="bereia-msg-bubble bereia-msg-assistant">
-            ✦ <strong>Tutor Socrático de Marcos 1:1-8:</strong><br>
+            <strong>Tutor Socrático de Marcos 1:1-8:</strong><br>
             Estou focado no texto de hoje. Não dou respostas prontas para não tirar a alegria da sua própria descoberta. Observe: que detalhe no v. 6 sobre as roupas de João Batista chama a sua atenção?
           </div>
         `;
@@ -6430,7 +6495,7 @@ ${document.getElementById('cad-res-prat').innerText}
       } else {
         chatBody.innerHTML = `
           <div class="bereia-msg-bubble bereia-msg-assistant">
-            ✦ <strong>Mentoria & Diálogo Livre:</strong><br>
+            <strong>Mentoria & Diálogo Livre:</strong><br>
             A paz! Aqui temos total liberdade para conversar sobre a sua vida, aconselhamento, casamento, oração e dúvidas teológicas com base bíblica profunda. Como posso te apoiar hoje?
           </div>
         `;
@@ -6466,11 +6531,11 @@ ${document.getElementById('cad-res-prat').innerText}
         
         if (activeBereiaDrawerTab === 'pista') {
           assistantBubble.innerHTML = `
-            ✦ <strong>BereIA:</strong> Excelente observação! Ao comparar esse ponto com 2 Reis 1:8, note que Elias também usava cinto de couro. Que mensagem isso transmitia ao povo de Israel no deserto?
+            <strong>BereIA:</strong> Excelente observação! Ao comparar esse ponto com 2 Reis 1:8, note que Elias também usava cinto de couro. Que mensagem isso transmitia ao povo de Israel no deserto?
           `;
         } else {
           assistantBubble.innerHTML = `
-            ✦ <strong>BereIA:</strong> Entendo profundamente a sua dúvida. À luz das Escrituras, a paz de Deus excede todo o entendimento (Filipenses 4:6-7) não porque os problemas somem, mas porque depositamos a ansiedade nAquele que cuida de nós. Como você pode levar essa questão a Deus em oração sincera hoje?
+            <strong>BereIA:</strong> Entendo profundamente a sua dúvida. À luz das Escrituras, a paz de Deus excede todo o entendimento (Filipenses 4:6-7) não porque os problemas somem, mas porque depositamos a ansiedade nAquele que cuida de nós. Como você pode levar essa questão a Deus em oração sincera hoje?
           `;
         }
         chatBody.appendChild(assistantBubble);
