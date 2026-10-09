@@ -2143,54 +2143,250 @@
       color: var(--text-primary);
     }
 
-    .anchor-icon-btn {
-      background: transparent;
+    /* Botão de Ação: Memorizar Versículo */
+    .memory-action-btn {
+      background: rgba(212, 175, 55, 0.08);
       border: 1px solid var(--border-gold);
-      color: var(--brand-gold);
-      border-radius: 4px;
-      padding: 3px 7px;
+      color: var(--brand-gold-light);
+      border-radius: 6px;
+      padding: 3px 8px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font-size: 10.5px;
+      gap: 5px;
+      font-size: 11px;
       font-weight: 600;
-      transition: all 0.2s ease;
-      margin-left: 6px;
+      transition: all 0.25s ease;
+      margin-left: 8px;
       vertical-align: middle;
+      font-family: var(--font-sans);
     }
-    .anchor-icon-btn:hover {
-      background: var(--brand-gold-subtle);
+    .memory-action-btn:hover {
+      background: rgba(212, 175, 55, 0.18);
+      border-color: var(--brand-gold);
+      transform: translateY(-1px);
+    }
+    .memory-action-btn.memorized {
+      background: rgba(46, 125, 50, 0.15);
+      border-color: #4caf50;
+      color: #81c784;
     }
 
-    /* Toast Tooltip do Versículo Âncora */
-    .anchor-toast {
+    /* Modal: Estação de Memorização (Quiet Luxury Doxazen) */
+    .memory-modal-overlay {
       position: fixed;
-      bottom: 84px;
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background: rgba(24, 28, 35, 0.95);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(8, 10, 14, 0.82);
       backdrop-filter: blur(8px);
-      border: 1px solid var(--border-gold);
-      color: var(--brand-gold-light);
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 1200;
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .memory-modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .memory-modal-container {
+      background: #12151b;
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 480px;
+      padding: 24px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+      transform: translateY(12px) scale(0.98);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .memory-modal-overlay.open .memory-modal-container {
+      transform: translateY(0) scale(1);
+    }
+    .memory-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .memory-modal-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--brand-gold);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .memory-modal-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: #f0ede6;
+      margin: 0 0 2px 0;
+    }
+    .memory-modal-ref {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .memory-modal-close-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+    .memory-modal-close-btn:hover {
+      border-color: var(--brand-gold);
+      color: #f0ede6;
+    }
+    .memory-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+    .memory-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 7px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .memory-tab.active {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--brand-gold-light);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    .memory-verse-box {
+      background: rgba(18, 22, 29, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      padding: 20px 18px;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.65;
+      color: #f0ede6;
+    }
+    .faded-word {
+      background: rgba(212, 175, 55, 0.08);
+      border-bottom: 2px dashed rgba(212, 175, 55, 0.5);
+      padding: 1px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: transparent;
+      user-select: none;
+      transition: all 0.25s ease;
+      display: inline-block;
+      margin: 0 2px;
+    }
+    .faded-word:hover {
+      border-bottom-color: var(--brand-gold);
+    }
+    .faded-word.revealed {
+      color: var(--brand-gold-light) !important;
+      background: rgba(212, 175, 55, 0.2);
+    }
+    .memory-hint-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+    .memory-hint-box svg {
+      color: var(--brand-gold);
+      flex-shrink: 0;
+    }
+    .memory-tools-row {
+      display: flex;
+      gap: 8px;
+    }
+    .memory-tool-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .memory-tool-btn:hover {
+      border-color: var(--border-gold);
+      color: var(--brand-gold-light);
+    }
+    .memory-tool-btn.active-rhythm {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+    .memory-footer-action {
+      display: flex;
+      flex-direction: column;
       gap: 6px;
     }
-    .anchor-toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
+    .memory-memorized-btn {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.08));
+      border: 1px solid var(--brand-gold);
+      color: var(--brand-gold-light);
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+    .memory-memorized-btn:hover {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.15));
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
+    }
+    .memory-memorized-btn.saved {
+      background: rgba(46, 125, 50, 0.2);
+      border-color: #4caf50;
+      color: #a5d6a7;
     }
 
     /* Ícone (i) de Informação da Versão */
@@ -2741,52 +2937,52 @@
           <div class="trail-breadcrumb" style="display:inline-flex; align-items:center; gap:6px; margin-bottom:4px;">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>
             <span style="font-size:11px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--brand-gold);">Marcos em 32 Dias • </span>
-            <span class="day-focus-badge">Dia 01</span>
+            <span class="day-focus-badge" id="day-badge-text">Dia 01</span>
           </div>
-          <h1 class="pericope-heading" style="font-size:21px; line-height:1.25; margin:2px 0 3px 0;">O Princípio do Evangelho e a Voz no Deserto</h1>
-          <div style="font-size:13px; font-weight:600; color:var(--brand-gold); letter-spacing:0.3px;">Marcos 1:1–8</div>
+          <h1 class="pericope-heading" id="pericope-title" style="font-size:21px; line-height:1.25; margin:2px 0 3px 0;">O Princípio do Evangelho e a Voz no Deserto</h1>
+          <div id="pericope-ref" style="font-size:13px; font-weight:600; color:var(--brand-gold); letter-spacing:0.3px;">Marcos 1:1–8</div>
         </div>
       </section>
 
-      <!-- 2. FITA DA SEMANA COM DIAS (SOMENTE DIA 01 ATIVO) -->
+      <!-- 2. FITA DA SEMANA COM OS 7 DIAS DE MARCOS (100% INTERATIVO) -->
       <section class="week-calendar-card">
         <div class="week-calendar-top">
-          <span class="week-info-title">Semana 1 de 5</span>
+          <span class="week-info-title">Semana 1 de 5 • O Servo Imparável</span>
           <span class="grace-days-pill" style="font-size:11px; font-weight:600; color:var(--text-secondary); background:transparent; border:none; display:inline-flex; align-items:center; gap:5px;">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            No Seu Ritmo • Sem Pressa
+            Degustação de 7 Dias • No Seu Ritmo
           </span>
         </div>
 
-        <div class="week-days-grid">
-          <div class="day-button active" title="Dia 01: Marcos 1:1-8 (Hoje)">
+        <div class="week-days-grid" id="week-days-buttons-grid">
+          <button class="day-button active" id="btn-day-1" onclick="switchDay(1)" title="Dia 01: Marcos 1:1-8 (Segunda)">
             <span class="day-label">Seg</span>
             <span class="day-num">01</span>
-          </div>
-          <div class="day-button disabled" title="Liberado amanhã">
+          </button>
+          <button class="day-button" id="btn-day-2" onclick="switchDay(2)" title="Dia 02: Marcos 1:9-13 (Terça)">
             <span class="day-label">Ter</span>
             <span class="day-num">02</span>
-          </div>
-          <div class="day-button disabled" title="Liberado quarta-feira">
+          </button>
+          <button class="day-button" id="btn-day-3" onclick="switchDay(3)" title="Dia 03: Marcos 1:14-20 (Quarta)">
             <span class="day-label">Qua</span>
             <span class="day-num">03</span>
-          </div>
-          <div class="day-button disabled" title="Liberado quinta-feira">
+          </button>
+          <button class="day-button" id="btn-day-4" onclick="switchDay(4)" title="Dia 04: Marcos 1:21-28 (Quinta)">
             <span class="day-label">Qui</span>
             <span class="day-num">04</span>
-          </div>
-          <div class="day-button disabled" title="Liberado sexta-feira">
+          </button>
+          <button class="day-button" id="btn-day-5" onclick="switchDay(5)" title="Dia 05: Marcos 1:29-39 (Sexta)">
             <span class="day-label">Sex</span>
             <span class="day-num">05</span>
-          </div>
-          <div class="day-button disabled" title="Liberado sábado">
+          </button>
+          <button class="day-button" id="btn-day-6" onclick="switchDay(6)" title="Dia 06: Marcos 1:40-45 (Sábado)">
             <span class="day-label">Sáb</span>
             <span class="day-num">06</span>
-          </div>
-          <div class="day-button disabled" title="Descanso de domingo">
+          </button>
+          <button class="day-button" id="btn-day-7" onclick="switchDay(7)" title="Dia 07: Marcos 2:1-12 (Domingo)">
             <span class="day-label">Dom</span>
             <span class="day-num">07</span>
-          </div>
+          </button>
         </div>
       </section>
 
@@ -2916,13 +3112,13 @@
             <span class="v-num">2</span> <span id="v2-text">Conforme está escrito no profeta Isaías: 'Envio o meu mensageiro diante de você, para preparar o seu caminho' —</span>
           </p>
 
-          <!-- Versículo 3 (Versículo-Chave) -->
+          <!-- Versículo 3 (Versículo de Memorização / Guardar no Coração) -->
           <div class="anchor-verse-highlight">
             <span class="v-num">3</span> 
             <span id="v3-text" style="color:var(--text-primary);">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas".</span>
-            <button class="anchor-icon-btn" onclick="showAnchorToast(event)" title="Versículo-Chave da Perícope (Memorização e Meditação)" aria-label="Versículo-Chave">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>
-              <span>Versículo-Chave</span>
+            <button class="memory-action-btn" id="verse-memory-btn" onclick="openMemoryWorkshop(event)" title="Estação de Memorização: Guardar no Coração" aria-label="Memorizar">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v1a5 5 0 0 1-2 4.14V17a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-4.86A5 5 0 0 1 7 8V7a5 5 0 0 1 5-5z"/><path d="M9 22h6"/></svg>
+              <span id="verse-memory-btn-text">🧠 Memorizar</span>
             </button>
           </div>
 
@@ -3074,7 +3270,7 @@
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
-          <div class="q-main-text">Leia os versículos 4 a 6. Onde João Batista realizava o seu ministério, como ele se vestia e o que as pessoas de Jerusalém faziam quando iam até ele?</div>
+          <div class="q-main-text" id="q-obs-basico">Leia os versículos 4 a 6. Onde João Batista realizava o seu ministério, como ele se vestia e o que as pessoas de Jerusalém faziam quando iam até ele?</div>
           <div class="q-helper-text">Dica: Anote os fatos que seus olhos leem diretamente na página, sem tentar interpretar ainda.</div>
           <textarea id="ta-obs-basico" class="response-input" oninput="autoExpand(this)" placeholder="Anote os fatos observados..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
@@ -3105,7 +3301,7 @@
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
-          <div class="q-main-text">Observe os versículos 1 a 3. Que títulos Marcos atribui a Jesus logo no início, e quais profetas antigos são combinados para inaugurar o livro?</div>
+          <div class="q-main-text" id="q-obs1-interm">Observe os versículos 1 a 3. Que títulos Marcos atribui a Jesus logo no início, e quais profetas antigos são combinados para inaugurar o livro?</div>
           
           <textarea id="ta-obs1-interm" class="response-input" oninput="autoExpand(this)" placeholder="Anote os títulos e conexões..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
@@ -3134,7 +3330,7 @@
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
-          <div class="q-main-text">Examine os versículos 7 e 8: Liste as duas diferenças fundamentais que João aponta entre o seu ministério e o ministério dAquele que viria após ele.</div>
+          <div class="q-main-text" id="q-obs2-interm">Examine os versículos 7 e 8: Liste as duas diferenças fundamentais que João aponta entre o seu ministério e o ministério dAquele que viria após ele.</div>
           
           <textarea id="ta-obs2-interm" class="response-input" oninput="autoExpand(this)" placeholder="Anote os dois contrastes textuais..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
@@ -3160,8 +3356,8 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
               Pista Léxica Sem Spoiler
             </div>
-            <div class="lexicon-word-term">Metanoia (μετάνοια — v. 4, traduzido por "arrependimento")</div>
-            <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
+            <div class="lexicon-word-term" id="lexicon-term-interm">Metanoia (μετάνοια — v. 4, traduzido por "arrependimento")</div>
+            <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;" id="lexicon-desc-interm">
               No grego, essa palavra não significa mero remorso passageiro, mas uma mudança de rota de 180°. Como essa pista esclarece a exigência prática do batismo de João?
             </div>
             <button class="tutor-hint-trigger" onclick="toggleTutor('tutor-p1')">
@@ -3185,7 +3381,7 @@
               <span class="tutor-credit-badge">1 cr</span>
             </button>
           </div>
-          <div class="q-main-text">Embora Marcos mencione Isaías no v. 2, o texto funde Êxodo 23:20, Malaquias 3:1 e Isaías 40:3. Como essa fusão estabelece a divindade de Jesus como o próprio Yahweh que visita Seu povo?</div>
+          <div class="q-main-text" id="q-obs1-adv">Embora Marcos mencione Isaías no v. 2, o texto funde Êxodo 23:20, Malaquias 3:1 e Isaías 40:3. Como essa fusão estabelece a divindade de Jesus como o próprio Yahweh que visita Seu povo?</div>
           
           <textarea id="ta-obs1-adv" class="response-input" oninput="autoExpand(this)" placeholder="Análise de teologia bíblica veterotestamentária..."></textarea>
           <div style="display:flex; justify-content:flex-end; margin-top:3px;"><span class="auto-save-status saved"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ✓ Salvo em tempo real</span></div>
@@ -4016,7 +4212,7 @@
         </div>
 
         <div style="font-size:11px; color:var(--text-tertiary); font-style:italic;" id="caderno-export-notice">
-          • No Plano Gratuito, as exportações contêm a marca d\'água Bereo. No Plano Semente (R$ 5,90) e superiores, o PDF é limpo e diagramado editorialmente.
+          • No Plano Gratuito, as exportações contêm a marca d\'água Bereo. No Plano Básico (R$ 5,90) e superiores, o PDF é limpo e diagramado editorialmente.
         </div>
       </section>
     </div>
@@ -4559,7 +4755,7 @@
           </div>
           <div>
             <div style="font-size:14px; font-weight:700; color:var(--text-primary);">Tutor Bereano • IA Socrática</div>
-            <div style="font-size:11px; color:var(--brand-gold); font-weight:600;">Disponível a partir do Plano Semente</div>
+            <div style="font-size:11px; color:var(--brand-gold); font-weight:600;">Disponível a partir do Plano Básico</div>
           </div>
         </div>
         <button onclick="closeUpgradeModal()" style="background:transparent; border:none; color:var(--text-tertiary); cursor:pointer; font-size:16px;">✕</button>
@@ -4571,7 +4767,7 @@
 
       <div style="background:var(--bg-card-subtle); border:1px solid var(--border-subtle); border-radius:8px; padding:12px; display:flex; flex-direction:column; gap:8px;">
         <div style="font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--brand-gold);">
-          O que o Plano Semente (R$ 5,90/mês) desbloqueia:
+          O que o Plano Básico (R$ 5,90/mês) desbloqueia:
         </div>
         <div class="upgrade-feature-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--brand-gold); flex-shrink:0; margin-top:2px;"><polyline points="20 6 9 17 4 12"/></svg>
@@ -4640,10 +4836,64 @@
     </div>
   </div>
 
-  <!-- TOAST TOOLTIP DO VERSÍCULO-CHAVE (FADE IN/OUT 3S) -->
-  <div class="anchor-toast" id="anchor-toast">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>
-    <span>Este é o Versículo-Chave da Perícope (Memorização e Meditação)</span>
+  <!-- MODAL: ESTAÇÃO DE MEMORIZAÇÃO (GUARDAR NO CORAÇÃO) -->
+  <div class="memory-modal-overlay" id="memory-modal-overlay" onclick="closeMemoryWorkshop(event)">
+    <div class="memory-modal-container" onclick="event.stopPropagation()">
+      <div class="memory-modal-header">
+        <div class="memory-modal-title-box">
+          <span class="memory-modal-badge">ESTAÇÃO DE MEMORIZAÇÃO</span>
+          <h3 class="memory-modal-title">Guardar no Coração</h3>
+          <span class="memory-modal-ref">Marcos 1:3 • BLIVRE</span>
+        </div>
+        <button class="memory-modal-close-btn" onclick="closeMemoryWorkshop(event)" aria-label="Fechar">✕</button>
+      </div>
+
+      <!-- Abas de Neuroaprendizagem (Word Fading) -->
+      <div class="memory-tabs">
+        <button class="memory-tab active" id="mem-tab-1" onclick="switchMemoryLevel(1)">1. Leitura 100%</button>
+        <button class="memory-tab" id="mem-tab-2" onclick="switchMemoryLevel(2)">2. Foco 40%</button>
+        <button class="memory-tab" id="mem-tab-3" onclick="switchMemoryLevel(3)">3. Desafio 75%</button>
+        <button class="memory-tab" id="mem-tab-4" onclick="switchMemoryLevel(4)">4. Iniciais</button>
+      </div>
+
+      <!-- Caixa do Versículo Mnemônico -->
+      <div class="memory-verse-box" id="memory-verse-box">
+        <!-- Renderizado dinamicamente via JS -->
+      </div>
+
+      <div class="memory-hint-box" id="memory-hint-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span id="memory-hint-text">Leia pausadamente em voz alta 3 vezes para internalizar a melodia e o sentido do texto.</span>
+      </div>
+
+      <!-- Ferramentas Auxiliares -->
+      <div class="memory-tools-row">
+        <button class="memory-tool-btn" id="rhythm-btn" onclick="toggleMemoryRhythm()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="rhythm-btn-text">⏱️ Ritmo Guiado</span>
+        </button>
+        <button class="memory-tool-btn" id="lockscreen-btn" onclick="toggleLockscreenCard()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>
+          <span>🖼️ Cartão de Bloqueio</span>
+        </button>
+      </div>
+
+      <!-- Preview do Cartão de Bloqueio (Oculto por padrão) -->
+      <div id="lockscreen-preview-card" style="display:none; background:#0b0d11; border:1px solid var(--border-gold); border-radius:12px; padding:16px; text-align:center;">
+        <span style="font-size:10px; color:var(--brand-gold); letter-spacing:0.15em; text-transform:uppercase;">BEREO • PALAVRA NO CORAÇÃO</span>
+        <p style="font-family:var(--font-serif); font-size:15px; color:#f0ede6; font-style:italic; margin:12px 0 8px 0; line-height:1.6;">"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas."</p>
+        <span style="font-size:11px; color:var(--brand-gold-light); font-weight:600;">— Marcos 1:3</span>
+        <div style="font-size:10.5px; color:var(--text-secondary); margin-top:10px;">💡 Dica: Salve uma captura desta área como papel de parede para meditar durante o dia!</div>
+      </div>
+
+      <!-- Ação de Triunfo Espiritual -->
+      <div class="memory-footer-action">
+        <button class="memory-memorized-btn" id="memorized-confirm-btn" onclick="confirmMemorized()">
+          <span id="memorized-btn-icon">✨</span>
+          <span id="memorized-btn-text">Guardei no Coração</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- PÍLULA FLUTUANTE DA BEREIA (FAB NO CANTO INFERIOR) -->
@@ -5102,9 +5352,9 @@
       } else {
         if (syncPill) syncPill.className = 'sync-status-indicator local';
         if (syncPillText) syncPillText.innerText = 'Modo Local (Dispositivo)';
-        if (syncDesc) syncDesc.innerText = 'Atenção: Salvo apenas neste navegador. Migre para o Plano Semente (R$ 5,90) para backup seguro na nuvem.';
+        if (syncDesc) syncDesc.innerText = 'Atenção: Salvo apenas neste navegador. Migre para o Plano Básico (R$ 5,90) para backup seguro na nuvem.';
         if (upgradeBtn) upgradeBtn.style.display = 'inline-flex';
-        if (exportNotice) exportNotice.innerText = '• No Plano Gratuito, as exportações contêm a marca d\'água Bereo. No Plano Semente (R$ 5,90), o PDF é limpo e diagramado editorialmente.';
+        if (exportNotice) exportNotice.innerText = '• No Plano Gratuito, as exportações contêm a marca d\'água Bereo. No Plano Básico (R$ 5,90), o PDF é limpo e diagramado editorialmente.';
       }
     }
 
@@ -5248,7 +5498,7 @@ ${document.getElementById('cad-res-prat').innerText}
 
     function exportPdfNotice() {
       if (currentPlan === 'basico_free') {
-        alert("Gerando PDF com marca d\'água Bereo. Para PDFs limpos e alta resolução editorial, migre para o Plano Semente (R$ 5,90)!");
+        alert("Gerando PDF com marca d\'água Bereo. Para PDFs limpos e alta resolução editorial, migre para o Plano Básico (R$ 5,90)!");
       } else {
         alert("Gerando PDF diagramado canônico de alta definição (Plano " + PLAN_CONFIGS[currentPlan].name + ")... Pronto!");
       }
@@ -5258,17 +5508,195 @@ ${document.getElementById('cad-res-prat').innerText}
       copyCadernoToday();
     }
 
+    
+    // =========================================================================
+    // BASE DE DADOS DOS 7 DIAS DE MARCOS (DEGUSTAÇÃO COMPLETA 100% INTERATIVA)
+    // =========================================================================
+    const MARCOS_7_DAYS = [{"day": 1, "id": "mc-01-01-08", "ref": "Marcos 1:1-8", "title": "O Princípio do Evangelho e a Voz no Deserto", "tema": "O início das boas-novas com a profecia de Isaías e o ministério preparatório de João Batista no deserto.", "ancora": "Marcos 1:3", "ancora_textos": {"NVI": "Voz do que clama no deserto: ‘Preparem o caminho para o Senhor; endireitem as veredas para ele’ \".", "NAA": "Voz do que clama no deserto: Preparem o caminho do Senhor, endireitem as suas veredas.", "NVT": "Ele é uma voz que clama no deserto: ‘Preparem o caminho para a vinda do Senhor! Abram a estrada para ele!’\".", "ARC": "Voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas."}, "cap": 1, "v_ini": 1, "v_fim": 8, "verses": {"blivre": {"v1": "Princípio do Evangelho de Jesus Cristo, Filho de Deus;", "v2": "Como está escrito nos profetas: Eis que eu envio o meu anjo ante a tua face, o qual preparará o teu caminho diante de ti.", "v3": "Voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas.", "v4": "Apareceu João batizando no deserto, e pregando o batismo de arrependimento, para remissão dos pecados.", "v5": "E toda a província da Judeia e os de Jerusalém iam ter com ele; e todos eram batizados por ele no rio Jordão, confessando os seus pecados.", "v6": "E João andava vestido de pelos de camelo, e com um cinto de couro em redor de seus lombos, e comia gafanhotos e mel silvestre.", "v7": "E pregava, dizendo: Após mim vem aquele que é mais forte do que eu, do qual não sou digno de, abaixando-me, desatar a correia das suas sandálias.", "v8": "Eu, em verdade, tenho-vos batizado com água; ele, porém, vos batizará com o Espírito Santo."}, "nvi": {"v1": "O princípio do evangelho de Jesus Cristo, o Filho de Deus,", "v2": "conforme está escrito no profeta Isaías: \"Vejam, enviarei o meu mensageiro à sua frente; ele preparará o seu caminho\".", "v3": "Voz do que clama no deserto: ‘Preparem o caminho para o Senhor; endireitem as veredas para ele’ \".", "v4": "Assim, apareceu João Batista no deserto pregando o batismo de arrependimento para o perdão dos pecados.", "v5": "Pessoas de toda a região da Judeia e todos os habitantes de Jerusalém iam até ele. Quando confessavam os seus pecados, eram batizados por ele no ri...", "v6": "João vestia roupas feitas de pelos de camelo, usava um cinto de couro na cintura e comia gafanhotos e mel silvestre.", "v7": "Esta era a sua mensagem: — Depois de mim vem aquele que é mais poderoso do que eu, de quem não sou digno de, curvando-me, desamarrar as correias ...", "v8": "Eu os batizo com água, mas ele os batizará com o Espírito Santo."}, "naa": {"v1": "Princípio do evangelho de Jesus Cristo, Filho de Deus.", "v2": "Como está escrito na profecia de Isaías: \"Eis que envio o meu mensageiro adiante de você, o qual preparará o seu caminho.", "v3": "Voz do que clama no deserto: Preparem o caminho do Senhor, endireitem as suas veredas.", "v4": "E foi assim que João Batista apareceu no deserto, pregando batismo de arrependimento para remissão de pecados.", "v5": "E toda a região da Judeia e todos os moradores de Jerusalém iam até ele. E, confessando os seus pecados, eram batizados por ele no rio Jordão.", "v6": "A roupa de João era feita de pelos de camelo. Ele usava um cinto de couro e se alimentava de gafanhotos e mel silvestre.", "v7": "E João pregava, dizendo: — Depois de mim vem aquele que é mais poderoso do que eu, do qual não sou digno de, curvando-me, desamarrar as correias ...", "v8": "Eu batizei vocês com água; ele, porém, os batizará com o Espírito Santo."}, "nvt": {"v1": "Este é o princípio das boas-novas a respeito de Jesus Cristo, o Filho de Deus.", "v2": "Iniciou-se como o profeta Isaías escreveu: \"Envio meu mensageiro adiante de ti, e ele preparará teu caminho.", "v3": "Ele é uma voz que clama no deserto: ‘Preparem o caminho para a vinda do Senhor! Abram a estrada para ele!’\".", "v4": "Esse mensageiro era João Batista. Ele apareceu no deserto, pregando o batismo como sinal de arrependimento para o perdão dos pecados.", "v5": "Gente de toda a Judeia, incluindo os moradores de Jerusalém, saía para ver e ouvir João. Quando confessavam seus pecados, ele os batizava no rio Jo...", "v6": "João vestia roupas tecidas com pelos de camelo, usava um cinto de couro e alimentava-se de gafanhotos e mel silvestre.", "v7": "João anunciava: \"Depois de mim virá alguém mais poderoso que eu, alguém tão superior que não sou digno de me abaixar e desamarrar as correias de su...", "v8": "Eu os batizo com água, mas ele os batizará com o Espírito Santo!\"."}, "arc": {"v1": "Princípio do evangelho de Jesus Cristo, Filho de Deus.", "v2": "Como está escrito no profeta Isaías: Eis que eu envio o meu anjo ante a tua face, o qual preparará o teu caminho diante de ti.", "v3": "Voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas.", "v4": "Apareceu João batizando no deserto e pregando o batismo de arrependimento, para remissão de pecados.", "v5": "E toda a província da Judeia e todos os habitantes de Jerusalém iam ter com ele; e todos eram batizados por ele no rio Jordão, confessando os seus ...", "v6": "E João andava vestido de pelos de camelo e com um cinto de couro em redor de seus lombos, e comia gafanhotos e mel silvestre,", "v7": "e pregava, dizendo: Após mim vem aquele que é mais forte do que eu, do qual não sou digno de, abaixando-me, desatar a correia das sandálias.", "v8": "Eu, em verdade, tenho-vos batizado com água; ele, porém, vos batizará com o Espírito Santo."}}, "basico": {"ideia_central": "Em uma única frase, o que acontece nesta passagem e qual é o fato central narrado?", "obs_q": "Leia atentamente Marcos 1:1-8. Onde João Batista realizava o seu ministério, como ele se vestia e o que as pessoas de Jerusalém faziam ao procurá-lo no rio Jordão?", "interp_q": "João afirma categoricamente que não é digno sequer de desamarrar as correias das sandálias de Jesus e contrasta seu batismo de água com o batismo no Espírito Santo. O que essa postura ensina sobre a verdadeira identidade de Jesus e sobre o coração de quem serve no Reino de Deus?", "cristo_q": "Como esta passagem em Marcos 1:1-8 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "praticar_q": "João Batista teve a coragem de diminuir para que Jesus crescesse. Em qual relacionamento ou ambiente prático da sua vida (família, casamento, trabalho ou igreja) você precisa abrir mão do protagonismo ou da necessidade de ter razão para que a graça de Cristo apareça?", "oracao_adoracao": "Inicie seu momento de oração contemplando a majestade de Jesus Cristo como Filho de Deus e Salvador soberano, infinitamente superior a todas as suas ambições e ansiedades do dia.", "oracao_confissao": "Abra o coração e confesse especificamente diante do Senhor as distrações, o apego ao controle ou o comodismo que você identificou na sua reflexão de hoje.", "oracao_suplica": "Clame ao Senhor pelo poder renovador do Espírito Santo, pedindo a humildade necessária para agir como servo fiel e viver a decisão prática que você registrou no seu caderno."}, "intermediario": {"obs1_q": "Leia atentamente Marcos 1:1-8. Onde João Batista realizava o seu ministério, como ele se vestia e o que as pessoas de Jerusalém faziam ao procurá-lo no rio Jordão?", "obs2_q": "Observe o versículo 7: qual é o contraste exato que João estabelece entre a sua própria capacidade e a dignidade dAquele que vinha depois dele?", "pista_lexica": {"palavra_chave_portugues": "Archē", "transliteracao": "Archē", "strong_code": "G746", "pista_investigativa": "Observe como o termo original ἀρχή (G746) comunica: Significa princípio, início ou fundamento."}, "interp1_q": "João afirma categoricamente que não é digno sequer de desamarrar as correias das sandálias de Jesus e contrasta seu batismo de água com o batismo no Espírito Santo. O que essa postura ensina sobre a verdadeira identidade de Jesus e sobre o coração de quem serve no Reino de Deus?", "interp2_q": "Por que Marcos inicia a proclamação das boas-novas citando os profetas do Antigo Testamento em vez de começar imediatamente pelos feitos de Jesus?", "cristo_q": "Como esta passagem em Marcos 1:1-8 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "cristo_chave": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "O deserto é o lugar onde o barulho das distrações é silenciado para que a voz de Deus seja ouvida com nitidez. Qual é a principal distração ou comodismo na sua rotina hoje que tem impedido um arrependimento sincero e uma decisão prática de alinhamento com a vontade de Cristo?", "acao_q": "João Batista teve a coragem de diminuir para que Jesus crescesse. Em qual relacionamento ou ambiente prático da sua vida (família, casamento, trabalho ou igreja) você precisa abrir mão do protagonismo ou da necessidade de ter razão para que a graça de Cristo apareça?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida."}}, "avancado": {"obs1_q": "Como as construções verbais e conjunções conectivas estruturam a ênfase dramática e teológica de Marcos 1:1-8?", "obs2_q": "Quais ecos, citações ou alusões canônicas sustentam a autoridade e o significado desta perícope?", "obs3_q": "Onde se localiza o clímax literário desta perícope dentro da arquitetura global do livro de Marcos?", "interp1_q": "Como esta passagem desenvolve a teologia bíblica da aliança e da revelação redentora de Deus no cânon?", "interp2_q": "Quais tensões teológicas legítimas a passagem apresenta e como o texto as resolve à luz de Cristo?", "cristo_q": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "cristo_chave": "Em Cristo, toda a Escritura encontra seu clímax e cumprimento definitivo pela graça.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "O deserto é o lugar onde o barulho das distrações é silenciado para que a voz de Deus seja ouvida com nitidez. Qual é a principal distração ou comodismo na sua rotina hoje que tem impedido um arrependimento sincero e uma decisão prática de alinhamento com a vontade de Cristo?", "acao_q": "Qual ação concreta de edificação da igreja local e serviço ao próximo você realizará nas próximas 24 horas em resposta a Marcos 1:1-8?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida.", "segundo_exodo_tipologia": "Jesus como o novo Moisés e novo Elias que inaugura o Segundo Êxodo através das águas e do deserto rumo à vitória da Cruz."}}}, {"day": 2, "id": "mc-01-09-13", "ref": "Marcos 1:9-13", "title": "O Batismo e a Tentação no Deserto", "tema": "O batismo de Jesus, a unção do Espírito Santo, a aprovação do Pai e a vitória na tentação do deserto.", "ancora": "Marcos 1:11", "ancora_textos": {"NVI": "Então, veio dos céus uma voz: — Você é o meu Filho amado, em quem tenho prazer.", "NAA": "Então veio uma voz dos céus, que dizia: — Você é o meu Filho amado; em você me agrado.", "NVT": "E uma voz do céu disse: \"Você é meu Filho amado, que me dá grande alegria\".", "ARC": "E ouviu-se uma voz dos céus, que dizia: Tu és o meu Filho amado, em quem me comprazo."}, "cap": 1, "v_ini": 9, "v_fim": 13, "verses": {"blivre": {"v9": "E aconteceu naqueles dias que Jesus, tendo ido de Nazaré da Galileia, foi batizado por João, no Jordão.", "v10": "E, logo que saiu da água, viu os céus abertos, e o Espírito, que como pomba descia sobre ele.", "v11": "E ouviu-se uma voz dos céus, que dizia: Tu és o meu Filho amado em quem me comprazo.", "v12": "E logo o Espírito o impeliu para o deserto.", "v13": "E ali esteve no deserto quarenta dias, tentado por Satanás. E vivia entre as feras, e os anjos o serviam."}, "nvi": {"v9": "Aconteceu que, naqueles dias, Jesus veio de Nazaré, na Galileia, e foi batizado por João no rio Jordão.", "v10": "Assim que saiu da água, Jesus viu os céus se abrindo e o Espírito descendo como pomba sobre ele.", "v11": "Então, veio dos céus uma voz: — Você é o meu Filho amado, em quem tenho prazer.", "v12": "Em seguida, o Espírito impeliu Jesus ao deserto,", "v13": "onde foi tentado por Satanás durante quarenta dias. Estava com os animais selvagens, e os anjos o serviam."}, "naa": {"v9": "Naqueles dias, Jesus veio de Nazaré da Galileia e foi batizado por João no rio Jordão.", "v10": "Logo ao sair da água, Jesus viu os céus se abrindo e o Espírito descendo como pomba sobre ele.", "v11": "Então veio uma voz dos céus, que dizia: — Você é o meu Filho amado; em você me agrado.", "v12": "E logo o Espírito conduziu Jesus ao deserto,", "v13": "onde ficou durante quarenta dias, sendo tentado por Satanás. Estava com as feras, e os anjos o serviam."}, "nvt": {"v9": "Certo dia, Jesus veio de Nazaré da Galileia, e João o batizou no rio Jordão.", "v10": "Enquanto saía da água, viu o céu se abrir e o Espírito Santo descer sobre ele como uma pomba.", "v11": "E uma voz do céu disse: \"Você é meu Filho amado, que me dá grande alegria\".", "v12": "Em seguida, o Espírito conduziu Jesus ao deserto,", "v13": "onde ele foi tentado por Satanás durante quarenta dias. Estava entre animais selvagens, e anjos o serviam."}, "arc": {"v9": "E aconteceu, naqueles dias, que Jesus, tendo ido de Nazaré, da Galileia, foi batizado por João, no rio Jordão.", "v10": "E, logo que saiu da água, viu os céus abertos e o Espírito, que, como pomba, descia sobre ele.", "v11": "E ouviu-se uma voz dos céus, que dizia: Tu és o meu Filho amado, em quem me comprazo.", "v12": "E logo o Espírito o impeliu para o deserto.", "v13": "E ali esteve no deserto quarenta dias, tentado por Satanás. E vivia entre as feras, e os anjos o serviam."}}, "basico": {"ideia_central": "Em uma única frase, o que acontece nesta passagem e qual é o fato central narrado?", "obs_q": "Leia Marcos 1:9-13. O que acontece imediatamente quando Jesus sai das águas do Jordão e para onde o Espírito Santo o conduz logo em seguida?", "interp_q": "Jesus não tinha pecados para confessar, mas fez questão de ser batizado por João e depois foi conduzido pelo próprio Espírito ao deserto para ser tentado. O que isso revela sobre a maneira como Deus nos forma antes de nos enviar?", "cristo_q": "Como esta passagem em Marcos 1:9-13 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "praticar_q": "Jesus venceu o deserto em submissão total à voz do Pai. Em qual desafio prático de hoje você precisa parar de confiar na sua própria força e descansar na fidelidade de Deus?", "oracao_adoracao": "Adore ao Pai celestial, agradecendo porque em Cristo Ele nos adota como filhos amados, não pelas nossas obras, mas pela graça soberana revelada em Jesus.", "oracao_confissao": "Confesse diante do Senhor os momentos em que você permitiu que a aprovação das pessoas ou o sucesso profissional definissem o seu valor mais do que a voz de Deus.", "oracao_suplica": "Peça ao Espírito Santo que fortaleça o seu coração com discernimento bíblico e firmeza para vencer as pressões e tentações deste dia."}, "intermediario": {"obs1_q": "Leia Marcos 1:9-13. O que acontece imediatamente quando Jesus sai das águas do Jordão e para onde o Espírito Santo o conduz logo em seguida?", "obs2_q": "Qual detalhe singular sobre os companheiros de Jesus durante os 40 dias no deserto Marcos registra no versículo 13?", "pista_lexica": {"palavra_chave_portugues": "Schizomenous", "transliteracao": "Schizomenous", "strong_code": "G4977", "pista_investigativa": "Observe como o termo original σχιζομένους (G4977) comunica: Rasgando-se ou sendo fendidos."}, "interp1_q": "Jesus não tinha pecados para confessar, mas fez questão de ser batizado por João e depois foi conduzido pelo próprio Espírito ao deserto para ser tentado. O que isso revela sobre a maneira como Deus nos forma antes de nos enviar?", "interp2_q": "A voz do Pai afirma a filiação e o amor por Jesus antes mesmo de Ele iniciar Seus milagres. Como essa ordem (primeiro a filiação, depois a missão) desafia a forma como o mundo mede o nosso valor pessoal?", "cristo_q": "Como esta passagem em Marcos 1:9-13 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "cristo_chave": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Em momentos de provação, solidão ou deserto espiritual, qual é a verdade da Palavra de Deus sobre a sua identidade em Cristo que você precisa recordar hoje para não ceder à dúvida ou à tentação?", "acao_q": "Jesus venceu o deserto em submissão total à voz do Pai. Em qual desafio prático de hoje você precisa parar de confiar na sua própria força e descansar na fidelidade de Deus?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida."}}, "avancado": {"obs1_q": "Como as construções verbais e conjunções conectivas estruturam a ênfase dramática e teológica de Marcos 1:9-13?", "obs2_q": "Quais ecos, citações ou alusões canônicas sustentam a autoridade e o significado desta perícope?", "obs3_q": "Onde se localiza o clímax literário desta perícope dentro da arquitetura global do livro de Marcos?", "interp1_q": "Como esta passagem desenvolve a teologia bíblica da aliança e da revelação redentora de Deus no cânon?", "interp2_q": "Quais tensões teológicas legítimas a passagem apresenta e como o texto as resolve à luz de Cristo?", "cristo_q": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "cristo_chave": "Em Cristo, toda a Escritura encontra seu clímax e cumprimento definitivo pela graça.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Em momentos de provação, solidão ou deserto espiritual, qual é a verdade da Palavra de Deus sobre a sua identidade em Cristo que você precisa recordar hoje para não ceder à dúvida ou à tentação?", "acao_q": "Qual ação concreta de edificação da igreja local e serviço ao próximo você realizará nas próximas 24 horas em resposta a Marcos 1:9-13?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida.", "segundo_exodo_tipologia": "Jesus como o novo Moisés e novo Elias que inaugura o Segundo Êxodo através das águas e do deserto rumo à vitória da Cruz."}}}, {"day": 3, "id": "mc-01-14-20", "ref": "Marcos 1:14-20", "title": "O Reino Chegou e o Chamado dos Quatro", "tema": "A proclamação do Reino por Jesus na Galileia e o chamado radical dos primeiros quatro discípulos.", "ancora": "Marcos 1:17", "ancora_textos": {"NVI": "Então, Jesus lhes disse: — Sigam-me, e eu os farei pescadores de homens.", "NAA": "Jesus lhes disse: — Venham comigo, e eu farei com que sejam pescadores de gente.", "NVT": "Jesus lhes disse: \"Venham! Sigam-me, e eu farei de vocês pescadores de gente\".", "ARC": "E Jesus lhes disse: Vinde após mim, e eu farei que sejais pescadores de homens."}, "cap": 1, "v_ini": 14, "v_fim": 20, "verses": {"blivre": {"v14": "E, depois que João foi entregue à prisão, veio Jesus para a Galileia, pregando o evangelho do reino de Deus,", "v15": "E dizendo: O tempo está cumprido, e o reino de Deus está próximo. Arrependei-vos, e crede no evangelho.", "v16": "E, andando junto do mar da Galileia, viu Simão, e André, seu irmão, que lançavam a rede ao mar, pois eram pescadores.", "v17": "E Jesus lhes disse: Vinde após mim, e eu farei que sejais pescadores de homens.", "v18": "E, deixando logo as suas redes, o seguiram.", "v19": "E, passando dali um pouco mais adiante, viu Tiago, filho de Zebedeu, e João, seu irmão, que estavam no barco consertando as redes,", "v20": "E logo os chamou. E eles, deixando o seu pai Zebedeu no barco com os empregados, foram após ele."}, "nvi": {"v14": "Depois que João foi preso, Jesus foi para a Galileia, proclamando o evangelho de Deus.", "v15": "— O tempo é chegado — dizia ele. — O reino de Deus está próximo. Arrependam-se e creiam no evangelho!", "v16": "Enquanto andava às margens do mar da Galileia, Jesus viu Simão e André, seu irmão, lançando redes ao mar, pois eram pescadores.", "v17": "Então, Jesus lhes disse: — Sigam-me, e eu os farei pescadores de homens.", "v18": "No mesmo instante, eles deixaram as redes e o seguiram.", "v19": "Indo um pouco mais adiante, viu Tiago e João, filhos de Zebedeu, preparando as redes no barco.", "v20": "Imediatamente, Jesus os chamou, e eles o seguiram, deixando Zebedeu, o pai deles, com os seus empregados no barco."}, "naa": {"v14": "Depois de João ter sido preso, Jesus foi para a Galileia, pregando o evangelho de Deus.", "v15": "Ele dizia: — O tempo está cumprido, e o Reino de Deus está próximo; arrependam-se e creiam no evangelho.", "v16": "Caminhando junto ao mar da Galileia, Jesus viu os irmãos Simão e André, que lançavam a rede ao mar, porque eram pescadores.", "v17": "Jesus lhes disse: — Venham comigo, e eu farei com que sejam pescadores de gente.", "v18": "Então eles deixaram imediatamente as redes e o seguiram.", "v19": "Pouco mais adiante, Jesus viu Tiago, filho de Zebedeu, e João, seu irmão, que estavam no barco consertando as redes,", "v20": "e logo os chamou. E eles seguiram Jesus, deixando o seu pai Zebedeu no barco com os empregados."}, "nvt": {"v14": "Depois que João foi preso, Jesus foi para a Galileia, onde anunciou as boas-novas de Deus.", "v15": "Enfim chegou o tempo prometido!\", proclamava. \"O reino de Deus está próximo! Arrependam-se e creiam nas boas-novas!", "v16": "Enquanto andava à beira do mar da Galileia, Jesus viu Simão e seu irmão André. Jogavam redes ao mar, pois viviam da pesca.", "v17": "Jesus lhes disse: \"Venham! Sigam-me, e eu farei de vocês pescadores de gente\".", "v18": "No mesmo instante, deixaram suas redes e o seguiram.", "v19": "Pouco mais adiante, Jesus viu Tiago e João, filhos de Zebedeu, consertando redes num barco.", "v20": "Chamou-os de imediato e eles também o seguiram, deixando seu pai, Zebedeu, no barco com os empregados."}, "arc": {"v14": "E, depois que João foi entregue à prisão, veio Jesus para a Galileia, pregando o evangelho do Reino de Deus", "v15": "e dizendo: O tempo está cumprido, e o Reino de Deus está próximo. Arrependei-vos e crede no evangelho.", "v16": "E, andando junto ao mar da Galileia, viu Simão e André, seu irmão, que lançavam a rede ao mar, pois eram pescadores.", "v17": "E Jesus lhes disse: Vinde após mim, e eu farei que sejais pescadores de homens.", "v18": "E, deixando logo as suas redes, o seguiram.", "v19": "E, passando dali um pouco mais adiante, viu Tiago, filho de Zebedeu, e João, seu irmão, que estavam no barco consertando as redes,", "v20": "e logo os chamou. E eles, deixando o seu pai Zebedeu no barco com os empregados, foram após ele."}}, "basico": {"ideia_central": "Em uma única frase, o que acontece nesta passagem e qual é o fato central narrado?", "obs_q": "Leia Marcos 1:14-20. Quais são as duas ordens que Jesus proclama no versículo 15 e qual foi a reação imediata dos quatro pescadores ao serem chamados?", "interp_q": "Jesus chamou homens comuns enquanto realizavam seu trabalho ordinário e lhes prometeu uma nova identidade ('pescadores de homens'). O que isso nos ensina sobre a autoridade do chamado de Cristo sobre as nossas ocupações terrenas?", "cristo_q": "Como esta passagem em Marcos 1:14-20 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "praticar_q": "Jesus transformou a habilidade profissional daqueles homens em um propósito eterno. Como você pode usar os seus dons e o seu ambiente de trabalho hoje para apontar pessoas para a graça de Deus?", "oracao_adoracao": "Louve a Cristo pela autoridade soberana do Seu chamado, reconhecendo que Ele é o Senhor digno de toda a nossa dedicação e lealdade.", "oracao_confissao": "Confesse a tendência humana de hesitar, negociar ou adiar a obediência quando o chamado de Deus toca no seu conforto, no seu tempo ou nas suas finanças.", "oracao_suplica": "Peça a Deus sensibilidade e amor genuíno pelas pessoas ao seu redor, para que a sua vida seja um testemunho vivo que atrai vidas para o Reino de Deus."}, "intermediario": {"obs1_q": "Leia Marcos 1:14-20. Quais são as duas ordens que Jesus proclama no versículo 15 e qual foi a reação imediata dos quatro pescadores ao serem chamados?", "obs2_q": "O que Tiago e João deixaram para trás no barco no versículo 20 para seguir a Jesus?", "pista_lexica": {"palavra_chave_portugues": "Peplērōtai ho kairos", "transliteracao": "Peplērōtai ho kairos", "strong_code": "G0000", "pista_investigativa": "Observe como o termo original πεπλήρωται ὁ καιρός (G0000) comunica: O tempo está cumprido."}, "interp1_q": "Jesus chamou homens comuns enquanto realizavam seu trabalho ordinário e lhes prometeu uma nova identidade ('pescadores de homens'). O que isso nos ensina sobre a autoridade do chamado de Cristo sobre as nossas ocupações terrenas?", "interp2_q": "A palavra 'imediatamente' marca a decisão dos discípulos. Por que a resposta ao chamado do Reino de Deus não admite adiamentos confortáveis?", "cristo_q": "Como esta passagem em Marcos 1:14-20 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "cristo_chave": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Seguir a Jesus envolve renunciar apegos que nos dão falsa sensação de segurança. O que você precisa 'deixar no barco' hoje para obedecer a Jesus com prontidão e sem reservas?", "acao_q": "Jesus transformou a habilidade profissional daqueles homens em um propósito eterno. Como você pode usar os seus dons e o seu ambiente de trabalho hoje para apontar pessoas para a graça de Deus?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida."}}, "avancado": {"obs1_q": "Como as construções verbais e conjunções conectivas estruturam a ênfase dramática e teológica de Marcos 1:14-20?", "obs2_q": "Quais ecos, citações ou alusões canônicas sustentam a autoridade e o significado desta perícope?", "obs3_q": "Onde se localiza o clímax literário desta perícope dentro da arquitetura global do livro de Marcos?", "interp1_q": "Como esta passagem desenvolve a teologia bíblica da aliança e da revelação redentora de Deus no cânon?", "interp2_q": "Quais tensões teológicas legítimas a passagem apresenta e como o texto as resolve à luz de Cristo?", "cristo_q": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "cristo_chave": "Em Cristo, toda a Escritura encontra seu clímax e cumprimento definitivo pela graça.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Seguir a Jesus envolve renunciar apegos que nos dão falsa sensação de segurança. O que você precisa 'deixar no barco' hoje para obedecer a Jesus com prontidão e sem reservas?", "acao_q": "Qual ação concreta de edificação da igreja local e serviço ao próximo você realizará nas próximas 24 horas em resposta a Marcos 1:14-20?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida.", "segundo_exodo_tipologia": "Jesus como o novo Moisés e novo Elias que inaugura o Segundo Êxodo através das águas e do deserto rumo à vitória da Cruz."}}}, {"day": 4, "id": "mc-01-21-28", "ref": "Marcos 1:21-28", "title": "Autoridade em Cafarnaum e a Libertação", "tema": "O ensino autoritativo de Jesus na sinagoga de Cafarnaum e a libertação de um homem oprimido.", "ancora": "Marcos 1:27", "ancora_textos": {"NVI": "Todos ficaram tão admirados que perguntavam uns aos outros: — O que é isto? Um novo ensino, e com autoridade! Até aos espíritos imundos dá ordens...", "NAA": "Todos se admiraram, a ponto de perguntarem entre si: — Que é isto? Uma nova doutrina! Com autoridade ele ordena aos espíritos imundos, e eles lhe...", "NVT": "Todos os presentes ficaram admirados e começaram a discutir o que tinha acontecido. \"Que ensinamento novo é esse?\", perguntavam. \"Como tem autorida...", "ARC": "E todos se admiraram, a ponto de perguntarem entre si, dizendo: Que é isto? Que nova doutrina é esta? Pois com autoridade ordena aos espíritos imun..."}, "cap": 1, "v_ini": 21, "v_fim": 28, "verses": {"blivre": {"v21": "Entraram em Cafarnaum e, logo no sábado, indo ele à sinagoga, ali ensinava.", "v22": "E maravilharam-se da sua doutrina, porque os ensinava como tendo autoridade, e não como os escribas.", "v23": "E estava na sinagoga deles um homem com um espírito imundo, o qual exclamou,", "v24": "Dizendo: Ah! Que temos contigo, Jesus Nazareno? Vieste destruir-nos? Bem sei quem és: o Santo de Deus.", "v25": "E repreendeu-o Jesus, dizendo: Cala-te, e sai dele.", "v26": "Então o espírito imundo, convulsionando-o, e clamando com grande voz, saiu dele.", "v27": "E todos se admiraram, a ponto de perguntarem entre si, dizendo: Que é isto? Que nova doutrina é esta? Pois com autoridade ordena aos espíritos imun...", "v28": "E logo correu a sua fama por toda a província da Galileia."}, "nvi": {"v21": "Então, eles entraram em Cafarnaum. Assim que chegou o sábado, Jesus entrou na sinagoga e começou a ensinar.", "v22": "E ficavam maravilhados com o seu ensino, porque os ensinava como quem tem autoridade, não como os mestres da lei.", "v23": "Justo naquele momento, havia na sinagoga deles um homem com espírito imundo, o qual gritou:", "v24": "— Que queres conosco, Jesus de Nazaré? Vieste para nos destruir? Sei quem tu és: o Santo de Deus!", "v25": "Jesus, porém, o repreendeu, dizendo: — Cale-se e saia dele!", "v26": "Então, o espírito imundo sacudiu o homem violentamente e, gritando, saiu dele.", "v27": "Todos ficaram tão admirados que perguntavam uns aos outros: — O que é isto? Um novo ensino, e com autoridade! Até aos espíritos imundos dá ordens...", "v28": "As notícias a seu respeito se espalharam rapidamente por toda a região da Galileia."}, "naa": {"v21": "Depois, entraram em Cafarnaum, e, logo no sábado, Jesus foi ensinar na sinagoga.", "v22": "E maravilhavam-se com a sua doutrina, porque os ensinava como alguém que tem autoridade e não como os escribas.", "v23": "E logo apareceu na sinagoga um homem possuído de espírito imundo, o qual gritou:", "v24": "— O que você quer conosco, Jesus Nazareno? Você veio para nos destruir? Sei muito bem quem você é: o Santo de Deus!", "v25": "Mas Jesus o repreendeu, dizendo: — Cale-se e saia desse homem.", "v26": "Então o espírito imundo, agitando-o violentamente e gritando em alta voz, saiu dele.", "v27": "Todos se admiraram, a ponto de perguntarem entre si: — Que é isto? Uma nova doutrina! Com autoridade ele ordena aos espíritos imundos, e eles lhe...", "v28": "E a fama de Jesus se espalhou depressa em todas as direções, por toda a região da Galileia."}, "nvt": {"v21": "Jesus e seus seguidores foram à cidade de Cafarnaum. Quando chegou o sábado, entrou na sinagoga e começou a ensinar.", "v22": "O povo ficou admirado com seu ensino, pois ele falava com verdadeira autoridade, diferentemente dos mestres da lei.", "v23": "De repente, um homem ali na sinagoga, possuído por um espírito impuro, gritou:", "v24": "Por que vem nos importunar, Jesus de Nazaré? Veio para nos destruir? Sei quem é você: o Santo de Deus!\".", "v25": "Cale-se!\", repreendeu-o Jesus. \"Saia deste homem!", "v26": "Então o espírito impuro soltou um grito, sacudiu o homem violentamente e saiu dele.", "v27": "Todos os presentes ficaram admirados e começaram a discutir o que tinha acontecido. \"Que ensinamento novo é esse?\", perguntavam. \"Como tem autorida...", "v28": "As notícias a respeito de Jesus se espalharam rapidamente por toda a região da Galileia."}, "arc": {"v21": "Entraram em Cafarnaum, e, logo no sábado, indo ele à sinagoga, ali ensinava.", "v22": "E maravilharam-se da sua doutrina, porque os ensinava como tendo autoridade e não como os escribas.", "v23": "E estava na sinagoga deles um homem com um espírito imundo, o qual exclamou, dizendo:", "v24": "Ah! Que temos contigo, Jesus Nazareno? Vieste destruir-nos? Bem sei quem és: o Santo de Deus.", "v25": "E repreendeu-o Jesus, dizendo: Cala-te e sai dele.", "v26": "Então, o espírito imundo, agitando-o e clamando com grande voz, saiu dele.", "v27": "E todos se admiraram, a ponto de perguntarem entre si, dizendo: Que é isto? Que nova doutrina é esta? Pois com autoridade ordena aos espíritos imun...", "v28": "E logo correu a sua fama por toda a província da Galileia."}}, "basico": {"ideia_central": "Em uma única frase, o que acontece nesta passagem e qual é o fato central narrado?", "obs_q": "Leia Marcos 1:21-28. Qual foi o contraste que a multidão na sinagoga de Cafarnaum percebeu entre o ensino de Jesus e o ensino dos escribas?", "interp_q": "O espírito imundo sabia quem Jesus era ('o Santo de Deus'), mas esse conhecimento não significava submissão ou amor. O que esse fato ensina sobre a diferença entre conhecer fatos sobre Cristo e viver em verdadeira fé e comunhão com Ele?", "cristo_q": "Como esta passagem em Marcos 1:21-28 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "praticar_q": "A autoridade de Cristo trouxe libertação para aquele homem na sinagoga. Como a sua presença no seu ambiente familiar ou profissional pode ser um instrumento de reconciliação e paz para quem está sofrendo ao seu lado?", "oracao_adoracao": "Exalte a Jesus Cristo pelo Seu senhorio supremo sobre todo poder, principado e aflição humana, declarando que Ele é o Santo de Deus.", "oracao_confissao": "Confesse qualquer resistência interior em submeter todas as áreas da sua vida — pensamentos, finanças, desejos e planos — à soberania da Palavra de Cristo.", "oracao_suplica": "Suplique a Jesus que a Sua autoridade liberte o seu coração de medos, ansiedades e amarguras, enchendo o seu dia com a paz que excede todo o entendimento."}, "intermediario": {"obs1_q": "Leia Marcos 1:21-28. Qual foi o contraste que a multidão na sinagoga de Cafarnaum percebeu entre o ensino de Jesus e o ensino dos escribas?", "obs2_q": "Qual foi a ordem exata dada por Jesus ao espírito imundo no versículo 25 antes de libertar o homem?", "pista_lexica": {"palavra_chave_portugues": "Exousia", "transliteracao": "Exousia", "strong_code": "G0000", "pista_investigativa": "Observe como o termo original ἐξουσία (G0000) comunica: Autoridade, poder legítimo ou direito soberano."}, "interp1_q": "O espírito imundo sabia quem Jesus era ('o Santo de Deus'), mas esse conhecimento não significava submissão ou amor. O que esse fato ensina sobre a diferença entre conhecer fatos sobre Cristo e viver em verdadeira fé e comunhão com Ele?", "interp2_q": "A autoridade de Jesus se manifestou tanto em Suas palavras quanto em Seus atos. O que essa coerência perfeita revela sobre a integridade do ministério de Jesus?", "cristo_q": "Como esta passagem em Marcos 1:21-28 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "cristo_chave": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Muitas vezes acumulamos conhecimento bíblico na mente, mas mantemos áreas do coração sem a autoridade real de Cristo. Em qual pensamento, hábito ou atitude você precisa permitir que a autoridade pacificadora de Jesus governe hoje?", "acao_q": "A autoridade de Cristo trouxe libertação para aquele homem na sinagoga. Como a sua presença no seu ambiente familiar ou profissional pode ser um instrumento de reconciliação e paz para quem está sofrendo ao seu lado?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida."}}, "avancado": {"obs1_q": "Como as construções verbais e conjunções conectivas estruturam a ênfase dramática e teológica de Marcos 1:21-28?", "obs2_q": "Quais ecos, citações ou alusões canônicas sustentam a autoridade e o significado desta perícope?", "obs3_q": "Onde se localiza o clímax literário desta perícope dentro da arquitetura global do livro de Marcos?", "interp1_q": "Como esta passagem desenvolve a teologia bíblica da aliança e da revelação redentora de Deus no cânon?", "interp2_q": "Quais tensões teológicas legítimas a passagem apresenta e como o texto as resolve à luz de Cristo?", "cristo_q": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "cristo_chave": "Em Cristo, toda a Escritura encontra seu clímax e cumprimento definitivo pela graça.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Muitas vezes acumulamos conhecimento bíblico na mente, mas mantemos áreas do coração sem a autoridade real de Cristo. Em qual pensamento, hábito ou atitude você precisa permitir que a autoridade pacificadora de Jesus governe hoje?", "acao_q": "Qual ação concreta de edificação da igreja local e serviço ao próximo você realizará nas próximas 24 horas em resposta a Marcos 1:21-28?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida.", "segundo_exodo_tipologia": "Jesus como o novo Moisés e novo Elias que inaugura o Segundo Êxodo através das águas e do deserto rumo à vitória da Cruz."}}}, {"day": 5, "id": "mc-01-29-39", "ref": "Marcos 1:29-39", "title": "Curas na Casa de Simão e a Missão na Galileia", "tema": "A cura na casa de Simão, o ministério de restauração e a prioridade da oração na madrugada antes da expansão.", "ancora": "Marcos 1:35", "ancora_textos": {"NVI": "De madrugada, quando ainda estava escuro, Jesus levantou-se, saiu de casa e foi a um lugar deserto, e ali orava.", "NAA": "Tendo-se levantado de madrugada, quando ainda estava escuro, Jesus saiu e foi para um lugar deserto, e ali orava.", "NVT": "No dia seguinte, antes do amanhecer, Jesus se levantou e foi a um lugar isolado para orar.", "ARC": "E, levantando-se de manhã muito cedo, estando ainda escuro, saiu, e foi para um lugar deserto, e ali orava."}, "cap": 1, "v_ini": 29, "v_fim": 39, "verses": {"blivre": {"v29": "E logo, saindo da sinagoga, foram à casa de Simão e de André com Tiago e João.", "v30": "E a sogra de Simão estava deitada com febre; e logo lhe falaram dela.", "v31": "Então, chegando-se a ela, tomou-a pela mão, e levantou-a; e imediatamente a febre a deixou, e servia-os.", "v32": "E, tendo chegado a tarde, quando já se estava pondo o sol, trouxeram-lhe todos os que se achavam enfermos, e os endemoninhados.", "v33": "E toda a cidade se ajuntou à porta.", "v34": "E curou muitos que se achavam enfermos de diversas enfermidades, e expulsou muitos demônios, porém não deixava falar os demônios, porque o conheciam.", "v35": "E, levantando-se de manhã, muito cedo, fazendo ainda escuro, saiu, e foi para um lugar deserto, e ali orava.", "v36": "E seguiram-no Simão e os que com ele estavam.", "v37": "E, achando-o, lhe disseram: Todos te buscam.", "v38": "E ele lhes disse: Vamos às aldeias vizinhas, para que eu ali também pregue; porque para isso vim.", "v39": "E pregava nas sinagogas deles, por toda a Galileia, e expulsava os demônios."}, "nvi": {"v29": "Assim que saíram da sinagoga, foram com Tiago e João à casa de Simão e André.", "v30": "A sogra de Simão estava de cama e com febre, e logo informaram Jesus a respeito dela.", "v31": "Então, ele se aproximou dela, tomou-a pela mão e ajudou-a a se levantar. A febre a deixou, e ela começou a servi-los.", "v32": "Ao anoitecer, depois do pôr do sol, trouxeram a Jesus todos os doentes e os endemoniados.", "v33": "Toda a cidade se reuniu à porta da casa,", "v34": "e Jesus curou muitos doentes com vários tipos de enfermidades. Também expulsou muitos demônios; não permitia, porém, que falassem, porque sabiam qu...", "v35": "De madrugada, quando ainda estava escuro, Jesus levantou-se, saiu de casa e foi a um lugar deserto, e ali orava.", "v36": "Simão e os que estavam com ele foram procurá-lo", "v37": "e, ao encontrá-lo, disseram: — Todos estão te procurando!", "v38": "Jesus respondeu: — Vamos para outro lugar, para os povoados vizinhos, a fim de que eu pregue lá também. Afinal, foi para isso que eu vim.", "v39": "Então, ele percorreu toda a região da Galileia, pregando nas sinagogas e expulsando os demônios."}, "naa": {"v29": "E, saindo da sinagoga, foram, com Tiago e João, para a casa de Simão e André.", "v30": "A sogra de Simão estava de cama, com febre; e logo deram essa notícia a Jesus.", "v31": "Então, aproximando-se, Jesus pegou na mão dela e fez com que ela se levantasse. A febre a deixou, e ela passou a servi-los.", "v32": "À tarde, depois do pôr do sol, trouxeram a Jesus todos os enfermos e endemoniados.", "v33": "Toda a cidade estava reunida à porta da casa.", "v34": "E ele curou muitos que se achavam doentes de todo tipo de enfermidades. Também expulsou muitos demônios, não lhes permitindo que falassem, porque s...", "v35": "Tendo-se levantado de madrugada, quando ainda estava escuro, Jesus saiu e foi para um lugar deserto, e ali orava.", "v36": "Simão e os que estavam com ele procuraram Jesus por toda parte.", "v37": "Quando o encontraram, lhe disseram: — Todos estão à sua procura.", "v38": "Jesus, porém, lhes disse: — Vamos a outros lugares, aos povoados vizinhos, a fim de que eu pregue também ali, pois foi para isso que eu vim.", "v39": "Então ele foi por toda a Galileia, pregando nas sinagogas deles e expulsando os demônios."}, "nvt": {"v29": "Depois que Jesus saiu da sinagoga com Tiago e João, foram à casa de Simão e André.", "v30": "A sogra de Simão estava de cama, com febre. Imediatamente, falaram a seu respeito para Jesus.", "v31": "Ele foi até ela, tomou-a pela mão e ajudou-a a levantar-se. A febre a deixou, e ela passou a servi-los.", "v32": "Ao entardecer, depois que o sol se pôs, trouxeram a Jesus muitos enfermos e possuídos por demônios.", "v33": "Toda a cidade se reuniu à porta da casa para observar.", "v34": "Então Jesus curou muitas pessoas que sofriam de diversas enfermidades e expulsou muitos demônios. Não permitia, porém, que os demônios falassem, po...", "v35": "No dia seguinte, antes do amanhecer, Jesus se levantou e foi a um lugar isolado para orar.", "v36": "Mais tarde, Simão e os outros saíram para procurá-lo.", "v37": "Quando o encontraram, disseram: \"Todos estão à sua procura!\".", "v38": "Jesus respondeu: \"Devemos prosseguir para outras cidades e lá também anunciar minha mensagem. Foi para isso que vim\".", "v39": "Então ele viajou por toda a região da Galileia, pregando nas sinagogas e expulsando demônios."}, "arc": {"v29": "E logo, saindo da sinagoga, foram à casa de Simão e de André, com Tiago e João.", "v30": "E a sogra de Simão estava deitada, com febre; e logo lhe falaram dela.", "v31": "Então, chegando-se a ela, tomou-a pela mão e levantou-a; e a febre a deixou, e servia-os.", "v32": "E, tendo chegado a tarde, quando já estava se pondo o sol, trouxeram-lhe todos os que se achavam enfermos e os endemoninhados.", "v33": "E toda a cidade se ajuntou à porta.", "v34": "E curou muitos que se achavam enfermos de diversas enfermidades e expulsou muitos demônios, porém não deixava falar os demônios, porque o conheciam.", "v35": "E, levantando-se de manhã muito cedo, estando ainda escuro, saiu, e foi para um lugar deserto, e ali orava.", "v36": "E seguiram-no Simão e os que com ele estavam.", "v37": "E, achando-o, lhe disseram: Todos te buscam.", "v38": "E ele lhes disse: Vamos às aldeias vizinhas, para que eu ali também pregue, porque para isso vim.", "v39": "E pregava nas sinagogas deles, por toda a Galileia, e expulsava os demônios."}}, "basico": {"ideia_central": "Em uma única frase, o que acontece nesta passagem e qual é o fato central narrado?", "obs_q": "Leia Marcos 1:29-39. O que a sogra de Pedro fez imediatamente após ser curada da febre por Jesus e o que Ele fez na madrugada seguinte?", "interp_q": "Em meio a uma explosão de milagres e pedidos urgentes em Cafarnaum, Jesus se retirou para um lugar deserto para orar. O que essa atitude ensina sobre a relação entre o ativismo na rotina e a necessidade de intimidade com Deus?", "cristo_q": "Como esta passagem em Marcos 1:29-39 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "praticar_q": "Muitas vezes somos tentados a buscar a aprovação das pessoas ou dizer 'sim' a tudo, perdendo o foco do que Deus nos chamou para fazer. Em qual área você precisa ter a coragem de dizer 'não' hoje para cumprir as verdadeiras prioridades de Deus na sua vida?", "oracao_adoracao": "Adore a Deus como a Fonte de toda a vida e saúde, louvando o Senhor pela compaixão com que Ele cuida das nossas enfermidades e fraquezas cotidianas.", "oracao_confissao": "Confesse a tendência de mergulhar na correria do dia sem antes buscar o discernimento do Pai em oração, agindo na força do próprio braço e no cansaço da alma.", "oracao_suplica": "Peça a Deus sabedoria e clareza para discernir as prioridades essenciais de hoje, orando para que a sua vida seja um canal de bênção e serviço para sua família e comunidade."}, "intermediario": {"obs1_q": "Leia Marcos 1:29-39. O que a sogra de Pedro fez imediatamente após ser curada da febre por Jesus e o que Ele fez na madrugada seguinte?", "obs2_q": "Qual foi a resposta de Jesus a Pedro no versículo 38 quando este lhe disse que 'todos te procuram'?", "pista_lexica": {"palavra_chave_portugues": "Ēgeiren autēn", "transliteracao": "Ēgeiren autēn", "strong_code": "G0000", "pista_investigativa": "Observe como o termo original ἤγειρεν αὐτήν (G0000) comunica: Levantou-a ou ergueu-a."}, "interp1_q": "Em meio a uma explosão de milagres e pedidos urgentes em Cafarnaum, Jesus se retirou para um lugar deserto para orar. O que essa atitude ensina sobre a relação entre o ativismo na rotina e a necessidade de intimidade com Deus?", "interp2_q": "A cura da febre levou imediatamente a mulher a servir à mesa. Como o evangelho transforma a gratidão pessoal em serviço prático aos outros?", "cristo_q": "Como esta passagem em Marcos 1:29-39 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "cristo_chave": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "O barulho das demandas, mensagens e tarefas diárias frequentemente sufoca o tempo com Deus. Que ajuste concreto na sua rotina matinal você precisa fazer para garantir um momento de calma e oração a sós com o Pai?", "acao_q": "Muitas vezes somos tentados a buscar a aprovação das pessoas ou dizer 'sim' a tudo, perdendo o foco do que Deus nos chamou para fazer. Em qual área você precisa ter a coragem de dizer 'não' hoje para cumprir as verdadeiras prioridades de Deus na sua vida?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida."}}, "avancado": {"obs1_q": "Como as construções verbais e conjunções conectivas estruturam a ênfase dramática e teológica de Marcos 1:29-39?", "obs2_q": "Quais ecos, citações ou alusões canônicas sustentam a autoridade e o significado desta perícope?", "obs3_q": "Onde se localiza o clímax literário desta perícope dentro da arquitetura global do livro de Marcos?", "interp1_q": "Como esta passagem desenvolve a teologia bíblica da aliança e da revelação redentora de Deus no cânon?", "interp2_q": "Quais tensões teológicas legítimas a passagem apresenta e como o texto as resolve à luz de Cristo?", "cristo_q": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "cristo_chave": "Em Cristo, toda a Escritura encontra seu clímax e cumprimento definitivo pela graça.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "O barulho das demandas, mensagens e tarefas diárias frequentemente sufoca o tempo com Deus. Que ajuste concreto na sua rotina matinal você precisa fazer para garantir um momento de calma e oração a sós com o Pai?", "acao_q": "Qual ação concreta de edificação da igreja local e serviço ao próximo você realizará nas próximas 24 horas em resposta a Marcos 1:29-39?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida.", "segundo_exodo_tipologia": "Jesus como o novo Moisés e novo Elias que inaugura o Segundo Êxodo através das águas e do deserto rumo à vitória da Cruz."}}}, {"day": 6, "id": "mc-01-40-45", "ref": "Marcos 1:40-45", "title": "A Compaixão que Purifica o Leproso", "tema": "A purificação do leproso, o toque compassivo de Jesus que quebra o isolamento social e restaura a dignidade.", "ancora": "Marcos 1:41", "ancora_textos": {"NVI": "Cheio de compaixão, Jesus estendeu a mão, tocou nele e disse: — Quero. Seja purificado!", "NAA": "E Jesus, profundamente compadecido, estendeu a mão, tocou nele e disse: — Quero, sim. Fique limpo!", "NVT": "Cheio de compaixão, Jesus estendeu a mão e tocou nele. \"Eu quero\", respondeu. \"Seja curado e fique limpo!", "ARC": "E Jesus, movido de grande compaixão, estendeu a mão, e tocou-o, e disse-lhe: Quero, sê limpo!"}, "cap": 1, "v_ini": 40, "v_fim": 45, "verses": {"blivre": {"v40": "E aproximou-se dele um leproso que, rogando-lhe, e pondo-se de joelhos diante dele, lhe dizia: Se queres, bem podes limpar-me.", "v41": "E Jesus, movido de grande compaixão, estendeu a mão, e tocou-o, e disse-lhe: Quero, sê limpo.", "v42": "E, tendo ele dito isto, logo a lepra desapareceu, e ficou limpo.", "v43": "E, advertindo-o severamente, logo o despediu.", "v44": "E disse-lhe: Olha, não digas nada a ninguém; porém vai, mostra-te ao sacerdote, e oferece pela tua purificação o que Moisés determinou, para lhes s...", "v45": "Mas, tendo ele saído, começou a apregoar muitas coisas, e a divulgar o que acontecera; de sorte que Jesus já não podia entrar publicamente na cidad..."}, "nvi": {"v40": "Um leproso aproximou-se dele e suplicou-lhe de joelhos: — Se quiseres, podes purificar-me!", "v41": "Cheio de compaixão, Jesus estendeu a mão, tocou nele e disse: — Quero. Seja purificado!", "v42": "Imediatamente, a lepra o deixou, e ele foi purificado.", "v43": "Em seguida, Jesus o despediu, com uma severa advertência:", "v44": "— Olhe! Não conte nada a ninguém, mas vá, apresente-se ao sacerdote e entregue, pela sua purificação, a oferta que Moisés ordenou, para que lhes si...", "v45": "Ele, porém, saiu e começou a tornar público o fato, espalhando a notícia. Por isso, Jesus já não podia entrar publicamente em nenhuma cidade, mas f..."}, "naa": {"v40": "Um leproso se aproximou de Jesus e lhe pediu, de joelhos: — Se o senhor quiser, pode me purificar.", "v41": "E Jesus, profundamente compadecido, estendeu a mão, tocou nele e disse: — Quero, sim. Fique limpo!", "v42": "No mesmo instante, a lepra desapareceu dele, e ele ficou limpo.", "v43": "E, advertindo-o severamente, logo o despediu.", "v44": "E lhe disse: — Olhe! Não conte nada a ninguém, mas vá, apresente-se ao sacerdote e ofereça, pela sua purificação, o sacrifício que Moisés ordenou...", "v45": "Mas, tendo ele saído, começou a proclamar muitas coisas e a divulgar a notícia, a ponto de Jesus não poder mais entrar publicamente em nenhuma cida..."}, "nvt": {"v40": "Um leproso veio e ajoelhou-se diante de Jesus, implorando para ser curado: \"Se o senhor quiser, pode me curar e me deixar limpo\".", "v41": "Cheio de compaixão, Jesus estendeu a mão e tocou nele. \"Eu quero\", respondeu. \"Seja curado e fique limpo!", "v42": "No mesmo instante, a lepra desapareceu e o homem foi curado.", "v43": "Então Jesus se despediu dele com uma forte advertência:", "v44": "Não conte isso a ninguém. Vá e apresente-se ao sacerdote para que ele o examine. Leve a oferta que a lei de Moisés exige pela sua purificação. Iss...", "v45": "O homem, porém, saiu e começou a contar a todos o que havia acontecido. Por isso, em pouco tempo, grandes multidões cercaram Jesus, e ele já não co..."}, "arc": {"v40": "E aproximou-se dele um leproso, que, rogando-lhe e pondo-se de joelhos diante dele, lhe dizia: Se queres, bem podes limpar-me.", "v41": "E Jesus, movido de grande compaixão, estendeu a mão, e tocou-o, e disse-lhe: Quero, sê limpo!", "v42": "E, tendo ele dito isso, logo a lepra desapareceu, e ficou limpo.", "v43": "E, advertindo-o severamente, logo o despediu.", "v44": "E disse-lhe: Olha, não digas nada a ninguém; porém vai, mostra-te ao sacerdote e oferece pela tua purificação o que Moisés determinou, para lhes se...", "v45": "Mas, tendo ele saído, começou a apregoar muitas coisas e a divulgar o que acontecera; de sorte que Jesus já não podia entrar publicamente na cidade..."}}, "basico": {"ideia_central": "Em uma única frase, o que acontece nesta passagem e qual é o fato central narrado?", "obs_q": "Leia Marcos 1:40-45. Qual foi a atitude do leproso ao se aproximar de Jesus e qual foi a ação surpreendente que Jesus realizou no versículo 41 antes de pronunciar a cura?", "interp_q": "Jesus poderia ter curado aquele homem apenas falando de longe, mas fez questão de estender a mão e tocá-lo. O que esse toque físico revela sobre o coração pastoral de Jesus em relação àqueles que o mundo rejeita e rotula como intocáveis?", "cristo_q": "Como esta passagem em Marcos 1:40-45 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "praticar_q": "Quem é a pessoa 'invisível', marginalizada ou difícil de amar no seu ambiente familiar, de trabalho ou comunitário que precisa de um gesto concreto de compaixão, escuta ou acolhimento vindo de você hoje?", "oracao_adoracao": "Louve ao Senhor Jesus pela Sua maravilhosa compaixão que não teme tocar as nossas feridas mais dolorosas e feias para nos purificar por inteiro.", "oracao_confissao": "Confesse a repugnância, a indiferença ou a frieza de coração com que muitas vezes você tratou pessoas feridas, marginalizadas ou que não se encaixavam nos seus padrões sociais.", "oracao_suplica": "Peça a Jesus que encha o seu coração com a mesma compaixão visceral do Seu Espírito, dando-lhe coragem e amor para estender a mão e abençoar alguém que precisa de acolhimento hoje."}, "intermediario": {"obs1_q": "Leia Marcos 1:40-45. Qual foi a atitude do leproso ao se aproximar de Jesus e qual foi a ação surpreendente que Jesus realizou no versículo 41 antes de pronunciar a cura?", "obs2_q": "Qual foi a recomendação dada por Jesus ao homem purificado no versículo 44 em relação à Lei de Moisés e aos sacerdotes?", "pista_lexica": {"palavra_chave_portugues": "Splanchnistheis", "transliteracao": "Splanchnistheis", "strong_code": "G0000", "pista_investigativa": "Observe como o termo original σπλαγχνισθείς (G0000) comunica: Movido de íntima compaixão."}, "interp1_q": "Jesus poderia ter curado aquele homem apenas falando de longe, mas fez questão de estender a mão e tocá-lo. O que esse toque físico revela sobre o coração pastoral de Jesus em relação àqueles que o mundo rejeita e rotula como intocáveis?", "interp2_q": "O leproso dizia: 'Se quiseres, podes purificar-me', reconhecendo o poder de Cristo, mas hesitando sobre Sua disposição. Como a resposta imediata de Jesus ('Quero!') destrói a dúvida sobre a bondade e a disposição de Deus em nos acolher?", "cristo_q": "Como esta passagem em Marcos 1:40-45 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "cristo_chave": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Muitas vezes nos sentimos indignos de nos achegar a Deus por causa de nossas falhas, vergonhas ou feridas passadas. O que a acolhida de Jesus ao leproso ensina sobre como você deve se achegar a Ele em oração hoje?", "acao_q": "Quem é a pessoa 'invisível', marginalizada ou difícil de amar no seu ambiente familiar, de trabalho ou comunitário que precisa de um gesto concreto de compaixão, escuta ou acolhimento vindo de você hoje?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida."}}, "avancado": {"obs1_q": "Como as construções verbais e conjunções conectivas estruturam a ênfase dramática e teológica de Marcos 1:40-45?", "obs2_q": "Quais ecos, citações ou alusões canônicas sustentam a autoridade e o significado desta perícope?", "obs3_q": "Onde se localiza o clímax literário desta perícope dentro da arquitetura global do livro de Marcos?", "interp1_q": "Como esta passagem desenvolve a teologia bíblica da aliança e da revelação redentora de Deus no cânon?", "interp2_q": "Quais tensões teológicas legítimas a passagem apresenta e como o texto as resolve à luz de Cristo?", "cristo_q": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "cristo_chave": "Em Cristo, toda a Escritura encontra seu clímax e cumprimento definitivo pela graça.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Muitas vezes nos sentimos indignos de nos achegar a Deus por causa de nossas falhas, vergonhas ou feridas passadas. O que a acolhida de Jesus ao leproso ensina sobre como você deve se achegar a Ele em oração hoje?", "acao_q": "Qual ação concreta de edificação da igreja local e serviço ao próximo você realizará nas próximas 24 horas em resposta a Marcos 1:40-45?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida.", "segundo_exodo_tipologia": "Jesus como o novo Moisés e novo Elias que inaugura o Segundo Êxodo através das águas e do deserto rumo à vitória da Cruz."}}}, {"day": 7, "id": "mc-02-01-12", "ref": "Marcos 2:1-12", "title": "O Perdão dos Pecados e a Cura do Paralítico", "tema": "A fé cooperativa dos quatro amigos, a cura física do paralítico e a suprema autoridade de Jesus para perdoar pecados.", "ancora": "Marcos 2:10", "ancora_textos": {"NVI": "Mas, para que vocês saibam que o Filho do homem tem na terra autoridade para perdoar pecados — disse, então, ao paralítico —,", "NAA": "Mas isto é para que vocês saibam que o Filho do Homem tem autoridade sobre a terra para perdoar pecados. E disse ao paralítico:", "NVT": "Mas eu lhes mostrarei que o Filho do Homem tem autoridade na terra para perdoar pecados\". Então disse ao paralítico:", "ARC": "Ora, para que saibais que o Filho do Homem tem na terra poder para perdoar pecados (disse ao paralítico),"}, "cap": 2, "v_ini": 1, "v_fim": 12, "verses": {"blivre": {"v1": "E alguns dias depois entrou outra vez em Cafarnaum, e soube-se que estava em casa.", "v2": "E logo se ajuntaram tantos, que nem ainda nos lugares junto à porta cabiam; e anunciava-lhes a palavra.", "v3": "E vieram ter com ele conduzindo um paralítico, trazido por quatro.", "v4": "E, não podendo aproximar-se dele, por causa da multidão, descobriram o telhado onde estava, e, fazendo um buraco, baixaram o leito em que jazia o p...", "v5": "E Jesus, vendo a fé deles, disse ao paralítico: Filho, perdoados estão os teus pecados.", "v6": "E estavam ali assentados alguns dos escribas, que arrazoavam em seus corações, dizendo:", "v7": "Por que diz este assim blasfêmias? Quem pode perdoar pecados, senão só Deus?", "v8": "E Jesus, conhecendo logo em seu espírito que assim arrazoavam entre si, lhes disse: Por que arrazoais sobre estas coisas em vossos corações?", "v9": "Qual é mais fácil? Dizer ao paralítico: Estão perdoados os teus pecados; ou dizer-lhe: Levanta-te, e toma o teu leito, e anda?", "v10": "Ora, para que saibais que o Filho do homem tem na terra poder para perdoar pecados (disse ao paralítico),", "v11": "A ti te digo: Levanta-te, toma o teu leito, e vai para tua casa.", "v12": "E levantou-se e, tomando logo o leito, saiu em presença de todos, de sorte que todos se admiraram e glorificaram a Deus, dizendo: Nunca tal vimos."}, "nvi": {"v1": "Poucos dias depois, tendo Jesus entrado novamente em Cafarnaum, ouviu-se falar que ele estava em casa.", "v2": "Então, muitos se reuniram ali, de forma que não havia lugar nem à porta, e Jesus lhes pregava a palavra.", "v3": "Alguns homens vieram até Jesus trazendo um paralítico, carregado por quatro pessoas.", "v4": "Não podendo levá-lo até Jesus, por causa da multidão, removeram parte da cobertura do lugar onde Jesus estava e, pela abertura no teto, baixaram a ...", "v5": "Vendo a fé que eles tinham, Jesus disse ao paralítico: — Filho, os seus pecados estão perdoados.", "v6": "Estavam sentados ali alguns mestres da lei, pensando no íntimo:", "v7": "Por que este homem fala assim? Está blasfemando! Quem pode perdoar pecados, senão somente Deus?\".", "v8": "Naquele momento, como Jesus sabia em seu espírito o que estavam pensando, disse-lhes: — Por que pensam essas coisas no coração de vocês?", "v9": "O que é mais fácil dizer ao paralítico: \"Os seus pecados estão perdoados\" ou dizer: \"Levante-se, pegue a sua maca e ande?\".", "v10": "Mas, para que vocês saibam que o Filho do homem tem na terra autoridade para perdoar pecados — disse, então, ao paralítico —,", "v11": "eu digo a você: Levante-se, pegue a sua maca e vá para casa.", "v12": "Ele se levantou, pegou imediatamente a maca e saiu à vista de todos. Com isso, todos ficaram admirados e glorificavam a Deus, dizendo: — Nunca vi..."}, "naa": {"v1": "Dias depois, Jesus entrou de novo em Cafarnaum, e logo se ouviu dizer que ele estava em casa.", "v2": "Muitos se reuniram ali, a ponto de não haver lugar nem mesmo junto à porta. E Jesus anunciava-lhes a palavra.", "v3": "Trouxeram-lhe, então, um paralítico, carregado por quatro homens.", "v4": "E, não podendo aproximar-se de Jesus, por causa da multidão, removeram o telhado no ponto correspondente ao lugar onde Jesus se encontrava e, pela ...", "v5": "Vendo-lhes a fé, Jesus disse ao paralítico: — Filho, os seus pecados estão perdoados.", "v6": "Alguns escribas estavam sentados ali e pensavam em seu coração:", "v7": "— Como ele se atreve a falar assim? Isto é blasfêmia! Quem pode perdoar pecados, a não ser um, que é Deus?", "v8": "E Jesus, percebendo imediatamente em seu espírito que eles assim pensavam, disse-lhes: — Por que vocês estão pensando essas coisas em seu coração?", "v9": "O que é mais fácil? Dizer ao paralítico: \"Os seus pecados estão perdoados\", ou dizer: \"Levante-se, tome o seu leito e ande\"?", "v10": "Mas isto é para que vocês saibam que o Filho do Homem tem autoridade sobre a terra para perdoar pecados. E disse ao paralítico:", "v11": "— Eu digo a você: Levante-se, pegue o seu leito e vá para casa.", "v12": "Ele se levantou e, no mesmo instante, pegando o leito, retirou-se à vista de todos, a ponto de todos se admirarem e darem glória a Deus, dizendo: ..."}, "nvt": {"v1": "Dias depois, quando Jesus retornou a Cafarnaum, a notícia de que ele tinha voltado se espalhou rapidamente.", "v2": "Em pouco tempo, a casa onde estava hospedado ficou tão cheia que não havia lugar nem do lado de fora da porta. Enquanto ele anunciava a palavra de ...", "v3": "quatro homens vieram carregando um paralítico numa maca.", "v4": "Por causa da multidão, não tinham como levá-lo até Jesus. Então abriram um buraco no teto, acima de onde Jesus estava. Em seguida, baixaram o homem...", "v5": "Ao ver a fé que eles tinham, Jesus disse ao paralítico: \"Filho, seus pecados estão perdoados\".", "v6": "Alguns dos mestres da lei que estavam ali sentados pensaram:", "v7": "O que ele está dizendo? Isso é blasfêmia! Somente Deus pode perdoar pecados!\".", "v8": "Jesus logo percebeu o que eles estavam pensando e perguntou: \"Por que vocês questionam essas coisas em seu coração?", "v9": "O que é mais fácil dizer ao paralítico: ‘Seus pecados estão perdoados’ ou ‘Levante-se, pegue sua maca e ande’?", "v10": "Mas eu lhes mostrarei que o Filho do Homem tem autoridade na terra para perdoar pecados\". Então disse ao paralítico:", "v11": "Levante-se, pegue sua maca e vá para casa\".", "v12": "O homem se levantou de um salto, pegou sua maca e saiu andando diante de todos. A multidão ficou admirada e louvava a Deus, exclamando: \"Nunca vimo..."}, "arc": {"v1": "E, alguns dias depois, entrou outra vez em Cafarnaum, e soube-se que estava em casa.", "v2": "E logo se ajuntaram tantos, que nem ainda nos lugares junto à porta eles cabiam; e anunciava-lhes a palavra.", "v3": "E vieram ter com ele, conduzindo um paralítico, trazido por quatro.", "v4": "E, não podendo aproximar-se dele, por causa da multidão, descobriram o telhado onde estava e, fazendo um buraco, baixaram o leito em que jazia o pa...", "v5": "E Jesus, vendo-lhes a fé, disse ao paralítico: Filho, perdoados estão os teus pecados.", "v6": "E estavam ali assentados alguns dos escribas, que arrazoavam em seu coração, dizendo:", "v7": "Por que diz este assim blasfêmias? Quem pode perdoar pecados, senão Deus?", "v8": "E Jesus, conhecendo logo em seu espírito que assim arrazoavam entre si, lhes disse: Por que arrazoais sobre estas coisas em vosso coração?", "v9": "Qual é mais fácil? Dizer ao paralítico: Estão perdoados os teus pecados, ou dizer-lhe: Levanta-te, e toma o teu leito, e anda?", "v10": "Ora, para que saibais que o Filho do Homem tem na terra poder para perdoar pecados (disse ao paralítico),", "v11": "a ti te digo: Levanta-te, e toma o teu leito, e vai para tua casa.", "v12": "E levantou-se e, tomando logo o leito, saiu em presença de todos, de sorte que todos se admiraram e glorificaram a Deus, dizendo: Nunca tal vimos."}}, "basico": {"ideia_central": "Em uma única frase, o que acontece nesta passagem e qual é o fato central narrado?", "obs_q": "Leia Marcos 2:1-12. Qual foi o obstáculo enfrentado pelos quatro amigos do paralítico e qual foi a solução ousada que eles adotaram para colocar o homem diante de Jesus?", "interp_q": "O texto afirma expressamente que Jesus viu 'a fé deles' (dos amigos) e primeiro perdoou os pecados do paralítico antes de curar suas pernas. O que essa prioridade de Jesus revela sobre o diagnóstico divino a respeito da nossa maior carência existencial?", "cristo_q": "Como esta passagem em Marcos 2:1-12 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "praticar_q": "Muitas vezes buscamos a Deus apenas para resolver sintomas exteriores (problemas financeiros, de saúde ou rotina), ignorando a necessidade de perdão e restauração interior. O que você precisa confessar e entregar aos pés de Jesus hoje para experimentar o alívio do Seu perdão?", "oracao_adoracao": "Adore ao Senhor Jesus Cristo como o Filho do Homem que tem autoridade soberana e divina nos céus e na terra para perdoar pecados, restaurar a alma e renovar as nossas forças.", "oracao_confissao": "Confesse o desânimo ou o comodismo que muitas vezes o impede de interceder com persistência e criatividade pelos que estão sofrendo e distantes de Deus ao seu redor.", "oracao_suplica": "Peça a Cristo que reforce a fé comunitária na sua dupla e na sua igreja local, dando a vocês coragem para carregar fardos juntos e anunciar o Evangelho com ousadia e amor prático."}, "intermediario": {"obs1_q": "Leia Marcos 2:1-12. Qual foi o obstáculo enfrentado pelos quatro amigos do paralítico e qual foi a solução ousada que eles adotaram para colocar o homem diante de Jesus?", "obs2_q": "Qual foi a acusação que os escribas formularam em seus corações no versículo 7 ao ouvirem Jesus pronunciar o perdão dos pecados daquele homem?", "pista_lexica": {"palavra_chave_portugues": "Idōn tēn pistin autōn", "transliteracao": "Idōn tēn pistin autōn", "strong_code": "G0000", "pista_investigativa": "Observe como o termo original ἰδὼν τὴν πίστιν αὐτῶν (G0000) comunica: Vendo a fé deles."}, "interp1_q": "O texto afirma expressamente que Jesus viu 'a fé deles' (dos amigos) e primeiro perdoou os pecados do paralítico antes de curar suas pernas. O que essa prioridade de Jesus revela sobre o diagnóstico divino a respeito da nossa maior carência existencial?", "interp2_q": "Jesus propõe uma pergunta aos escribas: 'O que é mais fácil: dizer os seus pecados estão perdoados, ou dizer levante-se e ande?'. Como a cura física visível serviu de prova irrefutável de Sua autoridade invisível e divina para perdoar pecados?", "cristo_q": "Como esta passagem em Marcos 2:1-12 aponta para a graça soberana de Jesus e desafia as nossas expectativas humanas?", "cristo_chave": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Aqueles quatro amigos não desistiram diante das barreiras para levar o paralítico a Cristo. Quem é o amigo, familiar ou colega que Deus colocou no seu caminho cuja 'maca' você precisa ajudar a carregar em oração e apoio prático nesta semana?", "acao_q": "Muitas vezes buscamos a Deus apenas para resolver sintomas exteriores (problemas financeiros, de saúde ou rotina), ignorando a necessidade de perdão e restauração interior. O que você precisa confessar e entregar aos pés de Jesus hoje para experimentar o alívio do Seu perdão?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida."}}, "avancado": {"obs1_q": "Como as construções verbais e conjunções conectivas estruturam a ênfase dramática e teológica de Marcos 2:1-12?", "obs2_q": "Quais ecos, citações ou alusões canônicas sustentam a autoridade e o significado desta perícope?", "obs3_q": "Onde se localiza o clímax literário desta perícope dentro da arquitetura global do livro de Marcos?", "interp1_q": "Como esta passagem desenvolve a teologia bíblica da aliança e da revelação redentora de Deus no cânon?", "interp2_q": "Quais tensões teológicas legítimas a passagem apresenta e como o texto as resolve à luz de Cristo?", "cristo_q": "Em Cristo, toda a Escritura encontra o seu cumprimento definitivo. A fidelidade revelada nesta perícope nos assegura que Jesus é o Messias prometido que redime o Seu povo e estabelece o Seu Reino gracioso.", "cristo_chave": "Em Cristo, toda a Escritura encontra seu clímax e cumprimento definitivo pela graça.", "mente_q": "Que a soberania e a graça de Cristo reveladas neste texto são a rocha inabalável para ancorar os meus pensamentos hoje.", "coracao_q": "Aqueles quatro amigos não desistiram diante das barreiras para levar o paralítico a Cristo. Quem é o amigo, familiar ou colega que Deus colocou no seu caminho cuja 'maca' você precisa ajudar a carregar em oração e apoio prático nesta semana?", "acao_q": "Qual ação concreta de edificação da igreja local e serviço ao próximo você realizará nas próximas 24 horas em resposta a Marcos 2:1-12?", "contexto": {"autor_data": "João Marcos (c. 64–68 d.C., cooperador de Pedro e Paulo em Roma)", "geografia_imperio": "Roma sob a perseguição de Nero e a comunidade cristã na Itália; Galileia e Judeia nos tempos de Jesus.", "metanarrativa": "A proclamação do Reino de Deus e a revelação do Servo Divino Sofredor em ação rápida.", "segundo_exodo_tipologia": "Jesus como o novo Moisés e novo Elias que inaugura o Segundo Êxodo através das águas e do deserto rumo à vitória da Cruz."}}}];
+    let currentDayNumber = 1;
+
+    function switchDay(dayNum) {
+      if (dayNum < 1 || dayNum > 7) return;
+      currentDayNumber = dayNum;
+      const dayData = MARCOS_7_DAYS.find(d => d.day === dayNum);
+      if (!dayData) return;
+
+      // 1. Atualiza botões da semana
+      for (let i = 1; i <= 7; i++) {
+        const btn = document.getElementById(`btn-day-${i}`);
+        if (btn) {
+          if (i === dayNum) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      }
+
+      // 2. Atualiza badge, título e referência
+      const badgeEl = document.getElementById('day-badge-text');
+      if (badgeEl) badgeEl.innerText = `Dia 0${dayNum}`;
+
+      const titleEl = document.getElementById('pericope-title');
+      if (titleEl) titleEl.innerText = dayData.title;
+
+      const refEl = document.getElementById('pericope-ref');
+      if (refEl) refEl.innerText = dayData.ref;
+
+      // 3. Atualiza os versículos da Bíblia na versão atual
+      updateBibleTextForDay(dayData);
+
+      // 4. Atualiza Perguntas e Prompts
+      // BÁSICO
+      const obsBasicoEl = document.getElementById('q-obs-basico');
+      if (obsBasicoEl) obsBasicoEl.innerText = dayData.basico.obs_q;
+
+      const interpBasicoEl = document.getElementById('q-interp-basico');
+      if (interpBasicoEl) interpBasicoEl.innerText = dayData.basico.interp_q;
+
+      const pratBasicoEl = document.getElementById('q-prat-basico');
+      if (pratBasicoEl) pratBasicoEl.innerText = dayData.basico.praticar_q;
+
+      // INTERMEDIÁRIO
+      const obs1IntEl = document.getElementById('q-obs1-interm');
+      if (obs1IntEl) obs1IntEl.innerText = dayData.intermediario.obs1_q;
+
+      const obs2IntEl = document.getElementById('q-obs2-interm');
+      if (obs2IntEl) obs2IntEl.innerText = dayData.intermediario.obs2_q;
+
+      const lexTermEl = document.getElementById('lexicon-term-interm');
+      if (lexTermEl && dayData.intermediario.pista_lexica) {
+        const pl = dayData.intermediario.pista_lexica;
+        lexTermEl.innerText = `${pl.transliteracao || pl.palavra_chave_portugues} (${pl.strong_code || ''})`;
+      }
+      const lexDescEl = document.getElementById('lexicon-desc-interm');
+      if (lexDescEl && dayData.intermediario.pista_lexica) {
+        lexDescEl.innerText = dayData.intermediario.pista_lexica.pista_investigativa || '';
+      }
+
+      const interp1IntEl = document.getElementById('q-interp1-interm');
+      if (interp1IntEl) interp1IntEl.innerText = dayData.intermediario.interp1_q;
+
+      const interp2IntEl = document.getElementById('q-interp2-interm');
+      if (interp2IntEl) interp2IntEl.innerText = dayData.intermediario.interp2_q;
+
+      const cristoIntEl = document.getElementById('q-cristo-interm');
+      if (cristoIntEl) cristoIntEl.innerText = dayData.intermediario.cristo_q;
+
+      const christContInt = document.getElementById('christ-content-int');
+      if (christContInt) {
+        christContInt.innerHTML = `<strong>Chave Teológica:</strong> ${dayData.intermediario.cristo_chave}`;
+      }
+
+      const menteIntEl = document.getElementById('q-mente-interm');
+      if (menteIntEl) menteIntEl.innerText = dayData.intermediario.mente_q || "Que verdade imutável sobre Deus você precisa guardar e confiar hoje?";
+
+      const coracaoIntEl = document.getElementById('q-coracao-interm');
+      if (coracaoIntEl) coracaoIntEl.innerText = dayData.intermediario.coracao_q || "O que este texto expõe sobre suas motivações, apegos ou comodismos?";
+
+      const acaoIntEl = document.getElementById('q-acao-interm');
+      if (acaoIntEl) acaoIntEl.innerText = dayData.intermediario.acao_q || "Que atitude concreta de obediência prática você dará início hoje?";
+
+      // AVANÇADO
+      const obs1AdvEl = document.getElementById('q-obs1-adv');
+      if (obs1AdvEl) obs1AdvEl.innerText = dayData.avancado.obs1_q;
+
+      const obs2AdvEl = document.getElementById('q-obs2-adv');
+      if (obs2AdvEl) obs2AdvEl.innerText = dayData.avancado.obs2_q;
+
+      const obs3AdvEl = document.getElementById('q-obs3-adv');
+      if (obs3AdvEl) obs3AdvEl.innerText = dayData.avancado.obs3_q;
+
+      const interp1AdvEl = document.getElementById('q-interp1-adv');
+      if (interp1AdvEl) interp1AdvEl.innerText = dayData.avancado.interp1_q;
+
+      const interp2AdvEl = document.getElementById('q-interp2-adv');
+      if (interp2AdvEl) interp2AdvEl.innerText = dayData.avancado.interp2_q;
+
+      const menteAdvEl = document.getElementById('q-mente-adv');
+      if (menteAdvEl) menteAdvEl.innerText = dayData.avancado.mente_q || "Qual doutrina fundamental desta passagem precisa recalibrar sua mente hoje?";
+
+      const coracaoAdvEl = document.getElementById('q-coracao-adv');
+      if (coracaoAdvEl) coracaoAdvEl.innerText = dayData.avancado.coracao_q || "Onde sua alma ainda busca justificação própria diante de Cristo?";
+
+      const acaoAdvEl = document.getElementById('q-acao-adv');
+      if (acaoAdvEl) acaoAdvEl.innerText = dayData.avancado.acao_q || "Como essa passagem orienta sua liderança e discipulado comunitário?";
+
+      // ORAÇÃO
+      const orAdorEl = document.getElementById('prayer-desc-adoracao');
+      if (orAdorEl) orAdorEl.innerText = dayData.basico.oracao_adoracao;
+
+      const orConfEl = document.getElementById('prayer-desc-confissao');
+      if (orConfEl) orConfEl.innerText = dayData.basico.oracao_confissao;
+
+      const orSupEl = document.getElementById('prayer-desc-suplica');
+      if (orSupEl) orSupEl.innerText = dayData.basico.oracao_suplica;
+
+      // ATUALIZA A BEREIA
+      const bereiaIntro = document.querySelector('.bereia-bubble-body');
+      if (bereiaIntro) {
+        bereiaIntro.innerHTML = `Olá! Estou aqui ao seu lado no estudo de <strong>${dayData.ref}</strong>. Não vou te dar respostas prontas, mas te farei as perguntas certas para você mesmo extrair a verdade da Palavra. O que chamou sua atenção nesta passagem?`;
+      }
+      const bereiaInput = document.getElementById('bereia-chat-input');
+      if (bereiaInput) {
+        bereiaInput.placeholder = `Pergunte sobre ${dayData.ref}...`;
+      }
+
+      // Rola suavemente para o topo do estudo
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateBibleTextForDay(dayData) {
+      const container = document.getElementById('scripture-text-container');
+      if (!container) return;
+
+      const verKey = currentVersion in dayData.verses ? currentVersion : 'nvi';
+      const versesObj = dayData.verses[verKey] || dayData.verses['nvi'] || {};
+      const vIni = dayData.v_ini;
+      const vFim = dayData.v_fim;
+      const ancoraRef = dayData.ancora; // ex: "Marcos 1:11"
+
+      // Extrai o número do versículo âncora
+      let ancoraNum = -1;
+      const mAnc = ancoraRef.match(/:(\d+)/);
+      if (mAnc) ancoraNum = parseInt(mAnc[1], 10);
+
+      let html = '';
+      for (let v = vIni; v <= vFim; v++) {
+        const vText = versesObj[`v${v}`] || '';
+        const isAncora = (v === ancoraNum);
+
+        if (isAncora) {
+          html += `
+          <div class="anchor-verse-highlight">
+            <span class="v-num">${v}</span> 
+            <span id="v${v}-text" style="color:var(--text-primary); font-weight:600;">"${vText}"</span>
+            <button class="memory-action-btn" id="verse-memory-btn" onclick="openMemoryWorkshop(event)" title="Estação de Memorização: Guardar no Coração" aria-label="Memorizar">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v1a5 5 0 0 1-2 4.14V17a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-4.86A5 5 0 0 1 7 8V7a5 5 0 0 1 5-5z"/><path d="M9 22h6"/></svg>
+              <span id="verse-memory-btn-text">🧠 Memorizar</span>
+            </button>
+          </div>`;
+        } else {
+          html += `
+          <p>
+            <span class="v-num">${v}</span> 
+            <span id="v${v}-text">${vText}</span>
+          </p>`;
+        }
+      }
+
+      container.innerHTML = html;
+      container.classList.remove('text-updated');
+      void container.offsetWidth;
+      container.classList.add('text-updated');
+    }
+
     // ALTERNÂNCIA DE VERSÃO BÍBLICA
     function setVersion(verKey) {
-      const data = BIBLE_VERSIONS[verKey];
-      if(!data) return;
       currentVersion = verKey;
-
-      for(let i = 1; i <= 8; i++) {
-        const el = document.getElementById(`v${i}-text`);
-        if(el) {
-          el.innerText = data[`v${i}`];
-        }
+      const dayData = MARCOS_7_DAYS.find(d => d.day === currentDayNumber);
+      if (dayData) {
+        updateBibleTextForDay(dayData);
       }
 
       // Atualiza banner explicativo
@@ -5755,17 +6183,143 @@ ${document.getElementById('cad-res-prat').innerText}
     // ETAPA 2: SCRIPTS INTERATIVOS DA BEREIA, AUTO-SAVE E PERFIL
     // ==========================================================================
     
-    // 1. Toast do Versículo Âncora (3 Segundos Fade In/Out)
-    let anchorToastTimer = null;
-    function showAnchorToast(e) {
+    // ==========================================================================
+    // ESTAÇÃO DE MEMORIZAÇÃO BEREO (NEUROAPRENDIZAGEM & GUARDAR NO CORAÇÃO)
+    // ==========================================================================
+    let currentMemoryLevel = 1;
+    let memoryRhythmInterval = null;
+    let isMemoryRhythmActive = false;
+    let isVerseMemorized = false;
+
+    const MEMORY_LEVELS_CONTENT = {
+      1: {
+        text: '"Voz do que clama no deserto: Preparem o caminho para o Senhor, endireitem as suas veredas."',
+        hint: "Leia pausadamente em voz alta 3 vezes para internalizar a melodia e o sentido teológico."
+      },
+      2: {
+        html: '"Voz do que <span class="faded-word" onclick="revealWord(this)">clama</span> no deserto: <span class="faded-word" onclick="revealWord(this)">Preparem</span> o caminho para o <span class="faded-word" onclick="revealWord(this)">Senhor</span>, <span class="faded-word" onclick="revealWord(this)">endireitem</span> as suas <span class="faded-word" onclick="revealWord(this)">veredas</span>."',
+        hint: "💡 40% Oculto: Recite mentalmente. Toque nos traços para espiar a palavra se tiver dúvida."
+      },
+      3: {
+        html: '"<span class="faded-word" onclick="revealWord(this)">Voz</span> do que <span class="faded-word" onclick="revealWord(this)">clama</span> no <span class="faded-word" onclick="revealWord(this)">deserto</span>: <span class="faded-word" onclick="revealWord(this)">Preparem</span> o <span class="faded-word" onclick="revealWord(this)">caminho</span> para o <span class="faded-word" onclick="revealWord(this)">Senhor</span>, <span class="faded-word" onclick="revealWord(this)">endireitem</span> as <span class="faded-word" onclick="revealWord(this)">suas</span> <span class="faded-word" onclick="revealWord(this)">veredas</span>."',
+        hint: "⚡ 75% Oculto: Desafio profundo. Apenas artigos e conexões gramaticais visíveis."
+      },
+      4: {
+        html: '"<strong>V</strong>___ <strong>d</strong>_ <strong>q</strong>__ <strong>c</strong>____ <strong>n</strong>_ <strong>d</strong>______: <strong>P</strong>_______ <strong>o</strong> <strong>c</strong>______ <strong>p</strong>___ <strong>o</strong> <strong>S</strong>_____, <strong>e</strong>_________ <strong>a</strong>_ <strong>s</strong>___ <strong>v</strong>______."',
+        hint: "🏆 Mnemônica Pura: Tente recitar guiando-se apenas pelas letras iniciais de cada palavra!"
+      }
+    };
+
+    function openMemoryWorkshop(e) {
       if (e) e.stopPropagation();
-      const toast = document.getElementById('anchor-toast');
-      if (!toast) return;
-      toast.classList.add('show');
-      if (anchorToastTimer) clearTimeout(anchorToastTimer);
-      anchorToastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+      const overlay = document.getElementById('memory-modal-overlay');
+      if (overlay) overlay.classList.add('open');
+      switchMemoryLevel(currentMemoryLevel || 1);
+    }
+
+    function closeMemoryWorkshop(e) {
+      if (e) e.stopPropagation();
+      const overlay = document.getElementById('memory-modal-overlay');
+      if (overlay) overlay.classList.remove('open');
+      stopMemoryRhythm();
+    }
+
+    function switchMemoryLevel(level) {
+      currentMemoryLevel = level;
+      for (let i = 1; i <= 4; i++) {
+        const tab = document.getElementById('mem-tab-' + i);
+        if (tab) tab.classList.toggle('active', i === level);
+      }
+      const box = document.getElementById('memory-verse-box');
+      const hint = document.getElementById('memory-hint-text');
+      const config = MEMORY_LEVELS_CONTENT[level];
+      if (box && config) {
+        if (config.html) {
+          box.innerHTML = config.html;
+        } else {
+          box.textContent = config.text;
+        }
+      }
+      if (hint && config) {
+        hint.textContent = config.hint;
+      }
+    }
+
+    function revealWord(el) {
+      if (!el) return;
+      el.classList.add('revealed');
+      setTimeout(() => {
+        el.classList.remove('revealed');
+      }, 2500);
+    }
+
+    function toggleMemoryRhythm() {
+      if (isMemoryRhythmActive) {
+        stopMemoryRhythm();
+      } else {
+        startMemoryRhythm();
+      }
+    }
+
+    function startMemoryRhythm() {
+      isMemoryRhythmActive = true;
+      const btn = document.getElementById('rhythm-btn');
+      if (btn) btn.classList.add('active-rhythm');
+      const box = document.getElementById('memory-verse-box');
+      const clauses = [
+        "Voz do que clama no deserto...",
+        "Preparem o caminho para o Senhor...",
+        "Endireitem as suas veredas."
+      ];
+      let step = 0;
+      if (box) box.innerHTML = '<span style="color:var(--brand-gold); font-weight:600;">' + clauses[0] + '</span>';
+      memoryRhythmInterval = setInterval(() => {
+        step = (step + 1) % clauses.length;
+        if (box) {
+          box.style.opacity = '0.3';
+          setTimeout(() => {
+            box.innerHTML = '<span style="color:var(--brand-gold); font-weight:600; font-size:18px;">' + clauses[step] + '</span>';
+            box.style.opacity = '1';
+          }, 200);
+        }
+      }, 3500);
+    }
+
+    function stopMemoryRhythm() {
+      isMemoryRhythmActive = false;
+      if (memoryRhythmInterval) {
+        clearInterval(memoryRhythmInterval);
+        memoryRhythmInterval = null;
+      }
+      const btn = document.getElementById('rhythm-btn');
+      if (btn) btn.classList.remove('active-rhythm');
+      switchMemoryLevel(currentMemoryLevel);
+    }
+
+    function toggleLockscreenCard() {
+      const card = document.getElementById('lockscreen-preview-card');
+      if (!card) return;
+      card.style.display = card.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function confirmMemorized() {
+      isVerseMemorized = true;
+      const btn = document.getElementById('memorized-confirm-btn');
+      const icon = document.getElementById('memorized-btn-icon');
+      const text = document.getElementById('memorized-btn-text');
+      const mainBtn = document.getElementById('verse-memory-btn');
+      const mainBtnText = document.getElementById('verse-memory-btn-text');
+
+      if (btn) btn.classList.add('saved');
+      if (icon) icon.textContent = '✅';
+      if (text) text.textContent = 'Guardado no Meu Coração!';
+
+      if (mainBtn) mainBtn.classList.add('memorized');
+      if (mainBtnText) mainBtnText.textContent = '✅ Guardado';
+
+      setTimeout(() => {
+        closeMemoryWorkshop();
+      }, 1500);
     }
 
     // 2. Modal de Informações da Versão Bíblica (i)
