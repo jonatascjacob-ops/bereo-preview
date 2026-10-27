@@ -2880,6 +2880,187 @@
       to { transform: scale(1); opacity: 1; }
     }
 
+  
+    /* ==========================================================================
+       WIDGET DE CURADORIA FAMILIAR — PILOTO SEMANA 1 DE MARCOS (ZERO GITHUB)
+       ========================================================================== */
+    .curadoria-trigger-btn {
+      position: fixed;
+      bottom: 74px;
+      right: 18px;
+      z-index: 998;
+      background: var(--brand-gold);
+      color: #12151A;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .curadoria-trigger-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(197, 155, 75, 0.35);
+    }
+    .curadoria-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .curadoria-modal-backdrop.active {
+      display: flex;
+    }
+    .curadoria-modal-sheet {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px 16px 0 0;
+      width: 100%;
+      max-width: 540px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 20px 22px;
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.5);
+      animation: slideUpCuradoria 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUpCuradoria {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .curadoria-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .curadoria-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .curadoria-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--brand-gold-subtle);
+      color: var(--brand-gold);
+      border: 1px solid var(--border-gold);
+    }
+    .curadoria-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+      margin-top: 12px;
+    }
+    .curadoria-pills-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .curadoria-pill-btn {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .curadoria-pill-btn.active {
+      background: var(--brand-gold-subtle);
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+    .curadoria-pill-btn.verd-aprovar.active {
+      background: rgba(45, 122, 88, 0.2);
+      border-color: #2D7A58;
+      color: #3E8E66;
+    }
+    .curadoria-pill-btn.verd-ajustar.active {
+      background: rgba(217, 119, 6, 0.2);
+      border-color: #D97706;
+      color: #F59E0B;
+    }
+    .curadoria-pill-btn.verd-revisar.active {
+      background: rgba(158, 50, 74, 0.2);
+      border-color: #9E324A;
+      color: #E05275;
+    }
+    .curadoria-textarea {
+      width: 100%;
+      height: 75px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      resize: none;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    .curadoria-textarea:focus {
+      border-color: var(--brand-gold);
+    }
+    .curadoria-footer-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .curadoria-btn-primary {
+      background: var(--brand-gold);
+      color: #12151A;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 11.5px;
+      cursor: pointer;
+    }
+    .curadoria-btn-secondary {
+      background: var(--bg-card-subtle);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .curadoria-toast-msg {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #3E8E66;
+      display: none;
+      margin-top: 6px;
+    }
+
   </style>
 </head>
 <body>
@@ -2888,7 +3069,7 @@
   <header class="lab-header">
     <div class="lab-header-inner">
       <div class="brand-group">
-        <span class="brand-tag">Bereo v2.0</span>
+        <span class="brand-tag">BEREO v0.4.0-dev • PILOTO SEMANA 1 DE MARCOS</span>
         <span class="brand-title">Simulador de Planos & Métodos</span>
       </div>
 
@@ -4375,7 +4556,7 @@
 
         <!-- Box Informativo: Aprendizado Contínuo & Privacidade -->
         <div style="background:var(--bg-card-subtle); border:1px solid var(--border-subtle); border-radius:6px; padding:12px; margin-top:10px; font-size:11px; line-height:1.5; color:var(--text-secondary);">
-          <strong style="color:var(--brand-gold);">ℹ️ Memória Contínua da BereIA:</strong>
+          <strong style="color:var(--brand-gold);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>️ Memória Contínua da BereIA:</strong>
           Seu perfil é armazenado com criptografia e privacidade absoluta no Supabase (RLS). A BereIA conecta o seu perfil e as suas anotações do Caderno Espiritual (via vetores semânticos) para oferecer um acompanhamento pastoral que se lembra de suas lutas, alvos de oração e crescimento ao longo do tempo.
         </div>
       </section>
@@ -5269,7 +5450,7 @@
       openUpgradeModal();
     }
 
-    // NAVEGAÇÃO ENTRE AS TELAS PRINCIPAIS (HOJE ↔ CADERNO)
+    // NAVEGAÇÃO ENTRE AS TELAS PRINCIPAIS (HOJE &lt;-&gt; CADERNO)
     function switchNavTab(tab) {
       activeNavTab = tab;
       const viewHoje = document.getElementById('view-hoje');
@@ -5818,11 +5999,11 @@ ${document.getElementById('cad-res-prat').innerText}
       if (notice && noticeText) {
         let gloss = "";
         if (kw === 'sandalia') {
-          gloss = 'Vocabulário Cruzado: "sandálias" (NVI, NAA, NVT, BLIVRE) ↔ "alparcas" (ARC). Original grego: hypodēma (ὑπόδημα) — correia de calçado amarrada nos pés, tarefa humilde de escravo da qual os rabinos dispensavam discípulos.';
+          gloss = 'Vocabulário Cruzado: "sandálias" (NVI, NAA, NVT, BLIVRE) &lt;-&gt; "alparcas" (ARC). Original grego: hypodēma (ὑπόδημα) — correia de calçado amarrada nos pés, tarefa humilde de escravo da qual os rabinos dispensavam discípulos.';
         } else if (kw === 'deserto') {
           gloss = 'Termo Geográfico-Teológico: "deserto" (erēmos / ἔρημος) — o cenário bíblico de silêncio, purificação e segundo êxodo onde Deus fala ao coração longe do poder corrupto.';
         } else if (kw === 'arrependimento') {
-          gloss = 'Termo Teológico Central: "arrependimento" (NVI, BLIVRE, NVT) ↔ "remissão" (NAA, ARC). Grego: metanoia (μετάνοια) — conversão total de mente e rota moral de 180°.';
+          gloss = 'Termo Teológico Central: "arrependimento" (NVI, BLIVRE, NVT) &lt;-&gt; "remissão" (NAA, ARC). Grego: metanoia (μετάνοια) — conversão total de mente e rota moral de 180°.';
         } else if (kw === 'espirito') {
           gloss = 'Promessa Messiânica Definitiva: "Espírito Santo" (Pneuma Hagion / Πνεῦμα Ἅγιον) — o batismo soberano de Cristo que regenera o coração pela Nova Aliança.';
         }
@@ -6856,5 +7037,176 @@ ${document.getElementById('cad-res-prat').innerText}
     // Inicialização do gating no carregamento
     updateContextKeysGating();
   </script>
+
+  <!-- BOTÃO FLUTUANTE DE CURADORIA FAMILIAR (MOBILE) -->
+  <button class="curadoria-trigger-btn" id="btn-open-curadoria" onclick="openCuradoriaModal()" title="Homologação Presencial da Semana 1">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    Curadoria
+  </button>
+
+  <!-- MODAL GAVETA DE CURADORIA FAMILIAR -->
+  <div class="curadoria-modal-backdrop" id="curadoria-modal-backdrop" onclick="closeCuradoriaModal()">
+    <div class="curadoria-modal-sheet" onclick="event.stopPropagation()">
+      <div class="curadoria-header-row">
+        <div class="curadoria-title">
+          <span>Curadoria Familiar</span>
+          <span class="curadoria-badge">Semana 1</span>
+        </div>
+        <button class="curadoria-btn-secondary" onclick="closeCuradoriaModal()">Fechar</button>
+      </div>
+
+      <div style="font-size:11.5px; color:var(--text-secondary); margin-bottom:12px; background:var(--bg-input); padding:8px 10px; border-radius:6px; border:1px solid var(--border-subtle);">
+        <span style="font-weight:700; color:var(--brand-gold);" id="curadoria-meta-pericope">Marcos 1:1–8 (Dia 01)</span> •
+        <span id="curadoria-meta-plano" style="color:var(--text-primary);">Nível Intermediário</span>
+      </div>
+
+      <div class="curadoria-section-title">Avaliador</div>
+      <div class="curadoria-pills-row">
+        <button class="curadoria-pill-btn active" id="curador-jonatas" onclick="setCurador('Jonatas')">Jonatas</button>
+        <button class="curadoria-pill-btn" id="curador-esposa" onclick="setCurador('Esposa')">Esposa</button>
+      </div>
+
+      <div class="curadoria-section-title">Veredito do Estudo</div>
+      <div class="curadoria-pills-row">
+        <button class="curadoria-pill-btn verd-aprovar active" id="veredito-aprovar" onclick="setVeredito('aprovado')">Aprovar</button>
+        <button class="curadoria-pill-btn verd-ajustar" id="veredito-ajustar" onclick="setVeredito('ajuste_fino')">Ajustar</button>
+        <button class="curadoria-pill-btn verd-revisar" id="veredito-revisar" onclick="setVeredito('revisar')">Revisar</button>
+      </div>
+
+      <div class="curadoria-section-title">Observações e Clareza Pedagógica</div>
+      <textarea class="curadoria-textarea" id="curadoria-obs-input" placeholder="Anote impressões sobre clareza, tempo de leitura ou vocabulário..."></textarea>
+
+      <div class="curadoria-footer-actions">
+        <div style="display:flex; gap:8px;">
+          <button class="curadoria-btn-primary" onclick="salvarCuradoriaFeedback()">Salvar</button>
+          <button class="curadoria-btn-secondary" onclick="exportarFeedbacksJSON()">Exportar</button>
+        </div>
+        <span class="curadoria-toast-msg" id="curadoria-toast-label">Salvo com sucesso!</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // LÓGICA DO WIDGET DE CURADORIA FAMILIAR (PILOTO SEMANA 1)
+    // =========================================================================
+    let currentCurador = 'Jonatas';
+    let currentVeredito = 'aprovado';
+
+    function openCuradoriaModal() {
+      const modal = document.getElementById('curadoria-modal-backdrop');
+      if (!modal) return;
+      
+      // Atualiza metadados com dia e plano atual
+      const dayText = document.getElementById('day-badge-text') ? document.getElementById('day-badge-text').innerText : 'Dia 01';
+      const refText = document.getElementById('pericope-ref') ? document.getElementById('pericope-ref').innerText : 'Marcos 1:1–8';
+      const planName = (typeof currentPlan !== 'undefined') ? currentPlan : 'intermediario';
+      
+      const metaPericope = document.getElementById('curadoria-meta-pericope');
+      if (metaPericope) metaPericope.innerText = `${refText} (${dayText})`;
+      
+      const metaPlano = document.getElementById('curadoria-meta-plano');
+      if (metaPlano) metaPlano.innerText = `Plano: ${planName}`;
+      
+      modal.classList.add('active');
+    }
+
+    function closeCuradoriaModal() {
+      const modal = document.getElementById('curadoria-modal-backdrop');
+      if (modal) modal.classList.remove('active');
+      const toast = document.getElementById('curadoria-toast-label');
+      if (toast) toast.style.display = 'none';
+    }
+
+    function setCurador(nome) {
+      currentCurador = nome;
+      document.getElementById('curador-jonatas').classList.toggle('active', nome === 'Jonatas');
+      document.getElementById('curador-esposa').classList.toggle('active', nome === 'Esposa');
+    }
+
+    function setVeredito(verd) {
+      currentVeredito = verd;
+      document.getElementById('veredito-aprovar').classList.toggle('active', verd === 'aprovado');
+      document.getElementById('veredito-ajustar').classList.toggle('active', verd === 'ajuste_fino');
+      document.getElementById('veredito-revisar').classList.toggle('active', verd === 'revisar');
+    }
+
+    function salvarCuradoriaFeedback() {
+      const dayText = document.getElementById('day-badge-text') ? document.getElementById('day-badge-text').innerText : 'Dia 01';
+      const refText = document.getElementById('pericope-ref') ? document.getElementById('pericope-ref').innerText : 'Marcos 1:1–8';
+      const obsText = document.getElementById('curadoria-obs-input') ? document.getElementById('curadoria-obs-input').value.trim() : '';
+      const planName = (typeof currentPlan !== 'undefined') ? currentPlan : 'intermediario';
+
+      const feedbackItem = {
+        id: 'fb_' + Date.now(),
+        data_hora: new Date().toISOString(),
+        dia: dayText,
+        referencia: refText,
+        tier: planName,
+        avaliador: currentCurador,
+        veredito: currentVeredito,
+        observacoes: obsText,
+        user_agent: navigator.userAgent
+      };
+
+      // 1. Persistência Local (localStorage)
+      let lista = [];
+      try {
+        const stored = localStorage.getItem('bereo_curadoria_piloto_feedbacks');
+        if (stored) lista = JSON.parse(stored);
+      } catch (e) {
+        lista = [];
+      }
+      lista.push(feedbackItem);
+      localStorage.setItem('bereo_curadoria_piloto_feedbacks', JSON.stringify(lista));
+
+      // 2. Envio REST Supabase (se variáveis configuradas em window)
+      if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
+        fetch(`${window.SUPABASE_URL}/rest/v1/curadoria_piloto_feedbacks`, {
+          method: 'POST',
+          headers: {
+            'apikey': window.SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${window.SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            pericope_id: refText,
+            ordem_dia: parseInt(dayText.replace(/\D/g, '')) || 1,
+            tier_avaliado: planName,
+            avaliador: currentCurador,
+            veredito: currentVeredito,
+            observacoes: obsText,
+            dispositivo: /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop'
+          })
+        }).catch(err => console.log('Envio Supabase pendente (offline fallback ativo)'));
+      }
+
+      // Feedback visual
+      const toast = document.getElementById('curadoria-toast-label');
+      if (toast) {
+        toast.style.display = 'inline-block';
+        toast.innerText = 'Salvo com sucesso!';
+        setTimeout(() => {
+          closeCuradoriaModal();
+          if (document.getElementById('curadoria-obs-input')) {
+            document.getElementById('curadoria-obs-input').value = '';
+          }
+        }, 1200);
+      }
+    }
+
+    function exportarFeedbacksJSON() {
+      const stored = localStorage.getItem('bereo_curadoria_piloto_feedbacks') || '[]';
+      const blob = new Blob([stored], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `curadoria_feedbacks_semana1_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
 </body>
 </html>
